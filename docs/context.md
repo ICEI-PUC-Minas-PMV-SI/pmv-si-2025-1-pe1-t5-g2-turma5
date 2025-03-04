@@ -1,12 +1,7 @@
 # Introdução
 
-Imagine que você deseja apresentar este projeto para investidores que deverão decidir se investem ou não no desenvolvimento da sua ferramenta.
-
-A **Introdução** consiste das etapas: *Contextualização -- Definição do problema -- Definição dos Objetivos -- Justificativa*, e tem como função situar o seu trabalho dentro de um contexto de mercado e mostrar a importância da sua proposta para resolver a dor de um usuário.
-
-A Contextualização deve situar sem projeto em um determinado contexto de mercado, a fim de fornecer informações adicionais que possam ajudar a entender melhor o assunto que você irá abordar. Serve também para definir a relevância do seu assunto, uma vez que mostra o tamanho do mercado em que se está inserido. Ela pode envolver a análise de vários aspectos, como o ambiente histórico, cultural, político e social em que o problema a ser atacado surgiu.
-
-Escreva de 2 a 3 parágrafos para contetualizar o seu projeto.
+A leitura é uma das formas mais poderosas de aprendizado, desenvolvimento pessoal e lazer, mas, apesar de sua importância, muitas pessoas têm dificuldades em manter esse hábito. A falta de incentivo, a dificuldade em encontrar novas leituras e a ausência de uma organização eficiente podem desmotivar tanto leitores iniciantes quanto os mais experientes. No entanto, ler é essencial para ampliar o conhecimento, estimular a criatividade, aprimorar a comunicação e fortalecer o pensamento crítico. 
+Pensando nesses desafios, o TÔ LENDO surge como uma solução inovadora, oferecendo uma plataforma interativa que facilita a organização da leitura, proporciona recomendações personalizadas e incentiva a socialização entre leitores. Além disso, o aplicativo promove desafios e metas de leitura, amplia a visibilidade das obras literárias e possibilita a troca de livros entre usuários, tornando a experiência mais dinâmica e envolvente. Voltado para jovens e adultos, especialmente aqueles familiarizados com o ambiente digital, o TÔ LENDO busca transformar a leitura em uma prática acessível e motivadora, incentivando a criação de uma comunidade ativa e apaixonada por literatura..
 
 ## Problema
 
