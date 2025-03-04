@@ -10,11 +10,23 @@ Escreva de 2 a 3 parágrafos para contetualizar o seu projeto.
 
 ## Problema
 
-Nesse momento você deve apresentar o problema que a sua aplicação deve resolver. No entanto, **não** é a hora de comentar sobre a solução/aplicação.
+A leitura, diferentemente de outras formas de entretenimento, como cinema e televisão, não conta com uma rede de divulgação tão ampla. A falta de incentivo e a pouca exposição de obras literárias podem comprometer o hábito de leitura, tornando mais difícil o acesso a novas recomendações e estímulos. Além disso, a falta de organização pessoal e a dificuldade em encontrar novas leituras podem desmotivar leitores iniciantes e até mesmo aqueles mais experientes.
+O TÔ LENDO surge como uma solução para esses desafios, oferecendo uma plataforma interativa que incentiva a leitura e aproxima leitores com interesses em comum. No entanto, diversos fatores podem influenciar a experiência dos usuários dentro do aplicativo, impactando diretamente sua eficácia. Entre os principais desafios enfrentados pelos leitores, destacam-se:
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de fato existir, pois ainda não é a hora de apresentar requisitos detalhados ou projetos.
+`Falta de organização na leitura`
 
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
+Muitos leitores se perdem entre os diversos livros que desejam ler, esquecem títulos ou não conseguem acompanhar seu progresso. Sem uma ferramenta eficiente, a leitura pode se tornar desorganizada e menos prazerosa.
+
+`Dificuldade na escolha de novas leituras`
+
+Após terminar um livro, muitos leitores não sabem qual título escolher em seguida. A falta de recomendações personalizadas pode levar à estagnação do hábito de leitura, reduzindo o engajamento e o interesse em explorar novas obras.
+
+`Falta de incentivo e motivação`
+
+Na sociedade contemporânea, desafios e metas são formas eficazes de motivação. No entanto, sem estímulos adequados, muitos leitores acabam abandonando seus objetivos de leitura ou diminuindo seu ritmo ao longo do tempo.
+
+Além desses fatores, a ausência de interação social e de mecanismos que tornem a leitura uma experiência mais dinâmica pode reduzir o engajamento dos usuários e, consequentemente, o impacto do aplicativo na promoção da leitura.
+
 
 > **Links Úteis**:
 > - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
