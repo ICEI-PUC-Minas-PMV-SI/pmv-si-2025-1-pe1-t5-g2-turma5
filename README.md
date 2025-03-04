@@ -6,7 +6,7 @@
 
 `SEMESTRE: 1º`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+O projeto TÔ LENDO busca incentivar e organizar o hábito de leitura por meio de uma plataforma interativa que conecta leitores, oferece recomendações personalizadas e promove a socialização literária. Diante dos desafios enfrentados, como falta de organização, dificuldade na escolha de novas leituras e desmotivação, o aplicativo surge como uma solução inovadora, proporcionando ferramentas para registro e acompanhamento de livros, desafios literários e trocas de experiências entre usuários. Voltado para jovens e adultos, independentemente de sua familiaridade com o ambiente digital, o TÔ LENDO pretende transformar a leitura em uma atividade mais acessível, dinâmica e envolvente, ampliando a visibilidade das obras literárias e fortalecendo o engajamento dos leitores.
 
 ## Integrantes
 
