@@ -1,6 +1,7 @@
 # Introdução
 
 A leitura é uma das formas mais poderosas de aprendizado, desenvolvimento pessoal e lazer, mas, apesar de sua importância, muitas pessoas têm dificuldades em manter esse hábito. A falta de incentivo, a dificuldade em encontrar novas leituras e a ausência de uma organização eficiente podem desmotivar tanto leitores iniciantes quanto os mais experientes. No entanto, ler é essencial para ampliar o conhecimento, estimular a criatividade, aprimorar a comunicação e fortalecer o pensamento crítico. 
+
 Pensando nesses desafios, o TÔ LENDO surge como uma solução inovadora, oferecendo uma plataforma interativa que facilita a organização da leitura, proporciona recomendações personalizadas e incentiva a socialização entre leitores. Além disso, o aplicativo promove desafios e metas de leitura, amplia a visibilidade das obras literárias e possibilita a troca de livros entre usuários, tornando a experiência mais dinâmica e envolvente. Voltado para jovens e adultos, especialmente aqueles familiarizados com o ambiente digital, o TÔ LENDO busca transformar a leitura em uma prática acessível e motivadora, incentivando a criação de uma comunidade ativa e apaixonada por literatura..
 
 ## Problema
