@@ -82,48 +82,52 @@ O comportamento esperado desse público inclui interesse por redes sociais e gam
 
 ## Personas
 
-Persona 1 – João, o Estudante Universitário 
+- **Persona 1 – João, o Estudante Universitário**
 
--Idade: 22 anos 
+Idade: 22 anos 
 
--Profissão: Estudante de Letras 
+Profissão: Estudante de Letras 
 
 -Hobbies: Leitura de clássicos da literatura, escrita criativa, participar de grupos de discussão online 
 
--Desafios: Dificuldade em organizar as leituras acadêmicas e de lazer, falta de recomendações personalizadas 
+Desafios: Dificuldade em organizar as leituras acadêmicas e de lazer, falta de recomendações personalizadas 
 
--Necessidades: Uma plataforma que ajude a registrar os livros lidos, acompanhar o progresso e encontrar novas leituras baseadas em seus interesses 
+Necessidades: Uma plataforma que ajude a registrar os livros lidos, acompanhar o progresso e encontrar novas leituras baseadas em seus interesses 
 
--Motivação para usar o TÔ LENDO: Quer se organizar melhor para equilibrar leituras acadêmicas e pessoais, além de interagir com outros leitores 
+Motivação para usar o TÔ LENDO: Quer se organizar melhor para equilibrar leituras acadêmicas e pessoais, além de interagir com outros leitores.
 
-Persona 2 – Mariana, a Jovem Leitora Casual
 
--Idade: 18 anos
 
--Profissão: Estudante do ensino médio 
 
--Hobbies: Redes sociais, assistir séries, ler romances contemporâneos 
+- **Persona 2 – Mariana, a Jovem Leitora Casual**
 
--Desafios: Falta de incentivo para manter um hábito de leitura contínuo, dificuldade em escolher o próximo livro 
+Idade: 18 anos
 
--Necessidades: Um ambiente interativo e gamificado que torne a leitura mais envolvente e divertida 
+Profissão: Estudante do ensino médio 
 
--Motivação para usar o TÔ LENDO: Quer participar de desafios de leitura e receber indicações de livros baseadas em seus gostos 
+Hobbies: Redes sociais, assistir séries, ler romances contemporâneos 
 
- 
-Persona 3 – Ricardo, o Profissional Atarefado
+Desafios: Falta de incentivo para manter um hábito de leitura contínuo, dificuldade em escolher o próximo livro 
 
--Idade: 30 anos 
+Necessidades: Um ambiente interativo e gamificado que torne a leitura mais envolvente e divertida 
 
--Profissão: Analista de Marketing 
+Motivação para usar o TÔ LENDO: Quer participar de desafios de leitura e receber indicações de livros baseadas em seus gostos 
 
--Hobbies: Desenvolvimento pessoal, leitura de não-ficção, podcasts sobre produtividade 
 
--Desafios: Falta de tempo para ler e dificuldade em organizar as leituras profissionais e de lazer 
 
--Necessidades: Uma plataforma que o ajude a planejar e acompanhar seus livros, além de recomendações de leituras relevantes 
+- **Persona 3 – Ricardo, o Profissional Atarefado**
 
--Motivação para usar o TÔ LENDO: Quer otimizar seu tempo e manter o hábito de leitura alinhado com seus objetivos profissionais
+Idade: 30 anos 
+
+Profissão: Analista de Marketing 
+
+Hobbies: Desenvolvimento pessoal, leitura de não-ficção, podcasts sobre produtividade 
+
+Desafios: Falta de tempo para ler e dificuldade em organizar as leituras profissionais e de lazer 
+
+Necessidades: Uma plataforma que o ajude a planejar e acompanhar seus livros, além de recomendações de leituras relevantes 
+
+Motivação para usar o TÔ LENDO: Quer otimizar seu tempo e manter o hábito de leitura alinhado com seus objetivos profissionais
 
 
 > **Links Úteis**:
