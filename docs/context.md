@@ -32,18 +32,31 @@ Além desses fatores, a ausência de interação social e de mecanismos que torn
 ## Objetivos
 
 `Facilitar a organização da leitura`
+
 Permitir que os leitores registrem, classifiquem e acompanhem seu progresso em diferentes obras, garantindo um planejamento mais eficiente e motivador.
+
 `Oferecer recomendações personalizadas`
+
 Sugerir novos livros com base nos interesses e histórico de leitura do usuário, incentivando a descoberta de novas obras.
+
 `Criar um ambiente de interação social`
+
 Estimular o compartilhamento de experiências entre leitores, promovendo debates, revisões e trocas de opiniões sobre diferentes livros.
+
 `Incentivar desafios e metas de leitura`
+
 Proporcionar ferramentas para que os usuários estabeleçam objetivos literários, aumentando a motivação para manter um hábito contínuo de leitura.
+
 `Ampliar a visibilidade das obras literárias`
+
 Servir como uma plataforma de divulgação para autores e editoras, garantindo maior alcance para diferentes tipos de livros.
+
 `Promover a socialização da leitura`
+
 Transformar o ato solitário de ler em uma experiência compartilhada, permitindo que os leitores discutam obras, troquem opiniões e se conectem com outros apaixonados pela literatura.
+
 `Facilitar a troca de livros entre usuários`
+
 Oferecer uma plataforma segura e organizada para que os leitores possam trocar livros financeiros entre si, incentivando a circulação de obras e o acesso a novos títulos.
 
 > **Links Úteis**:
