@@ -40,7 +40,7 @@ Apresente também alguns (pelo menos 2) objetivos específicos dependendo de ond
 
 ## Justificativa
 
-O TÔ LENDO é uma plataforma extremamente útil para fomentar a leitura e a troca de experiências entre leitores. Ao permitir que os usuários compartilhem suas opiniões, resenhas e recomendações sobre livros, o TÔ LENDO cria um espaço colaborativo que facilita o acesso a novas obras e amplia o conhecimento literário. A interação entre os membros, seja por meio de grupos, resenhas ou listas de leitura, estimula o engajamento crítico e fortalece o hábito de leitura. Como exemplo, o estudo realizado por Furtado (2020) em "A literatura digital: as novas formas de mediação do livro" destaca como plataformas como o TÔ LENDO possibilitam uma experiência de leitura mais rica e conectada, ampliando o alcance das obras e promovendo discussões construtivas entre os leitores. 
+O TÔ LENDO é uma plataforma extremamente útil para fomentar a leitura e a troca de experiências entre leitores. Ao permitir que os usuários compartilhem suas opiniões, resenhas e recomendações sobre livros, o TÔ LENDO cria um espaço colaborativo que facilita o acesso a novas obras e amplia o conhecimento literário. A interação entre os membros, seja por meio de grupos, resenhas ou listas de leitura, estimula o engajamento crítico e fortalece o hábito de leitura. Como exemplo, o estudo realizado por Furtado (2020) em "A literatura digital: as novas formas de mediação do livro" destaca como plataformas como o TÔ LENDO possibilitam uma experiência de leitura mais rica e conectada, ampliando o alcance das obras e promovendo discussões construtivas entre os leitore. 
 
 
 > **Links Úteis**:
