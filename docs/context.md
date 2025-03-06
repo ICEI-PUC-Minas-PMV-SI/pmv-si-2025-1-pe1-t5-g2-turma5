@@ -31,10 +31,14 @@ Além desses fatores, a ausência de interação social e de mecanismos que torn
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+1.  Facilitar a organização da leitura – Permitir que os leitores registrem, classifiquem e acompanhem seu progresso em diferentes obras, garantindo um planejamento mais eficiente e motivador.
+2.   Oferecer recomendações personalizadas – Sugerir novos livros com base nos interesses e histórico de leitura do usuário, incentivando a descoberta de novas obras.
+3.   Criar um ambiente de interação social – Estimular o compartilhamento de experiências entre leitores, promovendo debates, revisões e trocas de opiniões sobre diferentes livros.
+4.   Incentivar desafios e metas de leitura – Proporcionar ferramentas para que os usuários estabeleçam objetivos literários, aumentando a motivação para manter um hábito contínuo de leitura.
+5.   Ampliar a visibilidade das obras literárias – Servir como uma plataforma de divulgação para autores e editoras, garantindo maior alcance para diferentes tipos de livros.
+6.   Promover a socialização da leitura – Transformar o ato solitário de ler em uma experiência compartilhada, permitindo que os leitores discutam obras, troquem opiniões e se conectem com outros apaixonados pela literatura.
+7.    Facilitar a troca de livros entre usuários – Oferecer uma plataforma segura e organizada para que os leitores possam trocar livros financeiros entre si, incentivando a circulação de obras e o acesso a novos títulos.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
 > **Links Úteis**:
 > - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
 
