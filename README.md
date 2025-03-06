@@ -19,7 +19,7 @@ O projeto TÔ LENDO busca incentivar e organizar o hábito de leitura por meio d
 
 ## Orientador
 
-* Nome completo do professor 1
+* Clóvis Lemos Tavares
 
 # Planejamento
 
