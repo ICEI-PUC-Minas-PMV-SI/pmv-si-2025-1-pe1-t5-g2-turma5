@@ -64,13 +64,15 @@ Não terá: Requisitos que não serão implementados neste momento.
 |RF-004| Permitir pesquisa e consulta de livros disponíveis. | Deve ter |
 |RF-005| Permitir reserva e renovação de livros. | Deve ter |
 |RF-006| Permitir que os usuários comprem livros na plataforma. | Deve ter |
-|RF-007| Permitir feedback após a compra. | Deve ter |
-|RF-008| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Deve ter |
-|RF-009| Disponibilizar histórico de empréstimos. | Deveria ter |
-|RF-010| Emitir relatórios de uso da biblioteca.	| Poderia ter |
-|RF-011| Permitir que os usuários experimentem o livro por um tempo.	| Poderia ter |
-|RF-012| Permitir teste grátis da plataforma. | Poderia ter |
-|RF-013| Permitir vender os livros comprados. | Não terá |
+|RF-007| PPermitir feedback após o livro ser lido. | Deve ter |
+|RF-008| Registrar os livros já lidos. | Deve ter |
+|RF-009| Chat global para a comunidade debater sobre os livros. | Deve ter |
+|RF-010| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Deve ter |
+|RF-011| Disponibilizar histórico de empréstimos. | Deveria ter |
+|RF-012| Emitir relatórios de uso da biblioteca.	| Poderia ter |
+|RF-013| Permitir que os usuários experimentem o livro por um tempo.	| Poderia ter |
+|RF-014| Permitir teste grátis da plataforma. | Poderia ter |
+|RF-015| Permitir vender os livros comprados. | Não terá |
 
 
 ### Requisitos não Funcionais
