@@ -40,11 +40,8 @@ Apresente também alguns (pelo menos 2) objetivos específicos dependendo de ond
 
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+O TÔ LENDO é uma plataforma extremamente útil para fomentar a leitura e a troca de experiências entre leitores. Ao permitir que os usuários compartilhem suas opiniões, resenhas e recomendações sobre livros, o TÔ LENDO cria um espaço colaborativo que facilita o acesso a novas obras e amplia o conhecimento literário. A interação entre os membros, seja por meio de grupos, resenhas ou listas de leitura, estimula o engajamento crítico e fortalece o hábito de leitura. Como exemplo, o estudo realizado por Furtado (2020) em "A literatura digital: as novas formas de mediação do livro" destaca como plataformas como o TÔ LENDO possibilitam uma experiência de leitura mais rica e conectada, ampliando o alcance das obras e promovendo discussões construtivas entre os leitores. 
 
-Lembre-se de pesquisar e utilizar números que justifiquem por que é importante que tal problema seja resolvido ou que mostrem o impacto do problema na vida das pessoas.
-
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
 
 > **Links Úteis**:
 > - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
