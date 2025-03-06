@@ -13,7 +13,8 @@ O projeto TÔ LENDO busca incentivar e organizar o hábito de leitura por meio d
 * Fabricio Vianna Azeredo
 * Igor Ferreira Soares da Silva
 * Gabriel Oliveira Lemos
-*Erick Mota de Albuquerque
+*
+Erick Mota de Albuquerque
 * Nome completo do aluno 5
 
 
