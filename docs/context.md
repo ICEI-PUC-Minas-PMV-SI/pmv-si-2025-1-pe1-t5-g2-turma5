@@ -52,7 +52,9 @@ O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estat�
 ## Público-Alvo
 
 O TÔ LENDO foi desenvolvido para atender leitores que buscam uma maneira prática e interativa de organizar suas leituras e compartilhar experiências literárias. O público-alvo do aplicativo é composto principalmente por jovens e adultos, com foco na faixa etária de 16 a 34 anos, um grupo que já possui familiaridade com o ambiente digital e valoriza a tecnologia como aliada no hábito da leitura.
+
 O aplicativo foi pensado para estudantes, acadêmicos e profissionais que desejam acompanhar suas leituras de forma estruturada, além de leitores casuais que precisam de um estímulo para manter uma rotina de leitura. Além disso, o TÔ LENDO se propõe a atrair amantes de literatura em geral, independentemente do gênero literário que consomem, criando um espaço dinâmico para recomendações e trocas de experiências.
+
 O comportamento esperado desse público inclui interesse por redes sociais e gamificação, ou seja, funcionalidades que incentivam o engajamento, como desafios de leitura e interação com outros leitores. Com isso, o TÔ LENDO se posiciona como uma plataforma voltada para quem deseja não apenas registrar livros lidos, mas também fazer parte de uma comunidade ativa e apaixonada por literatura.
 
 
