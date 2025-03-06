@@ -80,56 +80,6 @@ O comportamento esperado desse público inclui interesse por redes sociais e gam
 
 
 
-## Personas
-
-- **Persona 1 – João, o Estudante Universitário**
-
-Idade: 22 anos 
-
-Profissão: Estudante de Letras 
-
--Hobbies: Leitura de clássicos da literatura, escrita criativa, participar de grupos de discussão online 
-
-Desafios: Dificuldade em organizar as leituras acadêmicas e de lazer, falta de recomendações personalizadas 
-
-Necessidades: Uma plataforma que ajude a registrar os livros lidos, acompanhar o progresso e encontrar novas leituras baseadas em seus interesses 
-
-Motivação para usar o TÔ LENDO: Quer se organizar melhor para equilibrar leituras acadêmicas e pessoais, além de interagir com outros leitores.
-
-
-
-
-- **Persona 2 – Mariana, a Jovem Leitora Casual**
-
-Idade: 18 anos
-
-Profissão: Estudante do ensino médio 
-
-Hobbies: Redes sociais, assistir séries, ler romances contemporâneos 
-
-Desafios: Falta de incentivo para manter um hábito de leitura contínuo, dificuldade em escolher o próximo livro 
-
-Necessidades: Um ambiente interativo e gamificado que torne a leitura mais envolvente e divertida 
-
-Motivação para usar o TÔ LENDO: Quer participar de desafios de leitura e receber indicações de livros baseadas em seus gostos 
-
-
-
-- **Persona 3 – Ricardo, o Profissional Atarefado**
-
-Idade: 30 anos 
-
-Profissão: Analista de Marketing 
-
-Hobbies: Desenvolvimento pessoal, leitura de não-ficção, podcasts sobre produtividade 
-
-Desafios: Falta de tempo para ler e dificuldade em organizar as leituras profissionais e de lazer 
-
-Necessidades: Uma plataforma que o ajude a planejar e acompanhar seus livros, além de recomendações de leituras relevantes 
-
-Motivação para usar o TÔ LENDO: Quer otimizar seu tempo e manter o hábito de leitura alinhado com seus objetivos profissionais
-
-
 > **Links Úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
 > - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
