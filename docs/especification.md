@@ -42,37 +42,43 @@ Apresente aqui as histórias de usuário que são relevantes para o projeto de s
 
 ## Requisitos
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto.
+As tabelas a seguir detalham os requisitos funcionais e não funcionais do projeto. A priorização dos requisitos foi realizada utilizando a técnica de MoSCoW, classificando-os em:
+
+Deve ter: Requisitos essenciais para o funcionamento básico do sistema.
+Deveria ter: Requisitos importantes, mas não críticos para o lançamento inicial.
+Poderia ter: Requisitos desejáveis, que podem ser implementados em futuras versões.
+Não terá: Requisitos que não serão implementados neste momento.
+
 
 ### Requisitos Funcionais
 
 |ID    | Descrição do Requisito  | Prioridade | 
 |------|-----------------------------------------|----| 
-|RF-001| A aplicação deve permitir que o usuário gerencie suas tarefas | ALTA |  
-|RF-002| A aplicação deve permitir a emissão de um relatório de tarefas realizadas no mês   | MÉDIA | 
+|RF-001| Permitir que os usuários realizem cadastro e login. | Deve ter |  
+|RF-002| Permitir que o usuário redefina sua senha. | deve ter | 
+|RF-003| Permitir que administradores cadastrem, editem e removam livros. | Deve ter |
+|RF-004| Permitir pesquisa e consulta de livros disponíveis. | Deve ter |
+|RF-005| Permitir reserva e renovação de livros. | Deve ter |
+|RF-006| Permitir que os usuários comprem livros na plataforma. | Deve ter |
+|RF-007| Permitir feedback após a compra. | Deve ter |
+|RF-008| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Deve ter |
+|RF-009| Disponibilizar histórico de empréstimos. | Deveria ter |
+|RF-010| Emitir relatórios de uso da biblioteca.	| Poderia ter |
+|RF-011| Permitir que os usuários experimentem o livro por um tempo.	| Poderia ter |
+|RF-012| Permitir teste grátis da plataforma. | Poderia ter |
+|RF-013| Permitir vender os livros comprados. | Não terá |
 
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| A aplicação deve ser responsiva | MÉDIA | 
-|RNF-002| A aplicação deve processar requisições do usuário em no máximo 3s |  BAIXA | 
-
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
+|RF-001| O sistema deve garantir a segurança dos dados dos usuários. | Deve ter |
+|RF-002| O sistema deve ser compatível com navegadores modernos e sistemas operacionais Android. | Deve ter |
+|RF-003| O sistema deverá deverá atender às normas legais, tais como padrões, leis, etc. | Deve ter |
+|RF-004| A interface deve ser intuitiva e acessível para diferentes perfis de usuários. | Deveria ter |
+|RF-005| Os livros estarem disponíveis em modo offline. | Deveria ter |
+|RF-006| O desenvolvimento deve ser em linguagem Java| Poderia ter |
 
 ## Restrições
 
