@@ -28,7 +28,7 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Ricardo             | Biblioteca propria                 | Divlgar os livros ja lidos pelo mesmo  |
+|Ricardo             | Biblioteca propria                 | Divlgar os livros que gostou           |
 |Joana               | Registrar os livros que ja leu     | Não esqecer e ler o mesmo livro        |
 |Gondin              | Comunidade para debate de livros   | ter Network e ver outras opniões       |
 |Mbappe              | Divulgar livros para outras pessoas| Ajudar novos leitores iniciantes       |
