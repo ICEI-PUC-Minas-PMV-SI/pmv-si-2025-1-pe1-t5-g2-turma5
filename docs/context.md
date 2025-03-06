@@ -51,9 +51,10 @@ O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estat�
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações hierárquicas, etc.
+O TÔ LENDO foi desenvolvido para atender leitores que buscam uma maneira prática e interativa de organizar suas leituras e compartilhar experiências literárias. O público-alvo do aplicativo é composto principalmente por jovens e adultos, com foco na faixa etária de 16 a 34 anos, um grupo que já possui familiaridade com o ambiente digital e valoriza a tecnologia como aliada no hábito da leitura.
+O aplicativo foi pensado para estudantes, acadêmicos e profissionais que desejam acompanhar suas leituras de forma estruturada, além de leitores casuais que precisam de um estímulo para manter uma rotina de leitura. Além disso, o TÔ LENDO se propõe a atrair amantes de literatura em geral, independentemente do gênero literário que consomem, criando um espaço dinâmico para recomendações e trocas de experiências.
+O comportamento esperado desse público inclui interesse por redes sociais e gamificação, ou seja, funcionalidades que incentivam o engajamento, como desafios de leitura e interação com outros leitores. Com isso, o TÔ LENDO se posiciona como uma plataforma voltada para quem deseja não apenas registrar livros lidos, mas também fazer parte de uma comunidade ativa e apaixonada por literatura.
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
 
 > **Links Úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
