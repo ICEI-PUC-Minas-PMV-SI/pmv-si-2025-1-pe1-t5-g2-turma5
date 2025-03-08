@@ -91,45 +91,39 @@ Apresente aqui as histórias de usuário que são relevantes para o projeto de s
 
 ## Requisitos
 
-As tabelas a seguir detalham os requisitos funcionais e não funcionais do projeto. A priorização dos requisitos foi realizada utilizando a técnica de MoSCoW, classificando-os em:
-
-Deve ter: Requisitos essenciais para o funcionamento básico do sistema.
-Deveria ter: Requisitos importantes, mas não críticos para o lançamento inicial.
-Poderia ter: Requisitos desejáveis, que podem ser implementados em futuras versões.
-Não terá: Requisitos que não serão implementados neste momento.
-
+As tabelas a seguir detalham os requisitos funcionais e não funcionais do projeto.
 
 ### Requisitos Funcionais
 
 |ID    | Descrição do Requisito  | Prioridade | 
 |------|-----------------------------------------|----| 
-|RF-001| Permitir que os usuários realizem cadastro e login. | Deve ter |  
-|RF-002| Permitir que o usuário redefina sua senha. | deve ter | 
-|RF-003| Permitir que administradores cadastrem, editem e removam livros. | Deve ter |
-|RF-004| Permitir pesquisa e consulta de livros disponíveis. | Deve ter |
-|RF-005| Permitir reserva e renovação de livros. | Deve ter |
-|RF-006| Permitir que os usuários comprem livros na plataforma. | Deve ter |
-|RF-007| PPermitir feedback após o livro ser lido. | Deve ter |
-|RF-008| Registrar os livros já lidos. | Deve ter |
-|RF-009| Chat global para a comunidade debater sobre os livros. | Deve ter |
-|RF-010| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Deve ter |
-|RF-011| Disponibilizar histórico de empréstimos. | Deveria ter |
-|RF-012| Emitir relatórios de uso da biblioteca.	| Poderia ter |
-|RF-013| Permitir que os usuários experimentem o livro por um tempo.	| Poderia ter |
-|RF-014| Permitir teste grátis da plataforma. | Poderia ter |
-|RF-015| Permitir vender os livros comprados. | Não terá |
+|RF-001| Permitir que os usuários realizem cadastro e login. | Alta |  
+|RF-002| Permitir que o usuário redefina sua senha. | Alta | 
+|RF-003| Permitir que administradores cadastrem, editem e removam livros. | Alta |
+|RF-004| Permitir pesquisa e consulta de livros disponíveis. | Alta |
+|RF-005| Permitir reserva e renovação de livros. | Alta |
+|RF-006| Permitir que os usuários comprem livros na plataforma. | Alta |
+|RF-007| Permitir feedback após o livro ser lido. | Alta |
+|RF-008| Registrar os livros já lidos. | Alta |
+|RF-009| Chat global para a comunidade debater sobre os livros. | Alta |
+|RF-010| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Alta |
+|RF-011| Disponibilizar histórico de empréstimos. | Média |
+|RF-012| Permitir teste grátis da plataforma. | Média |
+|RF-013| Emitir relatórios de uso da biblioteca.	| Baixa |
+|RF-014| Permitir que os usuários experimentem o livro por um tempo.	| Baixa |
+
 
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RF-001| O sistema deve garantir a segurança dos dados dos usuários. | Deve ter |
-|RF-002| O sistema deve ser compatível com navegadores modernos e sistemas operacionais Android. | Deve ter |
-|RF-003| O sistema deverá deverá atender às normas legais, tais como padrões, leis, etc. | Deve ter |
-|RF-004| A interface deve ser intuitiva e acessível para diferentes perfis de usuários. | Deveria ter |
-|RF-005| Os livros estarem disponíveis em modo offline. | Deveria ter |
-|RF-006| O desenvolvimento deve ser em linguagem Java| Poderia ter |
+|RF-001| O sistema deve garantir a segurança dos dados dos usuários. | Alta |
+|RF-002| O sistema deve ser compatível com navegadores modernos e sistemas operacionais Android. | Alta |
+|RF-003| O sistema deverá deverá atender às normas legais, tais como padrões, leis, etc. | Alta |
+|RF-004| A interface deve ser intuitiva e acessível para diferentes perfis de usuários. | Média |
+|RF-005| Os livros estarem disponíveis em modo offline. | Média |
+|RF-006| O desenvolvimento deve ser em linguagem Java| Baixa |
 
 ## Restrições
 
