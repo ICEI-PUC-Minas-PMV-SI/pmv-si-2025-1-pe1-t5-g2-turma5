@@ -23,12 +23,6 @@ Na sociedade contemporânea, desafios e metas são formas eficazes de motivaçã
 
 Além desses fatores, a ausência de interação social e de mecanismos que tornem a leitura uma experiência mais dinâmica pode reduzir o engajamento dos usuários e, consequentemente, o impacto do aplicativo na promoção da leitura.
 
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
-
 ## Objetivos
 
 `Facilitar a organização da leitura`
@@ -59,16 +53,9 @@ Transformar o ato solitário de ler em uma experiência compartilhada, permitind
 
 Oferecer uma plataforma segura e organizada para que os leitores possam trocar livros financeiros entre si, incentivando a circulação de obras e o acesso a novos títulos.
 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
-
 ## Justificativa
 
-O TÔ LENDO é uma plataforma extremamente útil para fomentar a leitura e a troca de experiências entre leitores. Ao permitir que os usuários compartilhem suas opiniões, resenhas e recomendações sobre livros, o TÔ LENDO cria um espaço colaborativo que facilita o acesso a novas obras e amplia o conhecimento literário. A interação entre os membros, seja por meio de grupos, resenhas ou listas de leitura, estimula o engajamento crítico e fortalece o hábito de leitura. Como exemplo, o estudo realizado por Furtado (2020) em "A literatura digital: as novas formas de mediação do livro" destaca como plataformas como o TÔ LENDO possibilitam uma experiência de leitura mais rica e conectada, ampliando o alcance das obras e promovendo discussões construtivas entre os leitore. 
-
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+O TÔ LENDO é uma plataforma extremamente útil para fomentar a leitura e a troca de experiências entre leitores. Ao permitir que os usuários compartilhem suas opiniões, resenhas e recomendações sobre livros, o TÔ LENDO cria um espaço colaborativo que facilita o acesso a novas obras e amplia o conhecimento literário. A interação entre os membros, seja por meio de grupos, resenhas ou listas de leitura, estimula o engajamento crítico e fortalece o hábito de leitura. Como exemplo, o estudo realizado por Furtado (2020) em "A literatura digital: as novas formas de mediação do livro" destaca como plataformas como o TÔ LENDO possibilitam uma experiência de leitura mais rica e conectada, ampliando o alcance das obras e promovendo discussões construtivas entre os leitore.
 
 ## Público-Alvo
 
@@ -77,11 +64,3 @@ O TÔ LENDO foi desenvolvido para atender leitores que buscam uma maneira práti
 O aplicativo foi pensado para estudantes, acadêmicos e profissionais que desejam acompanhar suas leituras de forma estruturada, além de leitores casuais que precisam de um estímulo para manter uma rotina de leitura. Além disso, o TÔ LENDO se propõe a atrair amantes de literatura em geral, independentemente do gênero literário que consomem, criando um espaço dinâmico para recomendações e trocas de experiências.
 
 O comportamento esperado desse público inclui interesse por redes sociais e gamificação, ou seja, funcionalidades que incentivam o engajamento, como desafios de leitura e interação com outros leitores. Com isso, o TÔ LENDO se posiciona como uma plataforma voltada para quem deseja não apenas registrar livros lidos, mas também fazer parte de uma comunidade ativa e apaixonada por literatura.
-
-
-
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
