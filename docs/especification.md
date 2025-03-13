@@ -61,13 +61,13 @@ Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos 
 
 Com base na análise das personas forma identificadas as seguintes histórias de usuários:
 
-|EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
-|--------------------|------------------------------------|----------------------------------------|
-|Ricardo             | Biblioteca propria                 | Divlgar os livros que gostou           |
-|Joana               | Registrar os livros que ja leu     | Não esqecer e ler o mesmo livro        |
-|Gondin              | Comunidade para debate de livros   | ter Network e ver outras opniões       |
-|Mbappe              | Divulgar livros para outras pessoas| Ajudar novos leitores iniciantes       |
-|Maria               | Achar livros com avaliaçoes boas   | Nao perder tempo com livros ruins      |
+|EU COMO... `PERSONA`   | QUERO/PRECISO ... `FUNCIONALIDADE`   |PARA ... `MOTIVO/VALOR`                       |
+|-----------------------|-----------------------------------|--------------------------------------------|
+|Estudante universitario| Dar minha opniao a outros leitores| Ajudar leitores indecisos ou novos leitores|
+|Leitor Amador          | Registrar os livros que ja li     | Ter ma organizao da minha Bliblioteca      |
+|Jovem leitora          | Fazer recomendaçeos de livbros    | Ajudar novos leitores iniciantes           |
+|Proficional atarefado  | Resgistrar os livros lidos        | Organizar seus livros e otimizar seu tempo |
+
 
 
 
