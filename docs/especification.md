@@ -64,13 +64,9 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |EU COMO... `PERSONA`   | QUERO/PRECISO ... `FUNCIONALIDADE`|PARA ... `MOTIVO/VALOR`                     |
 |-----------------------|-----------------------------------|--------------------------------------------|
 |Estudante universitário| Dar minha opnião a outros leitores| Ajudar leitores indecisos ou novos leitores|
-|Leitor Amador          | Registrar os livros que ja li     | Ter mais organizao da minha Bliblioteca    |
-|Jovem leitora          | Fazer recomendaçeõs de livros     | Ajudar novos leitores iniciantes           |
-|pai atarefado          | habituar a leitura dos meus filhos| Aperfeiçoar a leitura dos meus filhos      |
-
-
-
-
+|Leitor Amador          | Registrar os livros que já li     | Ter mais organização da minha biblioteca   |
+|Jovem leitora          | Fazer recomendações de livros     | Ajudar novos leitores iniciantes           |
+|Pai atarefado          | Habituar a leitura dos meus filhos| Aperfeiçoar o apendizado deles             |
 
 ## Requisitos
 
