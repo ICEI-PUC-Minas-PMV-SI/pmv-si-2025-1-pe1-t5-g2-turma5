@@ -61,12 +61,12 @@ Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos 
 
 Com base na análise das personas forma identificadas as seguintes histórias de usuários:
 
-|EU COMO... `PERSONA`   | QUERO/PRECISO ... `FUNCIONALIDADE`   |PARA ... `MOTIVO/VALOR`                       |
+|EU COMO... `PERSONA`   | QUERO/PRECISO ... `FUNCIONALIDADE`|PARA ... `MOTIVO/VALOR`                     |
 |-----------------------|-----------------------------------|--------------------------------------------|
-|Estudante universitario| Dar minha opniao a outros leitores| Ajudar leitores indecisos ou novos leitores|
-|Leitor Amador          | Registrar os livros que ja li     | Ter ma organizao da minha Bliblioteca      |
-|Jovem leitora          | Fazer recomendaçeos de livbros    | Ajudar novos leitores iniciantes           |
-|Proficional atarefado  | Resgistrar os livros lidos        | Organizar seus livros e otimizar seu tempo |
+|Estudante universitário| Dar minha opnião a outros leitores| Ajudar leitores indecisos ou novos leitores|
+|Leitor Amador          | Registrar os livros que ja li     | Ter mais organizao da minha Bliblioteca    |
+|Jovem leitora          | Fazer recomendaçeõs de livros     | Ajudar novos leitores iniciantes           |
+|pai atarefado          | habituar a leitura dos meus filhos| Aperfeiçoar a leitura dos meus filhos      |
 
 
 
