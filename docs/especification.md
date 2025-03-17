@@ -59,8 +59,8 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |EU COMO... `PERSONA`   | QUERO/PRECISO ... `FUNCIONALIDADE`|PARA ... `MOTIVO/VALOR`                     |
 |-----------------------|-----------------------------------|--------------------------------------------|
 |Usuário                | Dar minha opnião a outros leitores| Ajudar leitores indecisos ou novos leitores|
-|Leitor Amador          | Registrar os livros que já li     | Ter mais organização da minha biblioteca   |
-|Jovem leitora          | Fazer recomendações de livros     | Ajudar novos leitores iniciantes           |
+|Leitor                 | Registrar os livros que já li     | Ter mais organização da minha biblioteca   |
+|Usuário                | Fazer recomendações de livros     | Ajudar novos leitores iniciantes           |
 |Leitor                 | Habituar a leitura dos meus filhos| Aperfeiçoar o apendizado deles             |
 
 ## Requisitos
