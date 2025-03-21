@@ -77,11 +77,11 @@ As tabelas a seguir detalham os requisitos funcionais e não funcionais do proje
 |RF-004| Permitir pesquisa e consulta de livros disponíveis. | Alta |
 |RF-005| Permitir reserva e renovação de livros. | Alta |
 |RF-006| Registrar os livros já lidos. | Alta |
-|RF-007| Permitir que os usuários comprem livros na plataforma. | Média |
-|RF-008| Permitir feedback após o livro ser lido. | Média |
+|RF-007| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Alta |
+|RF-008| Permitir que os usuários comprem livros na plataforma. | Média |
 |RF-009| Chat global para a comunidade debater sobre os livros. | Média |
-|RF-010| Permitir que usuários filtrem os livros por autor, gênero e disponibilidade. | Média |
-|RF-011| Disponibilizar histórico de empréstimos. | Média |
+|RF-010| Disponibilizar histórico de empréstimos. | Média |
+|RF-011| Permitir feedback após o livro ser lido. | Baixa |
 |RF-012| Permitir teste grátis da plataforma. | Baixa |
 |RF-013| Emitir relatórios de uso da biblioteca.	| Baixa |
 |RF-014| Permitir que os usuários experimentem o livro por um tempo.	| Baixa |
@@ -96,9 +96,9 @@ As tabelas a seguir detalham os requisitos funcionais e não funcionais do proje
 |RNF-002| O sistema deve ser compatível com navegadores modernos e sistemas operacionais Android. | Alta |
 |RNF-003| O sistema deverá deverá atender às normas legais, tais como padrões, leis, etc. | Alta |
 |RNF-004| O sistema deve realizar backups automáticos dos dados semanalmente. | Alta |
-|RNF-005| A interface deve ser intuitiva e acessível para diferentes perfis de usuários. | Média |
-|RNF-006| Os livros estarem disponíveis em modo offline. | Baixa |
-|RNF-007| O desenvolvimento deve ser em linguagem JavaScript | Baixa |
+|RNF-005| O desenvolvimento deve ser em linguagem JavaScript | Alta |
+|RNF-006| A interface deve ser intuitiva e acessível para diferentes perfis de usuários. | Média |
+|RNF-007| Os livros estarem disponíveis em modo offline. | Baixa |
 |RNF-008| O sistema deve permitir a personalização de temas (modo claro e escuro). | Baixa |
 |RNF-009| A plataforma deve oferecer suporte para múltiplos idiomas. | Baixa |
 |RNF-010| Os usuários devem poder ajustar o tamanho da fonte para melhor leitura. | Baixa |
