@@ -18,6 +18,15 @@ Apresente a paleta de cores que será utilizada. Uma ferramenta interessante par
 
 Apresente as fontes que serão utilizadas e sua função no site. As principais funções são: Título de página, Título de Seção, Rótulos de componentes e Corpo de Texto.
 
+| Estilo	   | Tamanho    | Peso       | Altura da linha	| Fonte	  |   Uso recomendado |
+|------------|------------|------------|------------ | ------------ | ---------------   |
+| Display  | 40px  |  Bold    |  120%  | Times New Roman, Quando  | Títulos de destaque  |
+| Heading 1  | 32px  |  Bold  |	 120% |  Arial, roboto	 |  Títulos principais  |
+| Heading 2	| 24px	|  SemiBold	 |  130%	|  Arial, roboto	|  Títulos de seções  |
+| Heading 3  | 20px  |  Medium	  |  130%  |  Arial, roboto	 |  Subtítulos  |                   
+| Body  |  16px  |  Regular  |  150%  |  Arial, roboto  |  Texto normal (corpo)  |
+| Body Small  |	14px 	|  Regular	|  150%  | Arial, roboto	 |  Textos auxiliares  |
+| Caption	 | 12px	 |  Medium	 |  150%	 | Scope One, Scheherazade 	|  Informações pequenas  |
 
 ## Iconografia
 
