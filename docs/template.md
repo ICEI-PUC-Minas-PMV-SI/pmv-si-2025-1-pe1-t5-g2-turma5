@@ -13,6 +13,22 @@ Detalhe os layouts que serão utilizados. Apresente onde será colocado o logo d
 
 Apresente a paleta de cores que será utilizada. Uma ferramenta interessante para a criação de palestas de cores é o *Adobe Color* ([https://color.adobe.com/pt/create/color-wheel](https://color.adobe.com/pt/create/color-wheel)).
 
+|  Nome da Cor	|  Código HEX / Valor	 |  Uso recomendado  |
+|---------------|----------------------|-------------------|
+|  Primária	|  #1C3D6A	|  Botões principais, links, elementos de destaque  |
+|  Primária Clara	|  #2A5698	|  Hover da primária, elementos ativos, variações leves  |
+|  Secundária	|  #7FAAD1	|  Ações secundárias, destaques complementares  |
+|  Texto Primário	|  #333333	|  Textos principais, títulos  |
+|  Texto Secundário	|  #7A7A7A (opcional complemento)	|  Textos auxiliares, descrições
+|  Fundo	|  #FFFFFF	|  Fundo principal da interface |
+|  Fundo Secundário	|  #F5F9FF	|  Cards, áreas internas, seções suaves  |
+|  Acento / Destaque	|  #0A2348	|  Títulos especiais, fundos escuros, rodapé  |
+|  Sombra	| rgba(36, 65, 107, 0.2)	|  Sombras de cards, elementos elevados  |
+|  Erro	|  #E63946 (padrão)	|  Mensagens de erro, validações  |
+|  Sucesso	|  #2ECC71 (padrão)	|  Mensagens de sucesso, confirmações  |
+|  Gradiente	|  linear-gradient(135deg, #1c3d6a, #2a5698, #3a7cc7)	|  Fundos de destaque, banners, botões estilizados  |
+
+
 
 ## Tipografia
 
