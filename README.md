@@ -15,6 +15,7 @@ O projeto TÔ LENDO busca incentivar e organizar o hábito de leitura por meio d
 * Gabriel Oliveira Lemos
 * Erick Mota de Albuquerque
 * Bernardo pereira Pinto
+* Andressa Nascimento Santos
 
 
 ## Orientador
