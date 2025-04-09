@@ -6,12 +6,24 @@ Explique as guias de estilo utilizadas no seu projeto.
 
 ## Design
 
-Detalhe os layouts que serão utilizados. Apresente onde será colocado o logo do sistema. Defina os menus padrões, entre outras coisas.
+Nesta aba, apresentamos os elementos visuais que compõem o site: layouts, paleta de cores e a logo.
+
+### Layouts
+
+#### Home Page
+![image](https://github.com/user-attachments/assets/76425285-d6a7-4ea2-85a5-f3ce9cfa636b)
+
+#### Login
+![image](https://github.com/user-attachments/assets/5655d565-01b9-41c9-8f0d-aafa5cb43ac9)
+
+#### Cadastro de Livro
+![image](https://github.com/user-attachments/assets/014af08a-f280-4b9f-bccd-79a906926b8f)
 
 
-## Cores
+### Cores
 
-Apresente a paleta de cores que será utilizada. Uma ferramenta interessante para a criação de palestas de cores é o *Adobe Color* ([https://color.adobe.com/pt/create/color-wheel](https://color.adobe.com/pt/create/color-wheel)).
+![image](https://github.com/user-attachments/assets/d2fb6328-9044-4ac4-9a3a-8070ddf1da80)
+
 
 |  Nome da Cor	|  Código HEX / Valor	 |  Uso recomendado  |
 |---------------|----------------------|-------------------|
@@ -28,7 +40,8 @@ Apresente a paleta de cores que será utilizada. Uma ferramenta interessante par
 |  Sucesso	|  #2ECC71 (padrão)	|  Mensagens de sucesso, confirmações  |
 |  Gradiente	|  linear-gradient(135deg, #1c3d6a, #2a5698, #3a7cc7)	|  Fundos de destaque, banners, botões estilizados  |
 
-
+### Logo
+![image](https://github.com/user-attachments/assets/41c1b2f8-a8f7-45a0-8785-fa55ca6832ae)
 
 ## Tipografia
 
