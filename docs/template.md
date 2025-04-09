@@ -47,6 +47,12 @@ Nesta aba, apresentamos os elementos visuais que compõem o site: layouts, palet
 
 Apresente as fontes que serão utilizadas e sua função no site. As principais funções são: Título de página, Título de Seção, Rótulos de componentes e Corpo de Texto.
 
+### Tipografia principal
+
+![Image](https://github.com/user-attachments/assets/12c30e39-9730-41f5-a6cc-aaea6e51788e)
+
+### Explicação das Tipografias
+
 | Estilo	   | Tamanho    | Peso       | Altura da linha	| Fonte	  |   Uso recomendado |
 |------------|------------|------------|------------ | ------------ | ---------------   |
 | Display  | 40px  |  Bold    |  120%  | Times New Roman, Quando  | Títulos de destaque  |
@@ -56,9 +62,6 @@ Apresente as fontes que serão utilizadas e sua função no site. As principais 
 | Body  |  16px  |  Regular  |  150%  |  Arial, roboto  |  Texto normal (corpo)  |
 | Body Small  |	14px 	|  Regular	|  150%  | Arial, roboto	 |  Textos auxiliares  |
 | Caption	 | 12px	 |  Medium	 |  150%	 | Scope One, Scheherazade 	|  Informações pequenas  |
-
-![Image](https://github.com/user-attachments/assets/12c30e39-9730-41f5-a6cc-aaea6e51788e)
-
 
 ## Iconografia
 
