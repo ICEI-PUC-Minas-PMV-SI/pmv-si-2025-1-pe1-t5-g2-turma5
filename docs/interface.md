@@ -3,7 +3,14 @@
 
 ## User Flow
 
-Fluxo de usuário (User Flow) é uma técnica que permite ao desenvolvedor mapear todo fluxo de telas do site ou app. Essa técnica funciona para alinhar os caminhos e as possíveis ações que o usuário pode fazer junto com os membros de sua equipe.
+O diagrama apresenta a estrutura de navegação do usuário no site, com a Home Page atuando como o principal ponto de partida e retorno. As interações foram pensadas com base na lógica de uso e na flexibilidade do comportamento do usuário, permitindo tanto uma navegação linear quanto exploratória.
+
+A autenticação é tratada de forma condicional, com acesso à Recuperação de Senha apenas via tela de Login. O processo de Cadastro de Livro é dividido em três etapas sequenciais, com possibilidade de retorno à página principal a qualquer momento.
+
+Além disso, o fluxo contempla interações com páginas públicas, como Página de Livro e Comunidade de Gênero, bem como funcionalidades vinculadas ao perfil autenticado do usuário.
+
+<img width="2294" alt="FLUXO DE USUARIO FINAL" src="https://github.com/user-attachments/assets/f7ec812e-2223-4e8e-8e7a-4f20a96dc3a4" />
+
 
 ## Wireframes
 1. Tela de login
