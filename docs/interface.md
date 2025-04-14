@@ -21,4 +21,7 @@ Fluxo de usuário (User Flow) é uma técnica que permite ao desenvolvedor mapea
 5.Tela ao inspecionar um livro
 ![image](https://github.com/user-attachments/assets/54414f4f-6ace-44f3-ad22-00b56ca013bb)
 
+6. Grupo/Comunidades de comunidades de Bate-Papo
+![image](https://github.com/user-attachments/assets/2f2f50a8-1608-439d-859a-c29cdb6bcdea)
+
 
