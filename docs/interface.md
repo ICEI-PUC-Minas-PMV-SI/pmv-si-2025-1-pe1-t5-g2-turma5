@@ -15,5 +15,8 @@ Fluxo de usuário (User Flow) é uma técnica que permite ao desenvolvedor mapea
 3. Tela pra recuperção de senha
 ![image](https://github.com/user-attachments/assets/693f1de7-f91e-4ead-a452-0d73cf4002d8)
 
+4. Tela principal
+![image](https://github.com/user-attachments/assets/24ed634d-af3c-4099-bb96-73971f787e57)
+
 
 
