@@ -11,6 +11,9 @@ Além disso, o fluxo contempla interações com páginas públicas, como Página
 
 <img width="2294" alt="FLUXO DE USUARIO FINAL" src="https://github.com/user-attachments/assets/f7ec812e-2223-4e8e-8e7a-4f20a96dc3a4" />
 
+A ideia é que tudo comece (ou possa retornar) pela Home Page, já que ela funciona como centro de navegação — assim como na maioria dos sites, que têm ícone da home em quase todas as páginas.
+
+Também apliquei algumas restrições e lógicas de navegação. Por exemplo, só dá pra acessar a tela de Recuperação de Senha vindo da tela de Login. Mas da tela de recuperação, o usuário ainda pode escolher voltar pra Home ou tentar novamente o Login, como se estivesse testando uma senha antiga ou decidisse pesquisar algum conteúdo antes de entrar de fato.
 
 ## Wireframes
 1. Tela de login
