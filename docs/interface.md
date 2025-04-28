@@ -43,8 +43,8 @@ Também apliquei algumas restrições e lógicas de navegação. Por exemplo, s�
 9. Informações detalhadas de cadastro
 ![Image](https://github.com/user-attachments/assets/0882d9b2-1a57-49ad-a2e6-ced7bf6eb028)
 
-10. Informações avançadas de cadastro
-![image](https://github.com/user-attachments/assets/5ca949f1-6910-485d-b3dd-d36a913819bb)
+10. Informações adicionais de cadastro
+![Image](https://github.com/user-attachments/assets/b1b904a1-54d6-4aa4-ac9b-df67de87cb6e)
 
 
 
