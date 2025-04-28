@@ -38,7 +38,7 @@ Também apliquei algumas restrições e lógicas de navegação. Por exemplo, s�
 ![image](https://github.com/user-attachments/assets/80a1d8e0-5e88-4281-bac2-231d2f2852d6)
 
 8. Informações básicas de cadastro
-![image](https://github.com/user-attachments/assets/de06b07c-1a48-4cd5-80c2-76452abcc93b)
+![Image](https://github.com/user-attachments/assets/e2f98c8e-2917-4211-af13-f32ef3b3c59c)
 
 9. Informações detalhadas de cadastro
 ![image](https://github.com/user-attachments/assets/6978d6e3-143a-4562-9201-eefc62752128)
