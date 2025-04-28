@@ -41,7 +41,7 @@ Também apliquei algumas restrições e lógicas de navegação. Por exemplo, s�
 ![Image](https://github.com/user-attachments/assets/e2f98c8e-2917-4211-af13-f32ef3b3c59c)
 
 9. Informações detalhadas de cadastro
-![image](https://github.com/user-attachments/assets/6978d6e3-143a-4562-9201-eefc62752128)
+![Image](https://github.com/user-attachments/assets/0882d9b2-1a57-49ad-a2e6-ced7bf6eb028)
 
 10. Informações avançadas de cadastro
 ![image](https://github.com/user-attachments/assets/5ca949f1-6910-485d-b3dd-d36a913819bb)
