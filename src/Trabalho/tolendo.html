@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Tô Lendo - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Scoop+One&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+    }
+    .left {
+      background-color: #5486E3;
+      width: 50%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 20px 20px;
+    }
+    .logo img {
+      max-width: 300px;
+      margin-bottom: 40px; /* espaço abaixo para afastar da faixa */
+    }
+    .faixa {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(229, 230, 230, 0.63);
+      color: black;
+      font-size: 13px;
+      padding: 20px 10px;
+      text-align: center;
+      font-family: 'Scoop One', cursive;
+    }
+    .right {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      background-color: #3f38e4;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #2f2cd6;
+    }
+    a {
+      color: #3f38e4;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <div class="logo">
+      <img src="328f37a5-47fc-4fca-b150-2588a58ee303.png" alt="Logo Tô Lendo">
+    </div>
+    <div class="faixa">
+      <p>Diga aos outros seu ponto de vista do livro que acabou de ler</p>
+      <p>Compartilhe com o mundo sua nova paixão literária</p>
+      <p>Mostre aos amigos os novos livros que comprou</p>
+      <p>Crie sua lista de leitura e compartilhe com o mundo</p>
+    </div>
+  </div>
+  <div class="right">
+    <h2>Entre em sua conta</h2>
+    <p><i>Insira seus dados de acesso...</i></p>
+
+    <div class="form-group">
+      <label for="email">E-mail ou Usuário</label>
+      <input type="text" id="email" placeholder="Entre com seu e-mail">
+    </div>
+    <div class="form-group">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" placeholder="Entre com sua senha">
+      <small><a href="#">Esqueceu sua senha?</a></small>
+    </div>
+    <button class="btn">ENTRAR</button>
+    <p style="margin-top: 10px;">Não tem uma conta ainda? <a href="#">Crie uma agora</a></p>
+  </div>
+</body>
+</html>
