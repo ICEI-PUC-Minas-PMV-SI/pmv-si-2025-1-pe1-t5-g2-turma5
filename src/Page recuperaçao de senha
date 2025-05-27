@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tô Lendo - Redefinir Senha</title>
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #4A90E2;
+   
+    min-height: 100vh; 
+    color: #333;
+    
+
+    overflow: hidden; 
+    
+
+    position: relative; 
+}
+
+
+footer {
+    background-color: #7faad1; 
+    height: 100px; 
+    width: 100vw; 
+    position: fixed;
+    bottom: 0; 
+    left: 0; 
+    z-index: 1000; 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; 
+    font-size: 1.2em; 
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+
+   
+    
+    
+    margin-bottom: 140px; 
+
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    min-height: calc(100vh - 140px); 
+}
+
+
+.logo img {
+    width: 300px;
+    margin-bottom: 40px;
+}
+
+.password-reset-box {
+    background-color: #fff;
+    padding: 40px 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.password-reset-box h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.password-reset-box p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.input-group input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-group input[type="password"]::placeholder {
+    color: #aaa;
+}
+
+.btn-confirm {
+    background-color: #5C6BC0;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-confirm:hover {
+    background-color: #4A569C;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="./image/Tolendo.png" alt="Logo Tô Lendo">
+            </div>
+        <div class="password-reset-box">
+            <h1>Redefina sua senha</h1>
+            <p>Vamos te ajudar com sua criação de uma nova senha</p>
+
+            <form id="passwordResetForm">
+                <div class="input-group">
+                    <label for="newPassword">Insira sua nova senha</label>
+                    <input type="password" id="newPassword" placeholder="Nova senha" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirmPassword">Confirme sua nova senha</label>
+                    <input type="password" id="confirmPassword" placeholder="Nova senha" required>
+                </div>
+
+                <button type="submit" class="btn-confirm">Confirmar nova senha</button>
+            </form>
+        </div>
+        <footer>
+            
+        </footer>
+    </div>
+    
+     <script> document.addEventListener('DOMContentLoaded', () => {
+        const passwordResetForm = document.getElementById('passwordResetForm');
+        const newPasswordInput = document.getElementById('newPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+    
+        passwordResetForm.addEventListener('submit', (event) => {
+            
+            event.preventDefault();
+    
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+    
+            if (newPassword !== confirmPassword) {
+                alert('As senhas não coincidem. Por favor, digite senhas iguais.');
+                confirmPasswordInput.focus(); 
+                return;
+            }
+    
+           
+            console.log('Nova senha definida:', newPassword);
+            alert('Senha redefinida com sucesso!');
+            
+        });
+    });</script>  
+
+    
+    </body>
+</html>
