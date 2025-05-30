@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Livros</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+    
+    :root {
+      --primary: #1c3d6a;
+      --primary-light: #2a5698;
+      --secondary: #7faad1;
+      --accent: #0a2348;
+      --text: #333;
+      --light-bg: #f5f9ff;
+      --white: #ffffff;
+      --shadow: rgba(36, 65, 107, 0.2);
+      --gradient: linear-gradient(135deg, #1c3d6a 0%, #2a5698 50%, #3a7cc7 100%);
+      --error: #e74c3c;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text);
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    header {
+      padding: 60px 20px 30px;
+      text-align: center;
+      margin-bottom: 30px;
+      background-color: #5486E3;
+    }
+    
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--white);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
+    
+    .subtitle {
+      color: var(--white);
+      font-weight: 300;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 15px 50px var(--shadow);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 60px;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .form-icon {
+      position: absolute;
+      top: -25px;
+      right: -25px;
+      width: 100px;
+      height: 100px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.15;
+      overflow: hidden;
+    }
+    
+    .tabs-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    
+    .tab {
+      flex: 1;
+      min-width: 200px;
+      padding: 15px 20px;
+      text-align: center;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      color: #6a6a6a;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid #eee;
+      user-select: none;
+    }
+    
+    .tab:hover {
+      color: var(--primary);
+    }
+    
+    .tab.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      font-weight: 600;
+    }
+    
+    .tab span {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+      padding: 20px 0;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+    
+    .form-group {
+      flex: 1;
+      min-width: 300px;
+      padding: 15px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 500;
+      color: var(--primary);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    
+    .input-group {
+      position: relative;
+    }
+    
+    .field-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 15px 20px 15px 45px;
+      background-color: var(--light-bg);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 5px 15px rgba(127, 170, 209, 0.15);
+    }
+    
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231c3d6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 20px;
+    }
+    
+    .required::after {
+      content: "*";
+      color: #e74c3c;
+      margin-left: 5px;
+    }
+    
+    .optional-badge {
+      display: inline-block;
+      background-color: #f1f5ff;
+      color: var(--primary-light);
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-left: 10px;
+      font-weight: 500;
+      border: 1px solid rgba(127, 170, 209, 0.3);
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      outline: none;
+    }
+    
+    .btn-secondary {
+      background-color: var(--light-bg);
+      color: var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background-color: #e7eef7;
+    }
+    
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: 0 6px 15px rgba(28, 61, 106, 0.2);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(28, 61, 106, 0.3);
+    }
+    
+    .btn i {
+      margin-left: 8px;
+      font-size: 1.2rem;
+    }
+    
+    .btn-back i {
+      margin-right: 8px;
+      margin-left: 0;
+    }
+    
+    .progress-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(0,0,0,0.05);
+      overflow: hidden;
+      z-index: 10;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 33.33%;
+      background: var(--gradient);
+      transition: width 0.5s ease;
+    }
+    
+    .success-message, .error-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+      text-align: center;
+      z-index: 1000;
+      max-width: 400px;
+      display: none;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #4CAF50, #8BC34A);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 40px;
+    }
+    
+    .error-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 40px;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+    
+    .error-feedback {
+      color: var(--error);
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: none;
+    }
+    
+    .input-error {
+      border-color: var(--error) !important;
+    }
+    
+    .livros-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+      background: var(--light-bg);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .livros-table th, .livros-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .livros-table th {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .livros-table tr:nth-child(even) {
+      background: rgba(127, 170, 209, 0.1);
+    }
+    
+    .livros-table tr:hover {
+      background: rgba(127, 170, 209, 0.2);
+    }
+    
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      margin: 0 5px;
+    }
+    
+    .edit-btn {
+      color: var(--primary);
+    }
+    
+    .delete-btn {
+      color: var(--error);
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      margin: 40px 0 20px;
+      font-size: 1.8rem;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+        margin: 0 15px 60px;
+      }
+      
+      .title {
+        font-size: 2.2rem;
+      }
+      
+      .tab {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+      
+      .form-group {
+        min-width: 100%;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .livros-table {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="book-shelf">
+    <div class="floating-books">
+      <div class="floating-book"></div>
+      <div class="floating-book"></div>
+      <div class="floating-book"></div>
+      <div class="floating-book"></div>
+      <div class="floating-book"></div>
+    </div>
+  </div>
+  
+  <header>
+    <h1 class="title">📚 Cadastro de Livros</h1>
+    <p class="subtitle">Registre seus livros favoritos na nossa biblioteca</p>
+  </header>
+  
+  <main class="container">
+    <div class="progress-container">
+      <div class="progress-bar" id="progress"></div>
+    </div>
+    
+    <div class="form-icon">
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+      </svg>
+    </div>
+    
+    <div class="tabs-container">
+      <div class="tab active" id="tab1" onclick="changeTab('info-basicas', 0)">
+        <span>1</span> Informações Básicas
+      </div>
+      <div class="tab" id="tab2" onclick="changeTab('info-detalhadas', 1)">
+        <span>2</span> Informações Detalhadas
+      </div>
+      <div class="tab" id="tab3" onclick="changeTab('info-adicionais', 2)">
+        <span>3</span> Informações Adicionais
+      </div>
+    </div>
+    
+    <!-- Aba 1: Informações Básicas -->
+    <div id="info-basicas" class="tab-content active">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="required">Título</label>
+          <div class="input-group">
+            <div class="field-icon">📖</div>
+            <input type="text" id="titulo" placeholder="Digite o título do livro">
+          </div>
+          <div class="error-feedback" id="titulo-error">Este campo é obrigatório</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="required">Autor(a)</label>
+          <div class="input-group">
+            <div class="field-icon">✍</div>
+            <input type="text" id="autor" placeholder="Digite o nome do autor ou autora">
+          </div>
+          <div class="error-feedback" id="autor-error">Este campo é obrigatório</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="required">Ano de publicação</label>
+          <div class="input-group">
+            <div class="field-icon">📅</div>
+            <input type="number" id="ano" placeholder="Ex: 2023" min="1" max="2025">
+          </div>
+          <div class="error-feedback" id="ano-error">Este campo é obrigatório</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="required">Editora</label>
+          <div class="input-group">
+            <div class="field-icon">🏢</div>
+            <input type="text" id="editora" placeholder="Digite o nome da editora">
+          </div>
+          <div class="error-feedback" id="editora-error">Este campo é obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label class="required">URL da imagem da capa</label>
+          <div class="input-group">
+            <div class="field-icon">🔗</div>
+            <input type="url" id="urlCapa" placeholder="Cole aqui o link da imagem da capa do livro">
+          </div>
+          <div class="error-feedback" id="urlCapa-error">Este campo é obrigatório</div>
+        </div>
+      
+      <div class="form-actions">
+        <div></div>
+        <button class="btn btn-primary" onclick="validateAndNextTab(0)">
+          Próximo
+          <i>➡</i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Aba 2: Informações Detalhadas -->
+    <div id="info-detalhadas" class="tab-content">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="required">Número de páginas</label>
+          <div class="input-group">
+            <div class="field-icon">🔢</div>
+            <input type="number" id="paginas" placeholder="Ex: 320" min="1">
+          </div>
+          <div class="error-feedback" id="paginas-error">Este campo é obrigatório</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="required">Gênero</label>
+          <div class="input-group">
+            <div class="field-icon">🎭</div>
+            <select id="genero">
+              <option value="">Selecione um gênero</option>
+              <option value="ficcao">Ficção</option>
+              <option value="romance">Romance</option>
+              <option value="fantasia">Fantasia</option>
+              <option value="misterio">Mistério</option>
+              <option value="suspense">Suspense</option>
+              <option value="terror">Terror</option>
+              <option value="biografia">Biografia</option>
+              <option value="historia">História</option>
+              <option value="cientifico">Científico</option>
+              <option value="infantil">Infantil</option>
+              <option value="autoajuda">Autoajuda</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="error-feedback" id="genero-error">Este campo é obrigatório</div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="required">Sinopse/resumo</label>
+        <div class="input-group">
+          <div class="field-icon">📜</div>
+          <textarea id="sinopse" placeholder="Breve descrição da história..."></textarea>
+        </div>
+        <div class="error-feedback" id="sinopse-error">Este campo é obrigatório</div>
+      </div>
+      
+      <div class="form-group">
+        <label class="required">Avaliações e críticas</label>
+        <div class="input-group">
+          <div class="field-icon">⭐</div>
+          <textarea id="avaliacoes" placeholder="Adicione avaliações e críticas ao livro..."></textarea>
+        </div>
+        <div class="error-feedback" id="avaliacoes-error">Este campo é obrigatório</div>
+      </div>
+      
+      <div class="form-actions">
+        <button class="btn btn-secondary btn-back" onclick="prevTab()">
+          <i>⬅</i>
+          Voltar
+        </button>
+        <button class="btn btn-primary" onclick="validateAndNextTab(1)">
+          Próximo
+          <i>➡</i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Aba 3: Informações Adicionais -->
+    <div id="info-adicionais" class="tab-content">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prêmios e reconhecimentos <span class="optional-badge">Opcional</span></label>
+          <div class="input-group">
+            <div class="field-icon">🏆</div>
+            <textarea id="premios" placeholder="Liste prêmios e reconhecimentos recebidos pelo livro..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>Parte de série ou saga <span class="optional-badge">Opcional</span></label>
+          <div class="input-group">
+            <div class="field-icon">📚</div>
+            <input type="text" id="serie" placeholder="Digite o nome da série (se aplicável)">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Ilustrador(a) <span class="optional-badge">Opcional</span></label>
+          <div class="input-group">
+            <div class="field-icon">🎨</div>
+            <input type="text" id="ilustrador" placeholder="Digite o nome do ilustrador (se aplicável)">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>País de origem e idioma original <span class="optional-badge">Opcional</span></label>
+        <div class="input-group">
+          <div class="field-icon">🌍</div>
+          <input type="text" id="origem" placeholder="Ex: Brasil - Português">
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button class="btn btn-secondary btn-back" onclick="prevTab()">
+          <i>⬅</i>
+          Voltar
+        </button>
+        <button class="btn btn-primary" onclick="saveBook()">
+          Salvar Cadastro
+          <i>✅</i>
+        </button>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Seção para exibir livros cadastrados -->
+  <main class="container" id="livros-cadastrados-container">
+    <h2 class="section-title">Livros Cadastrados</h2>
+    <table class="livros-table" id="livros-table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Ano</th>
+          <th>Editora</th>
+          <th>Gênero</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="livros-tbody">
+        <!-- Aqui serão inseridos os livros dinamicamente -->
+      </tbody>
+    </table>
+  </main>
+  
+  <div class="overlay" id="overlay"></div>
+  <div class="success-message" id="success-message">
+    <div class="success-icon">✓</div>
+    <h2>Cadastro Realizado!</h2>
+    <p>Seu livro foi cadastrado com sucesso em nossa biblioteca.</p>
+    <button class="btn btn-primary" onclick="closeSuccessMessage()" style="margin-top: 20px">Entendi</button>
+  </div>
+  
+  <div class="error-message" id="error-message">
+    <div class="error-icon">⚠</div>
+    <h2>Erro no Cadastro</h2>
+    <p id="error-message-text">Não foi possível completar o cadastro.</p>
+    <button class="btn btn-primary" onclick="closeErrorMessage()" style="margin-top: 20px">Entendi</button>
+  </div>
+
+  <script>
+    // Variáveis globais
+    let currentTab = 0;
+    const tabs = document.getElementsByClassName("tab");
+    const tabContents = document.getElementsByClassName("tab-content");
+    const progressBar = document.getElementById("progress");
+    let editingBookId = null;
+    
+    // Campos obrigatórios por aba
+    const requiredFieldsByTab = [
+      ['titulo', 'autor', 'ano', 'editora'], // Aba 1
+      ['paginas', 'genero', 'sinopse', 'avaliacoes'], // Aba 2
+      [] // Aba 3 (não tem campos obrigatórios)
+    ];
+    
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+      updateProgressBar();
+      loadBooksFromStorage();
+      
+      // Adicionar validação ao perder o foco nos campos obrigatórios
+      const requiredFields = [].concat(...requiredFieldsByTab);
+      requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if(field) {
+          field.addEventListener('blur', function() {
+            validateField(this);
+          });
+        }
+      });
+    });
+    
+    // Função para atualizar a barra de progresso
+    function updateProgressBar() {
+      progressBar.style.width = ((currentTab + 1) / tabs.length * 100) + "%";
+    }
+    
+    // Função para mudar de aba
+    function changeTab(tabName, tabIndex) {
+      // Limpar todas as abas e conteúdos ativos
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].className = tabContents[i].className.replace(" active", "");
+        tabs[i].className = tabs[i].className.replace(" active", "");
+      }
+      
+      // Ativar a aba e conteúdo selecionados
+      document.getElementById(tabName).className += " active";
+      tabs[tabIndex].className += " active";
+      
+      // Atualizar o índice da aba atual
+      currentTab = tabIndex;
+      updateProgressBar();
+    }
+    
+    // Função para validar um campo específico
+    function validateField(field) {
+      const fieldId = field.id;
+      const errorElement = document.getElementById(`${fieldId}-error`);
+      
+      // Remover mensagens e estilos de erro existentes
+      field.classList.remove('input-error');
+      if(errorElement) errorElement.style.display = 'none';
+      
+      // Diferentes validações dependendo do tipo de campo
+      let valid = true;
+      let errorMsg = 'Este campo é obrigatório';
+      
+      if(!field.value.trim()) {
+        valid = false;
+      } else if(fieldId === 'ano') {
+        const year = parseInt(field.value);
+        const currentYear = new Date().getFullYear();
+        if(isNaN(year) || year < 1 || year > currentYear) {
+          valid = false;
+          errorMsg = `O ano deve ser um número entre 1 e ${currentYear}`;
+        }
+      } else if(fieldId === 'paginas') {
+        const pages = parseInt(field.value);
+        if(isNaN(pages) || pages < 1) {
+          valid = false;
+          errorMsg = 'O número de páginas deve ser maior que zero';
+        }
+      }
+      
+      // Se inválido, mostrar erro
+      if(!valid) {
+        field.classList.add('input-error');
+        if(errorElement) {
+          errorElement.textContent = errorMsg;
+          errorElement.style.display = 'block';
+        }
+      }
+      
+      return valid;
+    }
+    
+    // Função para validar todos os campos em uma aba específica
+    function validateTab(tabIndex) {
+      const fieldsToValidate = requiredFieldsByTab[tabIndex];
+      let isValid = true;
+      
+      fieldsToValidate.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        const fieldValid = validateField(field);
+        if(!fieldValid) isValid = false;
+      });
+      
+      return isValid;
+    }
+    
+    // Função para validar campos e passar para a próxima aba
+    function validateAndNextTab(tabIndex) {
+      if(validateTab(tabIndex)) {
+        nextTab();
+      } else {
+        showError('Por favor, preencha todos os campos obrigatórios corretamente.');
+      }
+    }
+    
+    // Função para ir para a próxima aba
+    function nextTab() {
+      if (currentTab < tabs.length - 1) {
+        changeTab(
+          tabContents[currentTab + 1].id,
+          currentTab + 1
+        );
+      }
+    }
+    
+    // Função para voltar para a aba anterior
+    function prevTab() {
+      if (currentTab > 0) {
+        changeTab(
+          tabContents[currentTab - 1].id,
+          currentTab - 1
+        );
+      }
+    }
+    
+    // Função para mostrar mensagem de erro
+    function showError(message) {
+      document.getElementById("error-message-text").textContent = message;
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("error-message").style.display = "block";
+    }
+    
+    // Função para fechar mensagem de erro
+    function closeErrorMessage() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("error-message").style.display = "none";
+    }
+    
+    // Função para obter os valores de todos os campos
+    function getFormData() {
+      return {
+        id: editingBookId || Date.now().toString(), // Usar ID existente ou gerar novo
+        titulo: document.getElementById('titulo').value,
+        autor: document.getElementById('autor').value,
+        ano: document.getElementById('ano').value,
+        editora: document.getElementById('editora').value,
+        paginas: document.getElementById('paginas').value,
+        genero: document.getElementById('genero').value,
+        sinopse: document.getElementById('sinopse').value,
+        avaliacoes: document.getElementById('avaliacoes').value,
+        premios: document.getElementById('premios').value,
+        serie: document.getElementById('serie').value,
+        ilustrador: document.getElementById('ilustrador').value,
+        origem: document.getElementById('origem').value,
+        urlCapa: document.getElementById('urlCapa').value
+      };
+    }
+    
+    // Função para salvar um livro
+    function saveBook() {
+      // Validar todas as abas antes de salvar
+      let isValid = true;
+      
+      for (let i = 0; i < requiredFieldsByTab.length; i++) {
+        if (!validateTab(i)) {
+          changeTab(tabContents[i].id, i); // Mudar para a aba com erro
+          isValid = false;
+          showError('Por favor, preencha todos os campos obrigatórios corretamente.');
+          break;
+        }
+      }
+      
+      if (isValid) {
+        try {
+          const formData = getFormData();
+          const books = getBooksFromStorage();
+          
+          // Se estiver editando, encontrar e atualizar o livro
+          if (editingBookId) {
+            const index = books.findIndex(book => book.id === editingBookId);
+            if (index !== -1) {
+              books[index] = formData;
+            }
+          } else {
+            // Caso contrário, adicionar novo livro
+            books.push(formData);
+          }
+          
+          // Salvar no localStorage
+          localStorage.setItem('livros', JSON.stringify(books));
+          
+          // Atualizar tabela
+          renderBooksTable();
+          
+          // Mostrar mensagem de sucesso
+          document.getElementById("overlay").style.display = "block";
+          document.getElementById("success-message").style.display = "block";
+          
+          // Resetar o ID de edição
+          editingBookId = null;
+        } catch (error) {
+          showError('Ocorreu um erro ao salvar o livro: ' + error.message);
+        }
+      }
+    }
+    
+    // Função para fechar a mensagem de sucesso
+    function closeSuccessMessage() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("success-message").style.display = "none";
+      
+      // Resetar formulário
+      resetForm();
+      changeTab("info-basicas", 0);
+    }
+    
+    // Função para resetar o formulário
+    function resetForm() {
+      const fields = [
+        'titulo', 'autor', 'ano', 'editora', 'paginas', 'genero', 
+        'sinopse', 'avaliacoes', 'premios', 'serie', 'ilustrador', 'origem'
+      ];
+      
+      fields.forEach(field => {
+        const element = document.getElementById(field);
+        if (element) {
+          element.value = '';
+          element.classList.remove('input-error');
+        }
+        
+        const errorElement = document.getElementById(`${field}-error`);
+        if (errorElement) {
+          errorElement.style.display = 'none';
+        }
+      });
+      
+      editingBookId = null;
+    }
+    
+    // Função para obter livros do localStorage
+    function getBooksFromStorage() {
+      const storedBooks = localStorage.getItem('livros');
+      return storedBooks ? JSON.parse(storedBooks) : [];
+    }
+    
+    // Função para carregar livros do localStorage
+    function loadBooksFromStorage() {
+      renderBooksTable();
+    }
+    
+    // Função para renderizar a tabela de livros
+    function renderBooksTable() {
+      const books = getBooksFromStorage();
+      const tbody = document.getElementById('livros-tbody');
+      
+      // Limpar tabela
+      tbody.innerHTML = '';
+      
+      // Se não houver livros, mostrar mensagem
+      if (books.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="6" style="text-align: center;">Nenhum livro cadastrado</td>`;
+        tbody.appendChild(row);
+        return;
+      }
+      
+      // Adicionar cada livro à tabela
+      books.forEach(book => {
+        const row = document.createElement('tr');
+        
+        // Definir o gênero legível
+        const generos = {
+          'ficcao': 'Ficção',
+          'romance': 'Romance',
+          'fantasia': 'Fantasia',
+          'misterio': 'Mistério',
+          'suspense': 'Suspense',
+          'terror': 'Terror',
+          'biografia': 'Biografia',
+          'historia': 'História',
+          'cientifico': 'Científico',
+          'infantil': 'Infantil',
+          'autoajuda': 'Autoajuda',
+          'outro': 'Outro'
+        };
+        
+        const generoText = generos[book.genero] || book.genero;
+        
+        row.innerHTML = `
+          <td>${book.titulo}</td>
+          <td>${book.autor}</td>
+          <td>${book.ano}</td>
+          <td>${book.editora}</td>
+          <td>${generoText}</td>
+          <td>
+            <button class="action-btn edit-btn" onclick="editBook('${book.id}')">✏️</button>
+            <button class="action-btn delete-btn" onclick="deleteBook('${book.id}')">🗑️</button>
+          </td>
+        `;
+        
+        tbody.appendChild(row);
+      });
+    }
+    
+    // Função para editar um livro
+    function editBook(id) {
+      const books = getBooksFromStorage();
+      const book = books.find(b => b.id === id);
+      
+      if (book) {
+        // Preencher formulário com dados do livro
+        const fields = Object.keys(book);
+        
+        fields.forEach(field => {
+          const element = document.getElementById(field);
+          if (element && field !== 'id') {
+            element.value = book[field];
+          }
+        });
+        
+        // Definir o ID do livro sendo editado
+        editingBookId = id;
+        
+        // Ir para a primeira aba
+        changeTab("info-basicas", 0);
+        
+        // Rolar para o topo do formulário
+        document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    
+    // Função para excluir um livro
+    function deleteBook(id) {
+      if (confirm('Tem certeza que deseja excluir este livro?')) {
+        try {
+          const books = getBooksFromStorage();
+          const updatedBooks = books.filter(book => book.id !== id);
+          
+          // Salvar no localStorage
+          localStorage.setItem('livros', JSON.stringify(updatedBooks));
+          
+          // Atualizar tabela
+          renderBooksTable();
+          
+          // Se o livro que estava sendo editado foi excluído, resetar o formulário
+          if (editingBookId === id) {
+            resetForm();
+          }
+        } catch (error) {
+          showError('Ocorreu um erro ao excluir o livro: ' + error.message);
+        }
+      }
+    }
+    
+    // Inicializar a barra de progresso
+    updateProgressBar();
+  </script>
+</body>
+</html>
