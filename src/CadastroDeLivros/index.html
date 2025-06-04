@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Livros</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/script.js"></script>
+  </head>
+  <body>
+    <a href="../GerenciarLivros/index.html" class="nav-btn">
+      📚 Gerenciar Livros
+    </a>
+    <div class="book-shelf">
+      <div class="floating-books">
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+      </div>
+    </div>
+
+    <header>
+      <h1 class="title">📚 Cadastro de Livros</h1>
+      <p class="subtitle">Registre seus livros favoritos na nossa biblioteca</p>
+    </header>
+
+    <main class="container">
+      <div class="progress-container">
+        <div class="progress-bar" id="progress"></div>
+      </div>
+
+      <div class="form-icon">
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#fff"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path
+            d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+          ></path>
+        </svg>
+      </div>
+
+      <div class="tabs-container">
+        <div
+          class="tab active"
+          id="tab1"
+          onclick="changeTab('info-basicas', 0)"
+        >
+          <span>1</span> Informações Básicas
+        </div>
+        <div class="tab" id="tab2" onclick="changeTab('info-detalhadas', 1)">
+          <span>2</span> Informações Detalhadas
+        </div>
+        <div class="tab" id="tab3" onclick="changeTab('links-acesso', 2)">
+          <span>3</span> Links de Acesso
+        </div>
+        <div class="tab" id="tab4" onclick="changeTab('info-adicionais', 3)">
+          <span>4</span> Informações Adicionais
+        </div>
+      </div>
+
+      <!-- Aba 1: Informações Básicas -->
+      <div id="info-basicas" class="tab-content active">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="required">Título</label>
+            <div class="input-group">
+              <div class="field-icon">📖</div>
+              <input
+                type="text"
+                id="titulo"
+                placeholder="Digite o título do livro"
+              />
+            </div>
+            <div class="error-feedback" id="titulo-error">
+              Este campo é obrigatório
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required">Autor(a)</label>
+            <div class="input-group">
+              <div class="field-icon">✍</div>
+              <input
+                type="text"
+                id="autor"
+                placeholder="Digite o nome do autor ou autora"
+              />
+            </div>
+            <div class="error-feedback" id="autor-error">
+              Este campo é obrigatório
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="required">Ano de publicação</label>
+            <div class="input-group">
+              <div class="field-icon">📅</div>
+              <input
+                type="number"
+                id="ano"
+                placeholder="Ex: 2023"
+                min="1"
+                max="2025"
+              />
+            </div>
+            <div class="error-feedback" id="ano-error">
+              Este campo é obrigatório
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required">Editora</label>
+            <div class="input-group">
+              <div class="field-icon">🏢</div>
+              <input
+                type="text"
+                id="editora"
+                placeholder="Digite o nome da editora"
+              />
+            </div>
+            <div class="error-feedback" id="editora-error">
+              Este campo é obrigatório
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <div></div>
+          <button class="btn btn-primary" onclick="validateAndNextTab(0)">
+            Próximo
+            <i>➡</i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aba 2: Informações Detalhadas -->
+      <div id="info-detalhadas" class="tab-content">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="required">Número de páginas</label>
+            <div class="input-group">
+              <div class="field-icon">🔢</div>
+              <input type="number" id="paginas" placeholder="Ex: 320" min="1" />
+            </div>
+            <div class="error-feedback" id="paginas-error">
+              Este campo é obrigatório
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required">Gênero</label>
+            <div class="input-group">
+              <div class="field-icon">🎭</div>
+              <select id="genero">
+                <option value="">Selecione um gênero</option>
+                <option value="ficcao">Ficção</option>
+                <option value="romance">Romance</option>
+                <option value="fantasia">Fantasia</option>
+                <option value="misterio">Mistério</option>
+                <option value="suspense">Suspense</option>
+                <option value="terror">Terror</option>
+                <option value="biografia">Biografia</option>
+                <option value="historia">História</option>
+                <option value="cientifico">Científico</option>
+                <option value="infantil">Infantil</option>
+                <option value="autoajuda">Autoajuda</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div class="error-feedback" id="genero-error">
+              Este campo é obrigatório
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="required">Sinopse/resumo</label>
+          <div class="input-group">
+            <div class="field-icon">📜</div>
+            <textarea
+              id="sinopse"
+              placeholder="Breve descrição da história..."
+            ></textarea>
+          </div>
+          <div class="error-feedback" id="sinopse-error">
+            Este campo é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="required">Avaliações e críticas</label>
+          <div class="input-group">
+            <div class="field-icon">⭐</div>
+            <textarea
+              id="avaliacoes"
+              placeholder="Adicione avaliações e críticas ao livro..."
+            ></textarea>
+          </div>
+          <div class="error-feedback" id="avaliacoes-error">
+            Este campo é obrigatório
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary btn-back" onclick="prevTab()">
+            <i>⬅</i>
+            Voltar
+          </button>
+          <button class="btn btn-primary" onclick="validateAndNextTab(1)">
+            Próximo
+            <i>➡</i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aba 3: Links de Acesso -->
+      <div id="links-acesso" class="tab-content">
+        <div class="form-group">
+          <label class="required">Link de compra</label>
+          <div class="input-group">
+            <div class="field-icon">🛒</div>
+            <input
+              type="url"
+              id="linkCompra"
+              placeholder="Cole aqui o link para comprar o livro (ex: Amazon, Saraiva, etc.)"
+            />
+          </div>
+          <div class="error-feedback" id="linkCompra-error">
+            Este campo é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="required">Link de download</label>
+          <div class="input-group">
+            <div class="field-icon">💾</div>
+            <input
+              type="url"
+              id="linkDownload"
+              placeholder="Cole aqui o link para download do livro (se disponível)"
+            />
+          </div>
+          <div class="error-feedback" id="linkDownload-error">
+            Este campo é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            >URL da imagem da capa
+            <span class="optional-badge">Opcional</span></label
+          >
+          <div class="input-group">
+            <div class="field-icon">🖼️</div>
+            <input
+              type="url"
+              id="urlCapa"
+              placeholder="Cole aqui o link da imagem da capa do livro"
+            />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary btn-back" onclick="prevTab()">
+            <i>⬅</i>
+            Voltar
+          </button>
+          <button class="btn btn-primary" onclick="validateAndNextTab(2)">
+            Próximo
+            <i>➡</i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aba 4: Informações Adicionais -->
+      <div id="info-adicionais" class="tab-content">
+        <div class="form-row">
+          <div class="form-group">
+            <label
+              >Prêmios e reconhecimentos
+              <span class="optional-badge">Opcional</span></label
+            >
+            <div class="input-group">
+              <div class="field-icon">🏆</div>
+              <textarea
+                id="premios"
+                placeholder="Liste prêmios e reconhecimentos recebidos pelo livro..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label
+              >Parte de série ou saga
+              <span class="optional-badge">Opcional</span></label
+            >
+            <div class="input-group">
+              <div class="field-icon">📚</div>
+              <input
+                type="text"
+                id="serie"
+                placeholder="Digite o nome da série (se aplicável)"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              >Ilustrador(a) <span class="optional-badge">Opcional</span></label
+            >
+            <div class="input-group">
+              <div class="field-icon">🎨</div>
+              <input
+                type="text"
+                id="ilustrador"
+                placeholder="Digite o nome do ilustrador (se aplicável)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            >País de origem e idioma original
+            <span class="optional-badge">Opcional</span></label
+          >
+          <div class="input-group">
+            <div class="field-icon">🌍</div>
+            <input
+              type="text"
+              id="origem"
+              placeholder="Ex: Brasil - Português"
+            />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary btn-back" onclick="prevTab()">
+            <i>⬅</i>
+            Voltar
+          </button>
+          <button class="btn btn-primary" onclick="saveBook()">
+            Salvar Cadastro
+            <i>✅</i>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Seção para exibir livros cadastrados -->
+    <main class="container" id="livros-cadastrados-container">
+      <h2 class="section-title">Livros Cadastrados</h2>
+      <table class="livros-table" id="livros-table">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ano</th>
+            <th>Editora</th>
+            <th>Gênero</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="livros-tbody">
+          <!-- Aqui serão inseridos os livros dinamicamente -->
+        </tbody>
+      </table>
+    </main>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="success-message" id="success-message">
+      <div class="success-icon">✓</div>
+      <h2>Cadastro Realizado!</h2>
+      <p>Seu livro foi cadastrado com sucesso em nossa biblioteca.</p>
+      <button
+        class="btn btn-primary"
+        onclick="closeSuccessMessage()"
+        style="margin-top: 20px"
+      >
+        Entendi
+      </button>
+    </div>
+
+    <div class="error-message" id="error-message">
+      <div class="error-icon">⚠</div>
+      <h2>Erro no Cadastro</h2>
+      <p id="error-message-text">Não foi possível completar o cadastro.</p>
+      <button
+        class="btn btn-primary"
+        onclick="closeErrorMessage()"
+        style="margin-top: 20px"
+      >
+        Entendi
+      </button>
+    </div>
+  </body>
+</html>
