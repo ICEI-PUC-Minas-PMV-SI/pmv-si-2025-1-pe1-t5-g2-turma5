@@ -21,6 +21,9 @@
                 <button id="darkModeToggle" class="dark-mode-toggle" title="Alternar modo escuro">
                     <i class="fas fa-moon"></i>
                 </button>
+                <button class="btn-logout-header" onclick="logoutUser()" title="Sair">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
             </nav>
         </div>
     </header>
@@ -36,8 +39,8 @@
                             <i class="fas fa-camera"></i>
                         </button>
                     </div>
-                    <h2 class="profile-name">IGOR DA SILVA</h2>
-                    <p class="profile-username">@IGORDASILVA</p>
+                    <h2 class="profile-name">Usuário</h2>
+                    <p class="profile-username">@usuario</p>
                 </div>
 
                 <div class="genre-tags">
@@ -74,6 +77,17 @@
                     <button class="btn-primary">
                         <i class="fas fa-plus"></i> Adicionar Livro
                     </button>
+                    
+                    <!-- Data Management -->
+                    <div class="data-management">
+                        <button class="btn-data" onclick="exportProfileData()">
+                            <i class="fas fa-download"></i> Exportar Dados
+                        </button>
+                        <button class="btn-data" onclick="importProfileData()">
+                            <i class="fas fa-upload"></i> Importar Dados
+                        </button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="handleImportFile(event)">
+                    </div>
                 </div>
             </div>
         </aside>
@@ -88,23 +102,23 @@
                 <div class="about-info">
                     <div class="info-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span><strong>Localização:</strong> BELO HORIZONTE, MG</span>
+                        <span class="location-info"><strong>Localização:</strong> <span class="info-value">Não informado</span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-birthday-cake"></i>
-                        <span><strong>Idade:</strong> 29 anos</span>
+                        <span class="age-info"><strong>Idade:</strong> <span class="info-value">Não informado</span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-briefcase"></i>
-                        <span><strong>Profissão:</strong> ANALISTA</span>
+                        <span class="profession-info"><strong>Profissão:</strong> <span class="info-value">Não informado</span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-target"></i>
-                        <span><strong>Meta de Leitura:</strong> 25 livros por ano</span>
+                        <span class="goal-info"><strong>Meta de Leitura:</strong> <span class="info-value">Não informado</span></span>
                     </div>
                 </div>
                 <div class="bio">
-                    <p><em>JOVEM E CASEIRO</em></p>
+                    <p class="bio-text"><em>Clique em "Editar Perfil" para adicionar uma descrição</em></p>
                 </div>
             </section>
 
@@ -1222,7 +1236,7 @@
                     icon.classList.add('far');
                 }
                 
-                // Update book in localStorage
+                // Update book in user-specific localStorage
                 let books = loadFromLocalStorage('userBooks') || [];
                 const bookIndex = books.findIndex(book => book.id == bookId);
                 if (bookIndex !== -1) {
@@ -1693,51 +1707,740 @@
 
         // Initialize app
         function initializeApp() {
+            // Check if user is logged in
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                // Redirect to login if no active profile
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update profile display with current profile data
+            updateProfileDisplayFromProfile(currentProfile);
+            
             // Load user preferences and update genre tags
-            const savedGenres = loadFromLocalStorage('selectedGenres') || [];
+            const savedGenres = currentProfile.selectedGenres || [];
             updateGenreTags(savedGenres);
             
-            // Load saved profile data
-            const savedProfile = loadFromLocalStorage('userProfile');
-            if (savedProfile) {
-                updateProfileDisplay(savedProfile);
-                
-                // Update form fields with saved data
-                const editForm = document.getElementById('editProfileForm');
-                if (editForm) {
-                    editForm.fullName.value = savedProfile.fullName || '';
-                    editForm.username.value = savedProfile.username || '';
-                    editForm.age.value = savedProfile.age || '';
-                    editForm.location.value = savedProfile.location || '';
-                    editForm.profession.value = savedProfile.profession || '';
-                    editForm.bio.value = savedProfile.bio || '';
-                    editForm.readingGoal.value = savedProfile.readingGoal || '';
-                }
+            // Update form fields with current profile data
+            const editForm = document.getElementById('editProfileForm');
+            if (editForm) {
+                editForm.fullName.value = currentProfile.name || '';
+                editForm.username.value = currentProfile.username || '';
+                editForm.age.value = currentProfile.age || '';
+                editForm.location.value = currentProfile.location || '';
+                editForm.profession.value = currentProfile.profession || '';
+                editForm.bio.value = currentProfile.bio || '';
+                editForm.readingGoal.value = currentProfile.readingGoal || '';
             }
             
             // Initialize default tab (biblioteca)
             switchTab('biblioteca');
             
-            // Load saved books
-            loadSavedBooks();
+            // Load books from current profile
+            loadBooksFromProfile(currentProfile);
             
-            // Load favorite books
-            const favoriteBooks = loadFromLocalStorage('favoriteBooks');
-            if (favoriteBooks) {
-                const favoriteButtons = document.querySelectorAll('.action-btn.favorite');
-                favoriteButtons.forEach((button, index) => {
-                    if (favoriteBooks.includes(index)) {
-                        button.classList.add('active');
-                        const icon = button.querySelector('i');
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                    }
+            // Update reading stats
+            updateReadingStatsFromProfile(currentProfile);
+        }
+
+        function updateProfileDisplayFromProfile(profile) {
+            // Update profile name
+            const profileNameEl = document.querySelector('.profile-name');
+            if (profileNameEl) {
+                profileNameEl.textContent = profile.name;
+            }
+
+            // Update profile username
+            const profileUsernameEl = document.querySelector('.profile-username');
+            if (profileUsernameEl) {
+                profileUsernameEl.textContent = `@${profile.username}`;
+            }
+
+            // Update profile avatar
+            const profileAvatarEl = document.querySelector('.profile-avatar img');
+            if (profileAvatarEl && profile.profileImage) {
+                profileAvatarEl.src = profile.profileImage;
+            }
+
+            // Update "Sobre Mim" section
+            updateAboutSection(profile);
+        }
+
+        function updateAboutSection(profile) {
+            // Update location
+            const locationInfo = document.querySelector('.location-info .info-value');
+            if (locationInfo) {
+                locationInfo.textContent = profile.location || 'Não informado';
+            }
+
+            // Update age
+            const ageInfo = document.querySelector('.age-info .info-value');
+            if (ageInfo) {
+                ageInfo.textContent = profile.age ? `${profile.age} anos` : 'Não informado';
+            }
+
+            // Update profession
+            const professionInfo = document.querySelector('.profession-info .info-value');
+            if (professionInfo) {
+                professionInfo.textContent = profile.profession || 'Não informado';
+            }
+
+            // Update reading goal
+            const goalInfo = document.querySelector('.goal-info .info-value');
+            if (goalInfo) {
+                goalInfo.textContent = profile.readingGoal ? `${profile.readingGoal} livros por ano` : 'Não informado';
+            }
+
+            // Update bio
+            const bioText = document.querySelector('.bio-text');
+            if (bioText) {
+                if (profile.bio && profile.bio.trim() !== '') {
+                    bioText.innerHTML = `<em>${profile.bio}</em>`;
+                } else {
+                    bioText.innerHTML = '<em>Clique em "Editar Perfil" para adicionar uma descrição</em>';
+                }
+            }
+        }
+
+        function loadBooksFromProfile(profile) {
+            // Load user-specific books from localStorage first
+            let userBooks = loadFromLocalStorage('userBooks');
+            
+            // If no books in localStorage but profile has library, use profile data
+            if (!userBooks && profile.library && profile.library.length > 0) {
+                userBooks = profile.library;
+                saveToLocalStorage('userBooks', userBooks);
+            }
+            
+            // Render books if available
+            if (userBooks && userBooks.length > 0) {
+                userBooks.forEach(bookData => {
+                    addBookToSection(bookData);
                 });
             }
         }
 
+        function updateReadingStatsFromProfile(profile) {
+            const stats = profile.stats || {
+                totalBooks: 0,
+                readBooks: 0,
+                favoriteBooks: 0,
+                currentlyReading: 0
+            };
+
+            // Update stat numbers in the UI
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if (statNumbers.length >= 3) {
+                statNumbers[0].textContent = stats.totalBooks || 0;
+                statNumbers[1].textContent = stats.readBooks || 0;
+                statNumbers[2].textContent = stats.currentlyReading || 0;
+            }
+        }
+
+        // Profile data management functions
+        function exportProfileData() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                showNotification('Nenhum perfil carregado para exportar!', 'error');
+                return;
+            }
+            
+            const exportData = {
+                profile: currentProfile,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+                type: 'application/json'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentProfile.name.replace(/\s+/g, '_')}_perfil_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Dados do perfil exportados com sucesso!', 'success');
+        }
+
+        function importProfileData() {
+            const fileInput = document.getElementById('importFile');
+            if (fileInput) {
+                fileInput.click();
+            }
+        }
+
+        function handleImportFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (file.type !== 'application/json') {
+                showNotification('Por favor, selecione um arquivo JSON válido!', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importData = JSON.parse(e.target.result);
+                    
+                    if (!importData.profile || !importData.profile.id) {
+                        showNotification('Arquivo JSON inválido! Estrutura de perfil não encontrada.', 'error');
+                        return;
+                    }
+                    
+                    if (confirm(`Importar dados do perfil "${importData.profile.name}"?\n\nIsto sobrescreverá seus dados atuais!`)) {
+                        const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+                        const currentProfileId = localStorage.getItem('tolendo_active_profile');
+                        const profileIndex = profiles.findIndex(p => p.id === currentProfileId);
+                        
+                        if (profileIndex !== -1) {
+                            const preservedData = {
+                                id: profiles[profileIndex].id,
+                                email: profiles[profileIndex].email,
+                                username: profiles[profileIndex].username,
+                                password: profiles[profileIndex].password
+                            };
+                            
+                            const updatedProfile = {
+                                ...importData.profile,
+                                ...preservedData,
+                                lastAccess: new Date().toISOString()
+                            };
+                            
+                            profiles[profileIndex] = updatedProfile;
+                            localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+                            
+                            showNotification('Dados importados com sucesso!', 'success');
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            showNotification('Erro ao importar: perfil atual não encontrado!', 'error');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error importing profile data:', error);
+                    showNotification('Erro ao ler arquivo JSON. Verifique se o arquivo está correto.', 'error');
+                }
+                
+                event.target.value = '';
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function logoutUser() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('tolendo_active_profile');
+                window.location.href = 'login.html';
+            }
+        }
+
+        function getCurrentProfile() {
+            const activeProfileId = localStorage.getItem('tolendo_active_profile');
+            if (!activeProfileId) return null;
+            
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            return profiles.find(p => p.id === activeProfileId);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? '#e74c3c' : type === 'success' ? '#27ae60' : '#3498db'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                font-size: 0.9rem;
+                font-weight: 500;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // User-specific data management functions
+        function saveToLocalStorage(key, data) {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            try {
+                // Save data specific to current user
+                const userKey = `${currentProfile.id}_${key}`;
+                localStorage.setItem(userKey, JSON.stringify(data));
+                
+                // Update the profile's data if it's book-related
+                if (key === 'userBooks') {
+                    updateProfileLibrary(data);
+                }
+            } catch (error) {
+                console.warn('Could not save to localStorage:', error);
+            }
+        }
+
+        function loadFromLocalStorage(key) {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return null;
+            
+            try {
+                // Load data specific to current user
+                const userKey = `${currentProfile.id}_${key}`;
+                const data = localStorage.getItem(userKey);
+                return data ? JSON.parse(data) : null;
+            } catch (error) {
+                console.warn('Could not load from localStorage:', error);
+                return null;
+            }
+        }
+
+        function updateProfileLibrary(books) {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            // Update the profile's library in the profiles array
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const profileIndex = profiles.findIndex(p => p.id === currentProfile.id);
+            
+            if (profileIndex !== -1) {
+                profiles[profileIndex].library = books;
+                profiles[profileIndex].stats = calculateUserStats(books);
+                profiles[profileIndex].lastAccess = new Date().toISOString();
+                
+                localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+            }
+        }
+
+        function calculateUserStats(books) {
+            const stats = {
+                totalBooks: books.length,
+                readBooks: books.filter(book => book.status === 'Finalizado').length,
+                currentlyReading: books.filter(book => book.status === 'Lendo').length,
+                favoriteBooks: books.filter(book => book.favorite).length
+            };
+            return stats;
+        }
+
+        // Auto-save and sync system
+        let autoSaveInterval;
+        let syncInterval;
+        
+        // Configuration for external sync
+        const SYNC_CONFIG = {
+            enabled: false, // Set to true to enable external sync
+            endpoint: '', // Add your server endpoint here
+            apiKey: '', // Add your API key here
+            interval: 60000 // Sync every 60 seconds
+        };
+        
+        function startAutoSave() {
+            // Auto-save every 30 seconds
+            autoSaveInterval = setInterval(() => {
+                autoSaveUserData();
+            }, 30000);
+            
+            // Start external sync if enabled
+            if (SYNC_CONFIG.enabled && SYNC_CONFIG.endpoint) {
+                startExternalSync();
+            }
+            
+            // Save on page unload
+            window.addEventListener('beforeunload', autoSaveUserData);
+        }
+        
+        function startExternalSync() {
+            syncInterval = setInterval(() => {
+                syncToExternalServer();
+            }, SYNC_CONFIG.interval);
+        }
+
+        function stopAutoSave() {
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+            }
+            if (syncInterval) {
+                clearInterval(syncInterval);
+            }
+        }
+
+        async function syncToExternalServer() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !SYNC_CONFIG.enabled) return;
+
+            try {
+                showSyncIndicator('syncing');
+                
+                const userBooks = loadFromLocalStorage('userBooks') || [];
+                const syncData = {
+                    userId: currentProfile.id,
+                    profile: {
+                        ...currentProfile,
+                        library: userBooks,
+                        stats: calculateUserStats(userBooks),
+                        lastSync: new Date().toISOString()
+                    },
+                    timestamp: new Date().toISOString(),
+                    version: '1.0'
+                };
+
+                const response = await fetch(SYNC_CONFIG.endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SYNC_CONFIG.apiKey}`,
+                        'X-App-Version': '1.0'
+                    },
+                    body: JSON.stringify(syncData)
+                });
+
+                if (response.ok) {
+                    showSyncIndicator('success');
+                    console.log('Sincronização externa bem-sucedida');
+                    
+                    // Save sync timestamp
+                    localStorage.setItem(`lastSync_${currentProfile.id}`, new Date().toISOString());
+                } else {
+                    throw new Error(`Sync failed: ${response.status}`);
+                }
+                
+            } catch (error) {
+                console.error('Erro na sincronização externa:', error);
+                showSyncIndicator('error');
+            }
+        }
+
+        async function downloadFromExternalServer() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !SYNC_CONFIG.enabled) {
+                showNotification('Sincronização externa não configurada!', 'error');
+                return;
+            }
+
+            try {
+                showSyncIndicator('downloading');
+                
+                const response = await fetch(`${SYNC_CONFIG.endpoint}/${currentProfile.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${SYNC_CONFIG.apiKey}`,
+                        'X-App-Version': '1.0'
+                    }
+                });
+
+                if (response.ok) {
+                    const serverData = await response.json();
+                    
+                    if (confirm(`Baixar dados do servidor?\nÚltima sincronização: ${new Date(serverData.timestamp).toLocaleString()}\n\nIsto sobrescreverá seus dados locais!`)) {
+                        // Restore from server
+                        const restoredBooks = serverData.profile.library || [];
+                        saveToLocalStorage('userBooks', restoredBooks);
+                        updateProfileLibrary(restoredBooks);
+                        
+                        showSyncIndicator('success');
+                        showNotification('Dados baixados do servidor!', 'success');
+                        
+                        setTimeout(() => location.reload(), 1500);
+                    }
+                } else {
+                    throw new Error(`Download failed: ${response.status}`);
+                }
+                
+            } catch (error) {
+                console.error('Erro ao baixar do servidor:', error);
+                showSyncIndicator('error');
+                showNotification('Erro ao baixar dados do servidor!', 'error');
+            }
+        }
+
+        function showSyncIndicator(status) {
+            let indicator = document.getElementById('syncIndicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'syncIndicator';
+                indicator.className = 'sync-indicator';
+                document.body.appendChild(indicator);
+            }
+
+            const icons = {
+                syncing: '<i class="fas fa-cloud-upload-alt fa-spin"></i>',
+                downloading: '<i class="fas fa-cloud-download-alt fa-spin"></i>',
+                success: '<i class="fas fa-check-circle"></i>',
+                error: '<i class="fas fa-exclamation-triangle"></i>'
+            };
+
+            const messages = {
+                syncing: 'Enviando para servidor...',
+                downloading: 'Baixando do servidor...',
+                success: 'Sincronizado!',
+                error: 'Erro na sincronização'
+            };
+
+            indicator.innerHTML = `${icons[status]} <span>${messages[status]}</span>`;
+            indicator.className = `sync-indicator ${status} show`;
+
+            // Hide after delay
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, status === 'success' || status === 'error' ? 3000 : 0);
+        }
+
+        function configureSyncServer() {
+            const endpoint = prompt('Digite o URL do servidor (ex: https://api.exemplo.com/sync):');
+            if (!endpoint) return;
+
+            const apiKey = prompt('Digite sua chave de API:');
+            if (!apiKey) return;
+
+            // Update configuration
+            SYNC_CONFIG.endpoint = endpoint;
+            SYNC_CONFIG.apiKey = apiKey;
+            SYNC_CONFIG.enabled = true;
+
+            // Save to localStorage
+            localStorage.setItem('syncConfig', JSON.stringify(SYNC_CONFIG));
+
+            showNotification('Servidor configurado! Sincronização ativada.', 'success');
+            
+            // Start sync
+            startExternalSync();
+        }
+
+        function loadSyncConfig() {
+            const savedConfig = localStorage.getItem('syncConfig');
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                Object.assign(SYNC_CONFIG, config);
+            }
+        }
+
+        function showAutoSaveIndicator() {
+            const indicator = document.getElementById('autoSaveIndicator');
+            if (indicator) {
+                indicator.classList.add('show');
+                
+                // Hide after 2 seconds
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                }, 2000);
+            }
+        }
+
+        function autoSaveUserData() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+
+            try {
+                // Show visual indicator
+                showAutoSaveIndicator();
+                
+                // Get current user books
+                const userBooks = loadFromLocalStorage('userBooks') || [];
+                
+                // Create backup data
+                const backupData = {
+                    profile: {
+                        ...currentProfile,
+                        library: userBooks,
+                        stats: calculateUserStats(userBooks),
+                        lastAutoSave: new Date().toISOString()
+                    },
+                    timestamp: new Date().toISOString(),
+                    version: '1.0'
+                };
+
+                // Save to localStorage as backup
+                localStorage.setItem(`autosave_${currentProfile.id}`, JSON.stringify(backupData));
+                
+                // Update profile in main storage
+                updateProfileLibrary(userBooks);
+                
+                console.log('Auto-save completo para:', currentProfile.name);
+                
+            } catch (error) {
+                console.error('Erro no auto-save:', error);
+            }
+        }
+
+        function downloadAutoSave() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                showNotification('Nenhum perfil ativo para fazer backup!', 'error');
+                return;
+            }
+
+            const backupData = localStorage.getItem(`autosave_${currentProfile.id}`);
+            if (!backupData) {
+                showNotification('Nenhum backup automático encontrado!', 'error');
+                return;
+            }
+
+            const blob = new Blob([backupData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentProfile.name.replace(/\s+/g, '_')}_backup_automatico_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Backup automático baixado com sucesso!', 'success');
+        }
+
+        function restoreFromAutoSave() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                showNotification('Nenhum perfil ativo!', 'error');
+                return;
+            }
+
+            const backupData = localStorage.getItem(`autosave_${currentProfile.id}`);
+            if (!backupData) {
+                showNotification('Nenhum backup automático encontrado!', 'error');
+                return;
+            }
+
+            try {
+                const parsedBackup = JSON.parse(backupData);
+                
+                if (confirm(`Restaurar backup automático de ${new Date(parsedBackup.timestamp).toLocaleString()}?\n\nIsto sobrescreverá seus dados atuais!`)) {
+                    // Restore books
+                    const restoredBooks = parsedBackup.profile.library || [];
+                    saveToLocalStorage('userBooks', restoredBooks);
+                    
+                    // Update profile
+                    updateProfileLibrary(restoredBooks);
+                    
+                    showNotification('Dados restaurados do backup automático!', 'success');
+                    
+                    // Reload page to refresh UI
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                }
+            } catch (error) {
+                console.error('Erro ao restaurar backup:', error);
+                showNotification('Erro ao restaurar backup automático!', 'error');
+            }
+        }
+
+        function showDataLocation() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                showNotification('Nenhum perfil ativo!', 'error');
+                return;
+            }
+
+            const userBooks = loadFromLocalStorage('userBooks') || [];
+            const totalProfiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]').length;
+            
+            const message = `📍 ONDE ESTÃO SEUS DADOS:
+
+🔹 Local: Navegador (localStorage)
+🔹 Perfis cadastrados: ${totalProfiles}
+🔹 Livros na biblioteca: ${userBooks.length}
+🔹 Auto-save: A cada 30 segundos
+
+📤 COMO COMPARTILHAR:
+1. "Exportar Perfil" - Baixa só seu perfil atual
+2. "Backup Automático" - Baixa backup completo
+3. Envie o arquivo .json para seu amigo
+4. Amigo usa "Importar Dados" para restaurar
+
+⚠️ IMPORTANTE:
+• Dados ficam só no seu navegador
+• Limpar histórico apaga os dados
+• Faça backup regularmente
+• Cada navegador tem dados separados`;
+
+            alert(message);
+        }
+
+        function exportAllUserData() {
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            
+            if (profiles.length === 0) {
+                showNotification('Nenhum perfil encontrado para exportar!', 'error');
+                return;
+            }
+
+            // Create complete backup with all profiles and auto-saves
+            const completeBackup = {
+                profiles: profiles,
+                autoSaves: {},
+                exportDate: new Date().toISOString(),
+                version: '1.0',
+                type: 'complete_backup'
+            };
+
+            // Include auto-save data for each profile
+            profiles.forEach(profile => {
+                const autoSaveKey = `autosave_${profile.id}`;
+                const autoSaveData = localStorage.getItem(autoSaveKey);
+                if (autoSaveData) {
+                    completeBackup.autoSaves[profile.id] = JSON.parse(autoSaveData);
+                }
+            });
+
+            const blob = new Blob([JSON.stringify(completeBackup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ToLendo_backup_completo_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Backup completo exportado com sucesso!', 'success');
+        }
+
         // Call initialize function when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            
+            // Load sync configuration
+            loadSyncConfig();
+            
+            // Start auto-save system
+            startAutoSave();
+            
+            // Initial auto-save after 5 seconds
+            setTimeout(autoSaveUserData, 5000);
+        });
     </script>
+    
+    <!-- Auto-save indicator -->
+    <div id="autoSaveIndicator" class="auto-save-indicator">
+        <i class="fas fa-sync-alt"></i>
+        <span>Salvando...</span>
+    </div>
 </body>
 </html>
