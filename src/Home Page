@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tô Lendo - Home</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7ff;
+      margin-top: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6fb1fc, #4364f7);
+      padding: 10px 40px;
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 28px;
+      user-select: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    #btnLogout {
+      background: #f44336;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      margin-left: 10px;
+    }
+
+    #btnLogout:hover {
+      background-color: #d32f2f;
+    }
+
+    .section-title {
+      font-size: 26px;
+      margin: 40px 30px 20px;
+      color: #4364f7;
+    }
+
+    .book-grid, .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 30px 40px;
+    }
+
+    .book-card, .review-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .book-card img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .book-card h3, .review-card h3 {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .review-card .user {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .review-card .stars {
+      color: #f7b731;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .review-card .comment {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    form button {
+      background-color: #4364f7;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    form button:hover {
+      background-color: #3342c3;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Tô Lendo 📚</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="cadastro.html">Criar Conta</a>
+    <a href="#">Sobre</a>
+    <button id="btnLogout">Sair</button>
+  </nav>
+</header>
+
+<h2 class="section-title">📖 Livros Recentes</h2>
+<section class="book-grid">
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/71t1bU2P26L.jpg" alt="O Hobbit" />
+    <h3>O Hobbit</h3>
+  </div>
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/61dB9KsV8jL.jpg" alt="1984" />
+    <h3>1984</h3>
+  </div>
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/51v-5O2WmVL.jpg" alt="A Garota do Lago" />
+    <h3>A Garota do Lago</h3>
+  </div>
+</section>
+
+<h2 class="section-title">⭐ Livros Mais Avaliados</h2>
+<section class="book-grid">
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/81vpsIs58WL.jpg" alt="Harry Potter" />
+    <h3>Harry Potter</h3>
+  </div>
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/71UwSHSZRnS.jpg" alt="A Culpa é das Estrelas" />
+    <h3>A Culpa é das Estrelas</h3>
+  </div>
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/41Gk-Sg0VwL.jpg" alt="Dom Casmurro" />
+    <h3>Dom Casmurro</h3>
+  </div>
+</section>
+
+<h2 class="section-title">💬 Avaliações dos Leitores</h2>
+<section class="review-grid" id="initialReviews">
+  <div class="review-card">
+    <h3>"O Hobbit"</h3>
+    <p class="user">por <strong>Lucas M.</strong></p>
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <p class="comment">Uma aventura encantadora! Tolkien me fez viajar pela Terra Média do início ao fim.</p>
+  </div>
+
+  <div class="review-card">
+    <h3>"1984"</h3>
+    <p class="user">por <strong>Ana Clara</strong></p>
+    <div class="stars">⭐⭐⭐⭐</div>
+    <p class="comment">Assustadoramente atual. Um livro que te faz refletir sobre liberdade e controle.</p>
+  </div>
+
+  <div class="review-card">
+    <h3>"A Garota do Lago"</h3>
+    <p class="user">por <strong>João V.</strong></p>
+    <div class="stars">⭐⭐⭐</div>
+    <p class="comment">O suspense é bom, mas achei o final um pouco previsível. Ainda assim, vale a leitura.</p>
+  </div>
+</section>
+
+<h2 class="section-title">✍️ Avalie um Livro</h2>
+<section style="padding: 0 30px 40px;">
+  <form id="reviewForm" style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px;">
+    <label>Seu nome:</label>
+    <input type="text" id="userName" required />
+
+    <label>Livro:</label>
+    <select id="bookName" required>
+      <option value="">Escolha um livro</option>
+      <option>O Hobbit</option>
+      <option>1984</option>
+      <option>A Garota do Lago</option>
+      <option>Harry Potter</option>
+      <option>A Culpa é das Estrelas</option>
+      <option>Dom Casmurro</option>
+    </select>
+
+    <label>Nota (1 a 5):</label>
+    <input type="number" id="rating" min="1" max="5" required />
+
+    <label>Comentário:</label>
+    <textarea id="comment" rows="4" required></textarea>
+
+    <button type="submit">Enviar Avaliação</button>
+  </form>
+</section>
+
+<h2 class="section-title">📚 Avaliações da Comunidade</h2>
+<section class="review-grid" id="reviewList"></section>
+
+<script>
+  const form = document.getElementById("reviewForm");
+  const reviewList = document.getElementById("reviewList");
+  const initialReviews = document.getElementById("initialReviews");
+
+  function sanitize(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function loadReviews() {
+    const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    reviewList.innerHTML = "";
+
+    if (reviews.length === 0) {
+      reviewList.style.display = "none";
+      initialReviews.style.display = "grid";
+    } else {
+      reviewList.style.display = "grid";
+      initialReviews.style.display = "none";
+
+      reviews.forEach((review) => {
+        const div = document.createElement("div");
+        div.className = "review-card";
+        div.innerHTML = `
+          <h3>"${sanitize(review.book)}"</h3>
+          <p class="user">por <strong>${sanitize(review.name)}</strong></p>
+          <div class="stars">${"⭐".repeat(review.rating)}</div>
+          <p class="comment">${sanitize(review.comment)}</p>
+        `;
+        reviewList.appendChild(div);
+      });
+    }
+  }
+
+  loadReviews();
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("userName").value.trim();
+    const book = document.getElementById("bookName").value;
+    const rating = parseInt(document.getElementById("rating").value);
+    const comment = document.getElementById("comment").value.trim();
+
+    if (!name || !book || !rating || !comment) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    if (rating < 1 || rating > 5) {
+      alert("A nota deve estar entre 1 e 5.");
+      return;
+    }
+
+    const newReview = { name, book, rating, comment };
+
+    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    reviews.push(newReview);
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+
+    form.reset();
+    loadReviews();
+  });
+
+  document.getElementById("btnLogout").addEventListener("click", () => {
+    const confirmar = confirm("Tem certeza que deseja sair?");
+    if (confirmar) {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+  });
+</script>
+
+</body>
+</html>
