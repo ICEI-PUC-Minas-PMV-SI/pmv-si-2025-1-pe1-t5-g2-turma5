@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tô Lendo - Acesso</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Scope+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #5a6fd8 0%, #667eea 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Left Section - Logo */
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 2rem;
+            color: white;
+            position: relative;
+            padding-bottom: 180px; /* Espaço para a faixa */
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            margin-top: 10vh;
+        }
+
+        .logo-image {
+            width: 350px;
+            height: auto;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.2));
+        }
+
+        /* Faixa inferior com frases */
+        .tagline-banner {
+            position: absolute;
+            width: 50%;
+            height: 160px;
+            left: 0px;
+            bottom: 80px;
+            right: 0px;
+            background: rgba(180, 190, 210, 0.85);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 30px 40px;
+        }
+
+        .tagline-content {
+            width: 100%;
+            max-width: 380px;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .static-text {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 22px;
+            text-align: left;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .static-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Right Section - Formulários */
+        .right-section {
+            flex: 1;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .auth-form {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .auth-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-header h1 {
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            line-height: 1.2;
+            color: #000000;
+            margin: 0;
+        }
+
+        .auth-header p {
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #000000;
+            margin: 0;
+        }
+
+        .form-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: #3232D3;
+            margin: 0;
+        }
+
+        .form-group input {
+            box-sizing: border-box;
+            width: 100%;
+            height: 40px;
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3232D3;
+            background: white;
+        }
+
+        .forgot-password {
+            width: 520px;
+            height: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            color: rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            margin-top: 4px;
+            display: block;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            width: 100%;
+            max-width: 280px;
+            height: 48px;
+            background: #3232D3;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 16px 0;
+        }
+
+        .btn-primary:hover {
+            background: #2828b8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #5a6fd8;
+            border: 1px solid #5a6fd8;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6fd8;
+            color: white;
+        }
+
+        .switch-form {
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #000000;
+            text-align: left;
+            margin-top: 12px;
+            white-space: nowrap;
+        }
+
+        .switch-form a {
+            color: #3232D3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+
+        .profiles-section {
+            margin: 1rem 0;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .profile-item:hover {
+            background: white;
+            border-color: #5a6fd8;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(90, 111, 216, 0.1);
+        }
+
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #5a6fd8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-stats {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .backup-section {
+            position: absolute;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .backup-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+
+        .backup-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .message {
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                flex: none;
+                min-height: 40vh;
+                padding: 2rem 1rem;
+            }
+
+            .logo-section {
+                margin-bottom: 1.5rem;
+            }
+
+            .brand-text {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 0.85rem;
+            }
+
+            .right-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .backup-section {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-section">
+            <div class="logo-section">
+                <img src="https://github.com/user-attachments/assets/8e859c12-7277-432a-ae1f-3f4af7803a4d" alt="Tô Lendo" class="logo-image">
+            </div>
+
+        </div>
+        
+        <!-- Faixa inferior com frases estáticas -->
+        <div class="tagline-banner">
+            <div class="tagline-content">
+                <div class="static-text">Diga aos outros seu ponto de vista do livro que acabou de ler</div>
+                <div class="static-text">Compartilhe com o mundo sua nova paixão literária</div>
+                <div class="static-text">Mostre aos amigos os novos livros que comprou</div>
+                <div class="static-text">Crie sua lista de leitura e compartilhe com o mundo</div>
+            </div>
+        </div>
+        
+        <div class="right-section">
+            <!-- Página de Login -->
+            <div id="loginPage" class="auth-form">
+                <div class="auth-header">
+                    <h1>Entre em sua conta</h1>
+                    <p>Insira seus dados de acesso...</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>E-mail ou Usuário</label>
+                    <input type="text" id="loginEmail" placeholder="Entre com seu e-mail">
+                </div>
+                
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginPassword" placeholder="Entre com sua senha">
+                    <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                </div>
+                
+                <button class="btn-primary" onclick="loginUser()">ENTRAR</button>
+                
+                <div class="switch-form">
+                    Não tem uma conta ainda? <a href="#" onclick="showSignup()">Crie uma agora</a>
+                </div>
+            </div>
+
+            <!-- Página de Cadastro -->
+            <div id="signupPage" class="auth-form" style="display: none;">
+                <div class="auth-header">
+                    <h1>Crie sua conta</h1>
+                    <p>Junte-se à maior comunidade de leitores</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="signupName" placeholder="Insira o nome completo">
+                </div>
+                
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" id="signupUsername" placeholder="Seu usuário">
+                </div>
+                
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="signupEmail" placeholder="Entre com seu e-mail">
+                </div>
+                
+                <div class="form-group">
+                    <label>E-mail Novamente</label>
+                    <input type="email" id="signupEmailConfirm" placeholder="Entre com seu e-mail">
+                </div>
+                
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="signupPassword" placeholder="Entre com sua senha">
+                </div>
+                
+                <button class="btn-primary" onclick="createUser()">ENTRAR</button>
+                
+                <div class="switch-form">
+                    <a href="#" onclick="showLogin()">Voltar ao login</a>
+                </div>
+            </div>
+
+            <!-- Lista de Perfis Existentes -->
+            <div id="profilesPage" class="auth-form" style="display: none;">
+                <div class="auth-header">
+                    <h1>Escolher Perfil</h1>
+                    <p>Selecione um perfil existente</p>
+                </div>
+                
+                <div id="profilesList" class="profiles-section">
+                    <!-- Perfis serão carregados aqui -->
+                </div>
+                
+                <div class="switch-form">
+                    <a href="#" onclick="showLogin()">Voltar ao login</a> | 
+                    <a href="#" onclick="showSignup()">Criar novo perfil</a>
+                </div>
+            </div>
+
+            <!-- Redefinir Senha -->
+            <div id="resetPage" class="auth-form" style="display: none;">
+                <div class="auth-header">
+                    <h1>Redefina sua senha</h1>
+                    <p>Vamos te ajudar com sua criação de uma nova senha</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>Insira sua nova senha</label>
+                    <input type="password" id="newPassword" placeholder="Nova senha">
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirme sua nova senha</label>
+                    <input type="password" id="confirmPassword" placeholder="Nova senha">
+                </div>
+                
+                <button class="btn-primary" onclick="resetPassword()">Confirmar nova senha</button>
+                
+                <div class="switch-form">
+                    <a href="#" onclick="showLogin()">Voltar ao login</a>
+                </div>
+            </div>
+
+            <!-- Backup Section -->
+            <div class="backup-section">
+                <div class="backup-title">Backup de Dados</div>
+                <div class="backup-buttons">
+                    <button class="btn-secondary btn-small" onclick="exportData()">Exportar</button>
+                    <button class="btn-secondary btn-small" onclick="document.getElementById('importFile').click()">Importar</button>
+                </div>
+                <input type="file" id="importFile" class="file-input" accept=".json" onchange="importData(event)">
+            </div>
+
+            <div id="errorMessage" class="message error-message"></div>
+            <div id="successMessage" class="message success-message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Navegação entre páginas
+        function showLogin() {
+            hideAllForms();
+            document.getElementById('loginPage').style.display = 'block';
+            clearMessages();
+        }
+
+        function showSignup() {
+            hideAllForms();
+            document.getElementById('signupPage').style.display = 'block';
+            clearMessages();
+        }
+
+        function showProfiles() {
+            hideAllForms();
+            document.getElementById('profilesPage').style.display = 'block';
+            loadProfiles();
+            clearMessages();
+        }
+
+        function showReset() {
+            hideAllForms();
+            document.getElementById('resetPage').style.display = 'block';
+            clearMessages();
+        }
+
+        function hideAllForms() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('profilesPage').style.display = 'none';
+            document.getElementById('resetPage').style.display = 'none';
+        }
+
+        function clearMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Sistema de autenticação
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            if (!email || !password) {
+                showError('Por favor, preencha todos os campos');
+                return;
+            }
+
+            // Verificar se usuário existe
+            const profiles = getProfiles();
+            const profile = profiles.find(p => p.email === email || p.username === email);
+            
+            if (!profile) {
+                showError('Usuário não encontrado');
+                return;
+            }
+
+            // Em um sistema real, verificaria a senha aqui
+            // Por enquanto, qualquer senha funciona
+            
+            // Definir como perfil ativo
+            localStorage.setItem('tolendo_active_profile', profile.id);
+            
+            showSuccess('Login realizado com sucesso!');
+            
+            setTimeout(() => {
+                window.location.href = 'user.html';
+            }, 1000);
+        }
+
+        function createUser() {
+            const name = document.getElementById('signupName').value.trim();
+            const username = document.getElementById('signupUsername').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const emailConfirm = document.getElementById('signupEmailConfirm').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+            
+            if (!name || !username || !email || !emailConfirm || !password) {
+                showError('Por favor, preencha todos os campos');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showError('Por favor, digite um email válido');
+                return;
+            }
+
+            if (email !== emailConfirm) {
+                showError('Os emails não coincidem');
+                return;
+            }
+
+            // Verificar se email ou username já existe
+            const profiles = getProfiles();
+            if (profiles.some(p => p.email === email)) {
+                showError('Este email já está cadastrado');
+                return;
+            }
+
+            if (profiles.some(p => p.username === username)) {
+                showError('Este nome de usuário já está em uso');
+                return;
+            }
+
+            // Criar novo perfil
+            const newProfile = {
+                id: generateId(),
+                name: name,
+                username: username,
+                email: email,
+                password: password, // Em um sistema real, seria criptografada
+                createdAt: new Date().toISOString(),
+                avatar: name.charAt(0).toUpperCase(),
+                stats: {
+                    totalBooks: 0,
+                    readBooks: 0,
+                    favoriteBooks: 0,
+                    currentlyReading: 0
+                },
+                library: [],
+                favorites: [],
+                currentlyReading: [],
+                reviews: [],
+                readingHistory: [],
+                // Dados do "Sobre Mim" vazios para cada novo perfil
+                location: '',
+                age: '',
+                profession: '',
+                readingGoal: '',
+                bio: ''
+            };
+
+            // Salvar perfil
+            profiles.push(newProfile);
+            localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+            
+            // Definir como perfil ativo
+            localStorage.setItem('tolendo_active_profile', newProfile.id);
+            
+            showSuccess('Conta criada com sucesso!');
+            
+            setTimeout(() => {
+                window.location.href = 'user.html';
+            }, 1000);
+        }
+
+        function resetPassword() {
+            const newPassword = document.getElementById('newPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            
+            if (!newPassword || !confirmPassword) {
+                showError('Por favor, preencha todos os campos');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showError('As senhas não coincidem');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showError('A senha deve ter pelo menos 6 caracteres');
+                return;
+            }
+
+            showSuccess('Senha redefinida com sucesso!');
+            
+            setTimeout(() => {
+                showLogin();
+            }, 1500);
+        }
+
+        function loadProfiles() {
+            const profilesList = document.getElementById('profilesList');
+            const profiles = getProfiles();
+            
+            if (profiles.length === 0) {
+                profilesList.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Nenhum perfil encontrado</p>';
+            } else {
+                profilesList.innerHTML = profiles.map(profile => `
+                    <div class="profile-item" onclick="selectProfile('${profile.id}')">
+                        <div class="profile-avatar">${profile.avatar}</div>
+                        <div class="profile-info">
+                            <div class="profile-name">${profile.name}</div>
+                            <div class="profile-stats">${profile.stats.totalBooks} livros • ${profile.stats.readBooks} lidos</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            profilesList.style.display = 'block';
+        }
+
+        function selectProfile(profileId) {
+            localStorage.setItem('tolendo_active_profile', profileId);
+            showSuccess('Perfil selecionado!');
+            
+            setTimeout(() => {
+                window.location.href = 'user.html';
+            }, 500);
+        }
+
+        function getProfiles() {
+            return JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+        }
+
+        function exportData() {
+            const profiles = getProfiles();
+            const dataToExport = {
+                profiles: profiles,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+
+            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
+                type: 'application/json'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tolendo_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showSuccess('Dados exportados com sucesso!');
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (!data.profiles || !Array.isArray(data.profiles)) {
+                        showError('Arquivo de backup inválido');
+                        return;
+                    }
+
+                    if (confirm('Isso substituirá todos os perfis existentes. Continuar?')) {
+                        localStorage.setItem('tolendo_profiles', JSON.stringify(data.profiles));
+                        showSuccess('Dados importados com sucesso!');
+                        
+                        // Recarregar lista se estiver na página de perfis
+                        if (document.getElementById('profilesPage').style.display !== 'none') {
+                            loadProfiles();
+                        }
+                    }
+                } catch (error) {
+                    showError('Erro ao ler arquivo de backup');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            const successEl = document.getElementById('successMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+            successEl.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            const errorEl = document.getElementById('errorMessage');
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+            errorEl.style.display = 'none';
+        }
+
+        // Adicionar link para redefinir senha
+        document.addEventListener('DOMContentLoaded', function() {
+            const forgotLink = document.querySelector('.forgot-password');
+            if (forgotLink) {
+                forgotLink.onclick = function(e) {
+                    e.preventDefault();
+                    showReset();
+                };
+            }
+        });
+
+        // Verificar se já está logado
+        window.onload = function() {
+            const activeProfile = localStorage.getItem('tolendo_active_profile');
+            if (activeProfile) {
+                const profiles = getProfiles();
+                const profile = profiles.find(p => p.id === activeProfile);
+                if (profile) {
+                    window.location.href = 'user.html';
+                }
+            }
+            
+            // Mostrar página de login por padrão
+            showLogin();
+        };
+    </script>
+</body>
+</html>
