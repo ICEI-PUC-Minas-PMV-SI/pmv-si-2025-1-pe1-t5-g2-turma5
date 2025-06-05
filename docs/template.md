@@ -17,7 +17,8 @@ Nesta aba, apresentamos os elementos visuais que compõem o site: layouts, palet
 ![image](https://github.com/user-attachments/assets/5655d565-01b9-41c9-8f0d-aafa5cb43ac9)
 
 #### Cadastro de Livro
-![image](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/CadastroDeLivros/)
+![image](https://github.com/user-attachments/assets/3edd856f-80b7-457b-89ab-e68786c9a365)
+
 
 
 ### Cores
