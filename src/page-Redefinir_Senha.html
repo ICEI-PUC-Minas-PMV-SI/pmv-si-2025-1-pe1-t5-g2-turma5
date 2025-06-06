@@ -20,6 +20,8 @@
     flex-direction: column;
     min-height: 100vh;
 }
+
+
 .container {
     flex: 1;
     padding: 20px;
@@ -216,7 +218,7 @@ footer {
             text-decoration: underline;
         }
 
-       
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -297,7 +299,7 @@ footer {
             const submitBtn = document.getElementById('submitBtn');
             const backToLogin = document.getElementById('backToLogin');
 
-            
+           
             document.querySelectorAll('.toggle-password').forEach(button => {
                 button.addEventListener('click', () => {
                     const targetId = button.getAttribute('data-target');
@@ -323,6 +325,7 @@ footer {
                 });
             });
 
+            
             function checkPasswordStrength(password) {
                 let strength = 0;
                 let feedback = '';
@@ -402,16 +405,16 @@ footer {
                 
                 alert('🎉 Senha redefinida com sucesso! Redirecionando para o login...');
                 
-               
+                
                 setTimeout(() => {
-                    window.location.href = 'page-Login.html'; 
+                    window.location.href = 'login.html'; 
                 }, 2000);
             });
 
-           
+            
             backToLogin.addEventListener('click', (e) => {
                 e.preventDefault();
-                window.location.href = 'page-Login.html'; 
+                window.location.href = 'login.html'; 
             });
         });
     </script>
