@@ -97,12 +97,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function performSearch(query) {
     const bookResults = Object.keys(mockBooks)
-        .filter(book => book.toLowerCase().includes(query))
-        .map(book => ({ type: 'book', title: book, author: mockBooks[book].author }));
+        .filter(book => 
+            book.toLowerCase().includes(query) || 
+            mockBooks[book].author.toLowerCase().includes(query)
+        )
+        .map(book => ({ 
+            type: 'book', 
+            title: book, 
+            author: mockBooks[book].author 
+        }));
     
     const memberResults = mockMembers
         .filter(member => member.name.toLowerCase().includes(query))
-        .map(member => ({ type: 'member', name: member.name, avatar: member.avatar }));
+        .map(member => ({ 
+            type: 'member', 
+            name: member.name, 
+            avatar: member.avatar 
+        }));
     
     const groupResults = query.includes('leitores') || query.includes('unidos') 
         ? [{ type: 'group', name: 'Leitores Unidos' }] 
@@ -141,7 +152,10 @@ function displaySearchResults(results) {
 }
 
 function hideSearchResults() {
-    document.getElementById('searchResults').style.display = 'none';
+    const searchResults = document.getElementById('searchResults');
+    if (searchResults) {
+        searchResults.style.display = 'none';
+    }
 }
 
 function selectSearchResult(item, type) {
@@ -194,8 +208,6 @@ function toggleGroupMembership() {
         memberCount.textContent = count + 1;
         showNotification('Você agora faz parte do grupo! Bem-vindo aos Leitores Unidos!', 'success');
         isGroupMember = true;
-        
-        // Atualizar estatísticas
         updateStats();
     } else {
         if (confirm('Tem certeza que deseja sair do grupo?')) {
@@ -204,8 +216,6 @@ function toggleGroupMembership() {
             memberCount.textContent = count - 1;
             showNotification('Você saiu do grupo. Sentiremos sua falta!', 'warning');
             isGroupMember = false;
-            
-            // Atualizar estatísticas
             updateStats();
         }
     }
@@ -252,7 +262,6 @@ function filterByGenre(genre) {
         showNotification(`Mostrando todos os ${visibleCount} livros disponíveis`, 'success');
     }
     
-    // Reset página para 1 quando filtrar
     currentPage = 1;
     updatePagination();
 }
@@ -311,13 +320,13 @@ function showBookDetails(bookTitle) {
     `;
     
     modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevenir scroll do body
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     const modal = document.getElementById('bookModal');
     modal.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restaurar scroll do body
+    document.body.style.overflow = 'auto';
 }
 
 // Adicionar/remover da biblioteca
@@ -348,7 +357,6 @@ function showMemberProfile(memberName) {
     
     showNotification(`Perfil de ${member.name}: ${member.books} livros lidos, ${member.reviews} resenhas escritas`, 'success');
     
-    // Aqui poderia abrir um modal com mais detalhes do membro
     setTimeout(() => {
         showNotification('Funcionalidade de perfil completo em desenvolvimento', 'warning');
     }, 2000);
@@ -357,7 +365,6 @@ function showMemberProfile(memberName) {
 function showAllMembers() {
     showNotification('Carregando lista completa de 485 membros...', 'success');
     
-    // Simular carregamento
     setTimeout(() => {
         showNotification('Lista de membros carregada! Funcionalidade completa em desenvolvimento.', 'success');
     }, 1500);
@@ -388,7 +395,6 @@ function replyToReview() {
     if (replyText && replyText.trim()) {
         showNotification('Resposta publicada com sucesso!', 'success');
         
-        // Simular incremento do contador de comentários
         const commentCount = event.target.querySelector('span:last-child');
         if (commentCount) {
             commentCount.textContent = parseInt(commentCount.textContent) + 1;
@@ -399,24 +405,20 @@ function replyToReview() {
 }
 
 function shareReview() {
-    // Simular cópia do link
     const reviewTitle = event.target.closest('.review-card').querySelector('h4').textContent;
     const bookTitle = event.target.closest('.review-card').querySelector('.reviewer-info p').textContent.replace('sobre ', '');
     
     showNotification(`Link da resenha de ${reviewTitle} ${bookTitle} copiado para área de transferência!`, 'success');
     
-    // Em uma implementação real, isso copiaria o link para o clipboard
     if (navigator.clipboard) {
         const fakeUrl = `https://tolendo.com/review/${reviewTitle.replace(/\s+/g, '-').toLowerCase()}`;
-        navigator.clipboard.writeText(fakeUrl).catch(() => {
-            // Fallback silencioso se clipboard não funcionar
-        });
+        navigator.clipboard.writeText(fakeUrl).catch(() => {});
     }
 }
 
 // Paginação
 function changePage(page) {
-    const totalPages = 3; // Número fixo para demonstração
+    const totalPages = 3;
     
     if (page < 1 || page > totalPages) return;
     
@@ -425,10 +427,8 @@ function changePage(page) {
     
     showNotification(`Carregando página ${page}...`, 'success');
     
-    // Simular carregamento de conteúdo
     setTimeout(() => {
         showNotification(`Página ${page} carregada com sucesso!`, 'success');
-        // Scroll suave para o topo da seção de livros
         document.querySelector('.books-grid').scrollIntoView({ behavior: 'smooth' });
     }, 500);
 }
@@ -437,7 +437,7 @@ function updatePagination() {
     const buttons = document.querySelectorAll('.page-btn');
     buttons.forEach((btn, index) => {
         btn.classList.remove('active');
-        if (index === currentPage) { // Ajuste para índice correto
+        if (index === currentPage) {
             btn.classList.add('active');
         }
     });
@@ -450,7 +450,6 @@ function writeReview(bookTitle) {
         showNotification(`Resenha para "${bookTitle}" publicada com sucesso!`, 'success');
         closeModal();
         
-        // Simular incremento nas estatísticas
         const reviewCount = document.getElementById('totalReviews');
         if (reviewCount) {
             reviewCount.textContent = parseInt(reviewCount.textContent) + 1;
@@ -464,12 +463,9 @@ function shareBook(bookTitle) {
     showNotification(`Link de "${bookTitle}" copiado para área de transferência!`, 'success');
     closeModal();
     
-    // Simular cópia do link
     if (navigator.clipboard) {
         const fakeUrl = `https://tolendo.com/book/${bookTitle.replace(/\s+/g, '-').toLowerCase()}`;
-        navigator.clipboard.writeText(fakeUrl).catch(() => {
-            // Fallback silencioso
-        });
+        navigator.clipboard.writeText(fakeUrl).catch(() => {});
     }
 }
 
@@ -477,7 +473,6 @@ function shareBook(bookTitle) {
 function goHome() {
     showNotification('Redirecionando para página inicial...', 'success');
     
-    // Simular navegação
     setTimeout(() => {
         showNotification('Você está na página inicial!', 'success');
     }, 1000);
@@ -494,7 +489,6 @@ function showPage(page) {
     const pageName = pageNames[page] || page;
     showNotification(`Navegando para ${pageName}...`, 'success');
     
-    // Simular navegação com delay
     setTimeout(() => {
         showNotification(`Bem-vindo à página: ${pageName}`, 'success');
     }, 800);
@@ -554,10 +548,8 @@ function logout() {
         showNotification('Fazendo logout... Até logo!', 'warning');
         document.getElementById('userDropdown').classList.remove('show');
         
-        // Simular logout
         setTimeout(() => {
             showNotification('Logout realizado com sucesso', 'success');
-            // Em uma aplicação real, redirecionaria para login
         }, 1500);
     }
 }
@@ -566,20 +558,15 @@ function logout() {
 function showNotification(message, type = 'success') {
     const notification = document.getElementById('notification');
     
-    // Remover classes anteriores
     notification.className = 'notification';
-    
-    // Adicionar nova classe e conteúdo
     notification.textContent = message;
     notification.classList.add(type);
     notification.style.display = 'block';
     
-    // Auto-hide após 3 segundos
     setTimeout(() => {
         notification.style.display = 'none';
     }, 3000);
     
-    // Log para debug (pode ser removido em produção)
     console.log(`[${type.toUpperCase()}] ${message}`);
 }
 
@@ -593,7 +580,6 @@ function updateStats() {
     };
     
     if (isGroupMember) {
-        // Simular incremento nas estatísticas quando usuário entra no grupo
         Object.values(stats).forEach(stat => {
             if (stat) {
                 const currentValue = parseInt(stat.textContent);
@@ -649,24 +635,3 @@ function addRandomBook() {
     const randomBook = randomBooks[Math.floor(Math.random() * randomBooks.length)];
     showNotification(`Sugestão de leitura: ${randomBook}`, 'success');
 }
-
-// Simular notificações periódicas (opcional)
-function startPeriodicNotifications() {
-    const messages = [
-        'Nova resenha publicada por um membro!',
-        'Livro do mês selecionado pela comunidade',
-        '5 novos membros se juntaram ao grupo hoje',
-        'Discussão ativa sobre "Sapiens" no fórum'
-    ];
-    
-    let messageIndex = 0;
-    setInterval(() => {
-        if (Math.random() < 0.3) { // 30% chance a cada intervalo
-            showNotification(messages[messageIndex % messages.length], 'success');
-            messageIndex++;
-        }
-    }, 30000); // A cada 30 segundos
-}
-
-// Inicializar funcionalidades extras (descomente se desejar)
-// setTimeout(startPeriodicNotifications, 5000);
