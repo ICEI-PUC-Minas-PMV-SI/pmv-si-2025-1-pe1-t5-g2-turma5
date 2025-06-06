@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TÔ LENDO - Sua Biblioteca Virtual</title>
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/scrpit.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo" onclick="goHome()">
+                    <span>📚 TÔ LENDO</span>
+                </div>
+                <div class="search-bar">
+                    <i>🔍</i>
+                    <input type="text" placeholder="Pesquisar livros, autores ou grupos..." id="searchInput">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <div class="nav-links">
+                    <a href="#" onclick="showPage('inicio')">Início</a>
+                    <a href="#" onclick="showPage('meus-livros')">Meus Livros</a>
+                    <a href="#" onclick="showPage('grupos')">Grupos</a>
+                    <a href="#" onclick="showPage('descobrir')">Descobrir</a>
+                </div>
+                <div class="user-menu">
+                    <div class="user-avatar" onclick="toggleUserMenu()">JD</div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" onclick="showProfile()">Meu Perfil</a>
+                        <a href="#" onclick="showSettings()">Configurações</a>
+                        <a href="#" onclick="showHelp()">Ajuda</a>
+                        <a href="#" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Grupo de Leitura - Leitores Unidos</h1>
+        
+        <div class="group-card">
+            <div class="group-header">
+                <h2 class="group-title">Leitores Unidos</h2>
+                <div class="group-meta">
+                    <span><i>👤</i> <span id="memberCount">485</span>&nbsp; membros</span>
+                    <span><i>📚</i> 256 livros discutidos</span>
+                    <span><i>📝</i> 1,238 resenhas</span>
+                    <span><i>📅</i> Criado em 10/01/2024</span>
+                </div>
+                <div class="group-actions">
+                    <button class="btn" id="joinGroupBtn" onclick="toggleGroupMembership()">+ Participar do Grupo</button>
+                </div>
+            </div>
+            
+            <div class="group-content">
+                <p class="group-description">
+                    Bem-vindos ao maior grupo de leitura diversificado da plataforma! Aqui celebramos a literatura em todas as suas formas - de romances clássicos a thrillers modernos, de biografias inspiradoras a histórias infantis encantadoras. Junte-se a nós para discussões ricas, descobertas literárias e uma comunidade apaixonada por livros de todos os gêneros.
+                </p>
+
+                <!-- Genre Filter Section -->
+                <div class="genre-filter">
+                    <h3 class="filter-title">🎯 Filtrar por Gênero</h3>
+                    <div class="genre-tags">
+                        <div class="genre-tag all-genres active" onclick="filterByGenre('todos')">Todos os Gêneros</div>
+                        <div class="genre-tag" onclick="filterByGenre('ficcao')">Ficção</div>
+                        <div class="genre-tag" onclick="filterByGenre('romance')">Romance</div>
+                        <div class="genre-tag" onclick="filterByGenre('fantasia')">Fantasia</div>
+                        <div class="genre-tag" onclick="filterByGenre('misterio')">Mistério</div>
+                        <div class="genre-tag" onclick="filterByGenre('suspense')">Suspense</div>
+                        <div class="genre-tag" onclick="filterByGenre('terror')">Terror</div>
+                        <div class="genre-tag" onclick="filterByGenre('biografia')">Biografia</div>
+                        <div class="genre-tag" onclick="filterByGenre('historia')">História</div>
+                        <div class="genre-tag" onclick="filterByGenre('cientifico')">Científico</div>
+                        <div class="genre-tag" onclick="filterByGenre('infantil')">Infantil</div>
+                        <div class="genre-tag" onclick="filterByGenre('autoajuda')">Auto Ajuda</div>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalBooks">256</div>
+                        <div class="stat-label">Livros Discutidos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalReviews">1,238</div>
+                        <div class="stat-label">Resenhas Publicadas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="activeGenres">12</div>
+                        <div class="stat-label">Gêneros Ativos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="thisMonth">34</div>
+                        <div class="stat-label">Livros Este Mês</div>
+                    </div>
+                </div>
+                
+                <h3 class="section-title"><i>👥</i> Membros Ativos</h3>
+                <div class="members-list">
+                    <div class="member" onclick="showMemberProfile('Camila Oliveira')">
+                        <div class="member-avatar">CO</div>
+                        <div class="member-name">Camila Oliveira</div>
+                    </div>
+                    <div class="member" onclick="showMemberProfile('Pedro Santos')">
+                        <div class="member-avatar">PS</div>
+                        <div class="member-name">Pedro Santos</div>
+                    </div>
+                    <div class="member" onclick="showMemberProfile('Ana Beatriz')">
+                        <div class="member-avatar">AB</div>
+                        <div class="member-name">Ana Beatriz</div>
+                    </div>
+                    <div class="member" onclick="showMemberProfile('Lucas Ferreira')">
+                        <div class="member-avatar">LF</div>
+                        <div class="member-name">Lucas Ferreira</div>
+                    </div>
+                    <div class="member" onclick="showMemberProfile('Isabella Costa')">
+                        <div class="member-avatar">IC</div>
+                        <div class="member-name">Isabella Costa</div>
+                    </div>
+                    <div class="member" onclick="showMemberProfile('Rafael Lima')">
+                        <div class="member-avatar">RL</div>
+                        <div class="member-name">Rafael Lima</div>
+                    </div>
+                    <div class="member" onclick="showAllMembers()">
+                        <div class="member-avatar">+</div>
+                        <div class="member-name">Ver todos</div>
+                    </div>
+                    </div>
+                
+                <h3 class="section-title"><i>📚</i> Livros em Destaque</h3>
+                <div class="books-grid" id="booksGrid">
+                    <div class="book-card" data-genre="romance" onclick="showBookDetails('Orgulho e Preconceito')">
+                        <div class="book-cover book-orgulho">
+                            <div class="book-genre">Romance</div>
+                            <div class="book-rating">⭐ 4.8</div>
+                        </div>
+                        <div class="book-title">Orgulho e Preconceito</div>
+                        <div class="book-author">Jane Austen</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="fantasia" onclick="showBookDetails('O Senhor dos Anéis')">
+                        <div class="book-cover book-senhor">
+                            <div class="book-genre">Fantasia</div>
+                            <div class="book-rating">⭐ 4.9</div>
+                        </div>
+                        <div class="book-title">O Senhor dos Anéis</div>
+                        <div class="book-author">J.R.R. Tolkien</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="fantasia" onclick="showBookDetails('Harry Potter')">
+                        <div class="book-cover book-harry">
+                            <div class="book-genre">Fantasia</div>
+                            <div class="book-rating">⭐ 4.7</div>
+                        </div>
+                        <div class="book-title">Harry Potter e a Pedra Filosofal</div>
+                        <div class="book-author">J.K. Rowling</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="misterio" onclick="showBookDetails('Assassinato no Expresso do Oriente')">
+                        <div class="book-cover book-agatha">
+                            <div class="book-genre">Mistério</div>
+                            <div class="book-rating">⭐ 4.6</div>
+                        </div>
+                        <div class="book-title">Assassinato no Expresso do Oriente</div>
+                        <div class="book-author">Agatha Christie</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="biografia" onclick="showBookDetails('Steve Jobs')">
+                        <div class="book-cover book-steve">
+                            <div class="book-genre">Biografia</div>
+                            <div class="book-rating">⭐ 4.5</div>
+                        </div>
+                        <div class="book-title">Steve Jobs</div>
+                        <div class="book-author">Walter Isaacson</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="terror" onclick="showBookDetails('Drácula')">
+                        <div class="book-cover book-dracula">
+                            <div class="book-genre">Terror</div>
+                            <div class="book-rating">⭐ 4.4</div>
+                        </div>
+                        <div class="book-title">Drácula</div>
+                        <div class="book-author">Bram Stoker</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="cientifico" onclick="showBookDetails('Einstein')">
+                        <div class="book-cover book-einstein">
+                            <div class="book-genre">Científico</div>
+                            <div class="book-rating">⭐ 4.7</div>
+                        </div>
+                        <div class="book-title">Einstein: Sua Vida e Universo</div>
+                        <div class="book-author">Walter Isaacson</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="historia" onclick="showBookDetails('Brasil')">
+                        <div class="book-cover book-brasil">
+                            <div class="book-genre">História</div>
+                            <div class="book-rating">⭐ 4.8</div>
+                        </div>
+                        <div class="book-title">Brasil: Uma Biografia</div>
+                        <div class="book-author">Lilia M. Schwarcz</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="historia" onclick="showBookDetails('Sapiens')">
+                        <div class="book-cover book-sapiens">
+                            <div class="book-genre">História</div>
+                            <div class="book-rating">⭐ 4.9</div>
+                        </div>
+                        <div class="book-title">Sapiens</div>
+                        <div class="book-author">Yuval Noah Harari</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="infantil" onclick="showBookDetails('O Pequeno Príncipe')">
+                        <div class="book-cover book-pequeno">
+                            <div class="book-genre">Infantil</div>
+                            <div class="book-rating">⭐ 4.8</div>
+                        </div>
+                        <div class="book-title">O Pequeno Príncipe</div>
+                        <div class="book-author">Antoine de Saint-Exupéry</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="autoajuda" onclick="showBookDetails('Hábitos Atômicos')">
+                        <div class="book-cover book-habitos">
+                            <div class="book-genre">Auto Ajuda</div>
+                            <div class="book-rating">⭐ 4.6</div>
+                        </div>
+                        <div class="book-title">Hábitos Atômicos</div>
+                        <div class="book-author">James Clear</div>
+                    </div>
+                    
+                    <div class="book-card" data-genre="ficcao" onclick="showBookDetails('Duna')">
+                        <div class="book-cover book-duna">
+                            <div class="book-genre">Ficção</div>
+                            <div class="book-rating">⭐ 4.7</div>
+                        </div>
+                        <div class="book-title">Duna</div>
+                        <div class="book-author">Frank Herbert</div>
+                    </div>
+                </div>
+                
+                <div class="pagination">
+                    <div class="page-btn" onclick="changePage(1)">←</div>
+                    <div class="page-btn active" onclick="changePage(1)">1</div>
+                    <div class="page-btn" onclick="changePage(2)">2</div>
+                    <div class="page-btn" onclick="changePage(3)">3</div>
+                    <div class="page-btn" onclick="changePage(2)">→</div>
+                </div>
+                
+                <h3 class="section-title"><i>💬</i> Resenhas Recentes</h3>
+                <div class="review-list">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">CO</div>
+                                <div class="reviewer-info">
+                                    <h4>Camila Oliveira</h4>
+                                    <p>sobre "Orgulho e Preconceito"</p>
+                                </div>
+                            </div>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <div class="review-content">
+                            Jane Austen conseguiu criar uma obra atemporal que ainda ressoa com leitores modernos. A evolução dos personagens, especialmente Elizabeth Bennet, é magistral. Uma leitura obrigatória para quem aprecia romance clássico!
+                        </div>
+                        <div class="review-actions">
+                            <div class="review-action" onclick="likeReview(this)">
+                                <span>👍</span> <span>24</span>
+                            </div>
+                            <div class="review-action" onclick="replyToReview()">
+                                <span>💬</span> <span>8</span>
+                            </div>
+                            <div class="review-action" onclick="shareReview()">
+                                <span>🔗</span> Compartilhar
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">PS</div>
+                                <div class="reviewer-info">
+                                    <h4>Pedro Santos</h4>
+                                    <p>sobre "Sapiens"</p>
+                                </div>
+                            </div>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <div class="review-content">
+                            Harari apresenta a história da humanidade de forma fascinante e acessível. O livro mudou minha perspectiva sobre civilização, agricultura e tecnologia. Altamente recomendado!
+                        </div>
+                        <div class="review-actions">
+                            <div class="review-action liked" onclick="likeReview(this)">
+                                <span>👍</span> <span>42</span>
+                            </div>
+                            <div class="review-action" onclick="replyToReview()">
+                                <span>💬</span> <span>15</span>
+                            </div>
+                            <div class="review-action" onclick="shareReview()">
+                                <span>🔗</span> Compartilhar
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">AB</div>
+                                <div class="reviewer-info">
+                                    <h4>Ana Beatriz</h4>
+                                    <p>sobre "Harry Potter e a Pedra Filosofal"</p>
+                                </div>
+                            </div>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <div class="review-content">
+                            Reler Harry Potter na vida adulta trouxe novas perspectivas. A construção do mundo mágico é incrível e os temas de amizade e coragem são universais. Uma obra que transcende gerações!
+                        </div>
+                        <div class="review-actions">
+                            <div class="review-action" onclick="likeReview(this)">
+                                <span>👍</span> <span>38</span>
+                            </div>
+                            <div class="review-action" onclick="replyToReview()">
+                                <span>💬</span> <span>12</span>
+                            </div>
+                            <div class="review-action" onclick="shareReview()">
+                                <span>🔗</span> Compartilhar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Book Details -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="bookDetails"></div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+</body>
+</html>
