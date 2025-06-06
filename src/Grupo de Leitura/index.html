@@ -10,34 +10,35 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="navbar">
-                <div class="logo" onclick="goHome()">
-                    <span>📚 TÔ LENDO</span>
-                </div>
-                <div class="search-bar">
-                    <i>🔍</i>
-                    <input type="text" placeholder="Pesquisar livros, autores ou grupos..." id="searchInput">
-                    <div class="search-results" id="searchResults"></div>
-                </div>
-                <div class="nav-links">
-                    <a href="#" onclick="showPage('inicio')">Início</a>
-                    <a href="../GerenciarLivros/index.html" onclick="showPage('meus-livros')">Meus Livros</a>
-                    <a href="#" onclick="showPage('grupos')">Grupos</a>
-                    <a href="#" onclick="showPage('descobrir')">Descobrir</a>
-                </div>
-                <div class="user-menu">
-                    <div class="user-avatar" onclick="toggleUserMenu()">JD</div>
-                    <div class="user-dropdown" id="userDropdown">
-                        <a href="#" onclick="showProfile()">Meu Perfil</a>
-                        <a href="#" onclick="showSettings()">Configurações</a>
-                        <a href="#" onclick="showHelp()">Ajuda</a>
-                        <a href="#" onclick="logout()">Sair</a>
-                    </div>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo" onclick="goHome()">
+                <img class="img-logo" src="https://github.com/user-attachments/assets/8e859c12-7277-432a-ae1f-3f4af7803a4d" alt="Logo TÔ LENDO">
+                <span>TÔ LENDO</span>
+            </div>
+            <div class="search-bar">
+                <i>🔍</i>
+                <input type="text" placeholder="Pesquisar livros, autores ou grupos..." id="searchInput">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            <div class="nav-links">
+                <a href="#" onclick="showPage('inicio')">Início</a>
+                <a href="../GerenciarLivros/index.html" onclick="showPage('meus-livros')">Meus Livros</a>
+                <a href="#" onclick="showPage('grupos')">Grupos</a>
+                <a href="#" onclick="showPage('descobrir')">Descobrir</a>
+            </div>
+            <div class="user-menu">
+                <div class="user-avatar" onclick="toggleUserMenu()">JD</div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" onclick="showProfile()">Meu Perfil</a>
+                    <a href="#" onclick="showSettings()">Configurações</a>
+                    <a href="#" onclick="showHelp()">Ajuda</a>
+                    <a href="#" onclick="logout()">Sair</a>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
     
     <main class="container">
         <h1 class="page-title">Grupo de Leitura - Leitores Unidos</h1>

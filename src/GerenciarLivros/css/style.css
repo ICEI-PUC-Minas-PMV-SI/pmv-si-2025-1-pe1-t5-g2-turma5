@@ -44,6 +44,13 @@ header {
   letter-spacing: 1px;
 }
 
+.img-logo {
+  width: 2.6em; 
+  height: 2.6em; 
+  vertical-align: middle; 
+  margin-right: 8px;
+        }
+
 .subtitle {
   color: var(--white);
   font-weight: 300;

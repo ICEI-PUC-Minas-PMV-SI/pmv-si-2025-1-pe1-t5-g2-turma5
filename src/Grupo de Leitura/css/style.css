@@ -59,6 +59,13 @@
             margin-right: 0.5rem;
             font-size: 2rem;
         }
+
+        .img-logo {
+            width: 2.6em; 
+            height: 2.6em; 
+            vertical-align: middle; 
+            margin-right: 8px;
+        }
         
         .search-bar {
             flex-grow: 1;

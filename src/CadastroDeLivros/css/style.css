@@ -51,6 +51,13 @@ header {
   opacity: 0.9;
 }
 
+.img-logo {
+  width: 2.6em; 
+  height: 2.6em; 
+  vertical-align: middle; 
+  margin-right: 8px;
+}
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
