@@ -23,7 +23,7 @@ Também apliquei algumas restrições e lógicas de navegação. Por exemplo, s�
 ![image](https://github.com/user-attachments/assets/d55045b7-cae0-454c-be12-97972968f2c2)
 
 3. Tela pra recuperção de senha
-![image](https://github.com/user-attachments/assets/fb9689e7-ba50-4804-911d-d41a48c5c6ec)
+![{image}](https://github.com/user-attachments/assets/314e338c-9199-4fea-9452-c6f11578d16e)
 
 4. Home page
 ![image](https://github.com/user-attachments/assets/24ed634d-af3c-4099-bb96-73971f787e57)
