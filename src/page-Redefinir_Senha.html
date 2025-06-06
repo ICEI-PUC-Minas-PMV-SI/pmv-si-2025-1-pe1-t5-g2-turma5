@@ -4,88 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tô Lendo - Redefinir Senha</title>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-            min-height: 100vh;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-        }
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #4A90E2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
 
-        .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            min-height: calc(100vh - 100px);
-        }
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
 
-        .logo {
-            margin-bottom: 2rem;
-            animation: fadeInDown 0.8s ease-out;
-        }
+footer {
+    background-color: #7faad1;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2em;
+}
 
         .logo img {
-            width: 280px;
-            max-width: 100%;
-            height: auto;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            width: 300px;
+            margin-bottom: 40px;
         }
 
         .password-reset-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 420px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .password-reset-box h1 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        .password-reset-box p {
-            color: #7f8c8d;
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 0.5rem;
-        }
-
-        .input-wrapper {
+            max-width: 450px;
+            margin: 0 auto;
             position: relative;
         }
 
-        .password-toggle {
+        .password-reset-box h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .password-reset-box p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .password-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group input[type="password"],
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 12px 45px 12px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #fafbfc;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #5C6BC0;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #aaa;
+        }
+
+        .toggle-password {
             position: absolute;
             right: 12px;
             top: 50%;
@@ -93,174 +119,108 @@
             background: none;
             border: none;
             cursor: pointer;
-            color: #7f8c8d;
-            font-size: 1.1rem;
+            color: #666;
+            font-size: 16px;
             padding: 4px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            z-index: 10;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
         }
 
-        .password-toggle:hover {
-            color: #4A90E2;
-            background: rgba(74, 144, 226, 0.1);
+        .toggle-password svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
         }
 
-        .password-toggle:focus {
-            outline: 2px solid #4A90E2;
-            outline-offset: 2px;
-        }
-
-        .eye-icon {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        .form-group input[type="password"],
-        .form-group input[type="text"] {
-            width: 100%;
-            padding: 1rem 3rem 1rem 1rem;
-            border: 2px solid #e1e8ed;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #fff;
-        }
-
-        .form-group input[type="password"]:focus,
-        .form-group input[type="text"]:focus {
-            outline: none;
-            border-color: #4A90E2;
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-        }
-
-        .form-group input[type="password"].error,
-        .form-group input[type="text"].error {
-            border-color: #e74c3c;
-            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
-        }
-
-        .form-group input[type="password"].success,
-        .form-group input[type="text"].success {
-            border-color: #27ae60;
-            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+        .toggle-password:hover svg {
+            opacity: 1;
         }
 
         .password-strength {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500;
         }
 
-        .strength-bar {
-            width: 100%;
-            height: 4px;
-            background: #e1e8ed;
-            border-radius: 2px;
-            margin: 0.5rem 0;
-            overflow: hidden;
+        .strength-weak { 
+            color: #e74c3c; 
         }
 
-        .strength-fill {
-            height: 100%;
-            width: 0%;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+        .strength-medium { 
+            color: #f39c12; 
         }
 
-        .strength-weak { background: #e74c3c; }
-        .strength-medium { background: #f39c12; }
-        .strength-strong { background: #27ae60; }
+        .strength-strong { 
+            color: #27ae60; 
+        }
 
         .error-message {
             color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
+            font-size: 13px;
+            margin-top: 5px;
             display: none;
         }
 
         .success-message {
             color: #27ae60;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
+            font-size: 13px;
+            margin-top: 5px;
             display: none;
         }
 
         .btn-confirm {
-            background: linear-gradient(135deg, #5C6BC0 0%, #4A569C 100%);
+            background-color: #5C6BC0;
             color: white;
-            padding: 1rem 2rem;
+            padding: 15px 30px;
             border: none;
             border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 18px;
             cursor: pointer;
             width: 100%;
-            margin-top: 1rem;
+            margin-top: 20px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-confirm:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(92, 107, 192, 0.3);
-        }
-
-        .btn-confirm:active {
-            transform: translateY(0);
-        }
-
-        .btn-confirm:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .btn-confirm .loading {
-            display: none;
-        }
-
-        .btn-confirm.loading .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        footer {
-            background: rgba(127, 170, 209, 0.9);
-            backdrop-filter: blur(10px);
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.1rem;
             font-weight: 500;
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn-confirm:hover {
+            background-color: #4A569C;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.3);
         }
 
+        .btn-confirm:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .back-to-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-login a {
+            color: #5C6BC0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
+
+       
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -268,398 +228,192 @@
             }
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .password-reset-box {
-                padding: 2rem 1.5rem;
-            }
-            
-            .logo img {
-                width: 220px;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        .success-animation {
+            animation: fadeInUp 0.5s ease;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="logo">
             <img src="https://github.com/user-attachments/assets/8e859c12-7277-432a-ae1f-3f4af7803a4d" alt="Logo Tô Lendo">
         </div>
-        
         <div class="password-reset-box">
             <h1>Redefina sua senha</h1>
-            <p>Crie uma nova senha segura para sua conta</p>
-            
-            <form id="passwordResetForm" novalidate>
-                <div class="form-group">
-                    <label for="newPassword">Nova senha</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="newPassword" placeholder="Digite sua nova senha" required minlength="8">
-                        <button type="button" class="password-toggle" id="toggleNewPassword" aria-label="Mostrar/ocultar senha">
-                            <svg class="eye-icon" viewBox="0 0 24 24" id="eyeIconNew">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            <p>Vamos te ajudar com sua criação de uma nova senha</p>
+
+            <form id="passwordResetForm">
+                <div class="input-group">
+                    <label for="newPassword">Insira sua nova senha</label>
+                    <div class="password-input-container">
+                        <input type="password" id="newPassword" placeholder="Nova senha" required>
+                        <button type="button" class="toggle-password" data-target="newPassword">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
                             </svg>
                         </button>
                     </div>
-                    <div class="password-strength">
-                        <div class="strength-bar">
-                            <div class="strength-fill" id="strengthFill"></div>
-                        </div>
-                        <span id="strengthText">Digite pelo menos 8 caracteres</span>
+                    <div class="password-strength" id="passwordStrength" style="display: none;">
+                        <span class="strength-text"></span>
                     </div>
-                    <div class="error-message" id="newPasswordError"></div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="confirmPassword">Confirmar senha</label>
-                    <div class="input-wrapper">
+
+                <div class="input-group">
+                    <label for="confirmPassword">Confirme sua nova senha</label>
+                    <div class="password-input-container">
                         <input type="password" id="confirmPassword" placeholder="Confirme sua nova senha" required>
-                        <button type="button" class="password-toggle" id="toggleConfirmPassword" aria-label="Mostrar/ocultar senha">
-                            <svg class="eye-icon" viewBox="0 0 24 24" id="eyeIconConfirm">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                            </svg>
-                        </button>
+                       <button type="button" class="toggle-password" data-target="confirmPassword">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                             <circle cx="12" cy="12" r="3"/>
+                          </svg>
+                      </button>
                     </div>
-                    <div class="error-message" id="confirmPasswordError"></div>
-                    <div class="success-message" id="confirmPasswordSuccess">As senhas coincidem!</div>
+                    <div class="error-message" id="confirmError">As senhas não coincidem</div>
+                    <div class="success-message" id="confirmSuccess">✓ Senhas coincidem</div>
                 </div>
-                
-                <button type="submit" class="btn-confirm" id="submitBtn">
-                    <span class="btn-text">Confirmar nova senha</span>
-                    <span class="loading"></span>
-                </button>
+
+                <button type="submit" class="btn-confirm" id="submitBtn">Confirmar nova senha</button>
             </form>
+
+            <div class="back-to-login">
+                <a href="#" id="backToLogin">← Voltar para o login</a>
+            </div>
         </div>
     </div>
-    
-    <footer>
-        <p>&copy; 2025 Tô Lendo. Todos os direitos reservados.</p>
-    </footer>
+
+    <footer></footer>
 
     <script>
-        class PasswordReset {
-            constructor() {
-                this.form = document.getElementById('passwordResetForm');
-                this.newPasswordInput = document.getElementById('newPassword');
-                this.confirmPasswordInput = document.getElementById('confirmPassword');
-                this.submitBtn = document.getElementById('submitBtn');
-                this.strengthFill = document.getElementById('strengthFill');
-                this.strengthText = document.getElementById('strengthText');
-                this.toggleNewPassword = document.getElementById('toggleNewPassword');
-                this.toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-                this.eyeIconNew = document.getElementById('eyeIconNew');
-                this.eyeIconConfirm = document.getElementById('eyeIconConfirm');
-                
-                this.init();
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            const passwordResetForm = document.getElementById('passwordResetForm');
+            const newPasswordInput = document.getElementById('newPassword');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordStrength = document.getElementById('passwordStrength');
+            const confirmError = document.getElementById('confirmError');
+            const confirmSuccess = document.getElementById('confirmSuccess');
+            const submitBtn = document.getElementById('submitBtn');
+            const backToLogin = document.getElementById('backToLogin');
 
-            init() {
-                this.bindEvents();
-            }
+            
+            document.querySelectorAll('.toggle-password').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const targetInput = document.getElementById(targetId);
+                    const svg = button.querySelector('svg');
+                    
+                    if (targetInput.type === 'password') {
+                        targetInput.type = 'text';
+                        
+                        svg.innerHTML = `
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                            <line x1="21" y1="2" x2="3" y2="22"/>
+                        `;
+                    } else {
+                        targetInput.type = 'password';
+                        
+                        svg.innerHTML = `
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        `;
+                    }
+                });
+            });
 
-            bindEvents() {
-                this.form.addEventListener('submit', this.handleSubmit.bind(this));
-                this.newPasswordInput.addEventListener('input', this.handlePasswordInput.bind(this));
-                this.confirmPasswordInput.addEventListener('input', this.handleConfirmInput.bind(this));
-                this.newPasswordInput.addEventListener('blur', this.validateNewPassword.bind(this));
-                this.confirmPasswordInput.addEventListener('blur', this.validateConfirmPassword.bind(this));
-                this.toggleNewPassword.addEventListener('click', () => this.togglePasswordVisibility('newPassword'));
-                this.toggleConfirmPassword.addEventListener('click', () => this.togglePasswordVisibility('confirmPassword'));
-            }
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                let feedback = '';
 
-            togglePasswordVisibility(fieldId) {
-                const input = document.getElementById(fieldId);
-                const eyeIcon = fieldId === 'newPassword' ? this.eyeIconNew : this.eyeIconConfirm;
-                const toggleBtn = fieldId === 'newPassword' ? this.toggleNewPassword : this.toggleConfirmPassword;
-                
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    eyeIcon.innerHTML = `
-                        <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
-                    `;
-                    toggleBtn.setAttribute('aria-label', 'Ocultar senha');
+                if (password.length >= 8) strength++;
+                if (password.match(/[a-z]/)) strength++;
+                if (password.match(/[A-Z]/)) strength++;
+                if (password.match(/[0-9]/)) strength++;
+                if (password.match(/[^a-zA-Z0-9]/)) strength++;
+
+                if (strength <= 2) {
+                    feedback = 'Fraca';
+                    return { strength: 'weak', feedback, class: 'strength-weak' };
+                } else if (strength <= 3) {
+                    feedback = 'Média';
+                    return { strength: 'medium', feedback, class: 'strength-medium' };
                 } else {
-                    input.type = 'password';
-                    eyeIcon.innerHTML = `
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                    `;
-                    toggleBtn.setAttribute('aria-label', 'Mostrar senha');
+                    feedback = 'Forte';
+                    return { strength: 'strong', feedback, class: 'strength-strong' };
                 }
             }
 
-            handlePasswordInput() {
-                const password = this.newPasswordInput.value;
-                this.updatePasswordStrength(password);
-                this.clearError('newPassword');
+            newPasswordInput.addEventListener('input', () => {
+                const password = newPasswordInput.value;
                 
-                if (this.confirmPasswordInput.value) {
-                    this.validateConfirmPassword();
+                if (password.length > 0) {
+                    passwordStrength.style.display = 'block';
+                    const result = checkPasswordStrength(password);
+                    
+                    passwordStrength.className = 'password-strength ' + result.class;
+                    passwordStrength.querySelector('.strength-text').textContent = `Força da senha: ${result.feedback}`;
+                } else {
+                    passwordStrength.style.display = 'none';
                 }
-            }
-
-            handleConfirmInput() {
-                this.validateConfirmPassword();
-            }
-
-            updatePasswordStrength(password) {
-                const strength = this.calculatePasswordStrength(password);
-                const strengthFill = document.getElementById('strengthFill');
-                const strengthText = document.getElementById('strengthText');
-
-                strengthFill.className = 'strength-fill';
                 
-                if (password.length === 0) {
-                    strengthFill.style.width = '0%';
-                    strengthText.textContent = 'Digite pelo menos 8 caracteres';
-                    return;
-                }
+                validatePasswords();
+            });
 
-                switch (strength.level) {
-                    case 'weak':
-                        strengthFill.style.width = '33%';
-                        strengthFill.classList.add('strength-weak');
-                        strengthText.textContent = 'Senha fraca';
-                        break;
-                    case 'medium':
-                        strengthFill.style.width = '66%';
-                        strengthFill.classList.add('strength-medium');
-                        strengthText.textContent = 'Senha média';
-                        break;
-                    case 'strong':
-                        strengthFill.style.width = '100%';
-                        strengthFill.classList.add('strength-strong');
-                        strengthText.textContent = 'Senha forte';
-                        break;
-                }
-            }
+            confirmPasswordInput.addEventListener('input', validatePasswords);
 
-            calculatePasswordStrength(password) {
-                let score = 0;
-                const checks = {
-                    length: password.length >= 8,
-                    lowercase: /[a-z]/.test(password),
-                    uppercase: /[A-Z]/.test(password),
-                    numbers: /\d/.test(password),
-                    symbols: /[^A-Za-z0-9]/.test(password)
-                };
-
-                score = Object.values(checks).filter(Boolean).length;
-
-                if (score < 3) return { level: 'weak', score };
-                if (score < 5) return { level: 'medium', score };
-                return { level: 'strong', score };
-            }
-
-            validateNewPassword() {
-                const password = this.newPasswordInput.value;
-                const errorEl = document.getElementById('newPasswordError');
-
-                if (password.length === 0) {
-                    this.showError('newPassword', 'A senha é obrigatória');
-                    return false;
-                }
-
-                if (password.length < 8) {
-                    this.showError('newPassword', 'A senha deve ter pelo menos 8 caracteres');
-                    return false;
-                }
-
-                const strength = this.calculatePasswordStrength(password);
-                if (strength.level === 'weak') {
-                    this.showError('newPassword', 'Senha muito fraca. Use letras maiúsculas, minúsculas, números e símbolos');
-                    return false;
-                }
-
-                this.clearError('newPassword');
-                this.newPasswordInput.classList.add('success');
-                return true;
-            }
-
-            validateConfirmPassword() {
-                const password = this.newPasswordInput.value;
-                const confirmPassword = this.confirmPasswordInput.value;
-                const errorEl = document.getElementById('confirmPasswordError');
-                const successEl = document.getElementById('confirmPasswordSuccess');
-
-                if (confirmPassword.length === 0) {
-                    this.hideSuccess('confirmPassword');
-                    return false;
-                }
-
-                if (password !== confirmPassword) {
-                    this.showError('confirmPassword', 'As senhas não coincidem');
-                    this.hideSuccess('confirmPassword');
-                    return false;
-                }
-
-                this.clearError('confirmPassword');
-                this.showSuccess('confirmPassword');
-                this.confirmPasswordInput.classList.add('success');
-                return true;
-            }
-
-            showError(field, message) {
-                const input = document.getElementById(field);
-                const errorEl = document.getElementById(field + 'Error');
+            function validatePasswords() {
+                const newPassword = newPasswordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
                 
-                input.classList.add('error');
-                input.classList.remove('success');
-                errorEl.textContent = message;
-                errorEl.style.display = 'block';
-            }
-
-            clearError(field) {
-                const input = document.getElementById(field);
-                const errorEl = document.getElementById(field + 'Error');
-                
-                input.classList.remove('error');
-                errorEl.style.display = 'none';
-            }
-
-            showSuccess(field) {
-                const successEl = document.getElementById(field + 'Success');
-                if (successEl) {
-                    successEl.style.display = 'block';
+                if (confirmPassword.length > 0) {
+                    if (newPassword === confirmPassword) {
+                        confirmError.style.display = 'none';
+                        confirmSuccess.style.display = 'block';
+                        submitBtn.disabled = false;
+                    } else {
+                        confirmError.style.display = 'block';
+                        confirmSuccess.style.display = 'none';
+                        submitBtn.disabled = true;
+                    }
+                } else {
+                    confirmError.style.display = 'none';
+                    confirmSuccess.style.display = 'none';
+                    submitBtn.disabled = true;
                 }
             }
 
-            hideSuccess(field) {
-                const successEl = document.getElementById(field + 'Success');
-                if (successEl) {
-                    successEl.style.display = 'none';
-                }
-            }
-
-            async handleSubmit(event) {
+            passwordResetForm.addEventListener('submit', (event) => {
                 event.preventDefault();
 
-                const isNewPasswordValid = this.validateNewPassword();
-                const isConfirmPasswordValid = this.validateConfirmPassword();
+                const newPassword = newPasswordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
 
-                if (!isNewPasswordValid || !isConfirmPasswordValid) {
+                if (newPassword !== confirmPassword) {
+                    confirmError.style.display = 'block';
+                    confirmPasswordInput.focus(); 
                     return;
                 }
 
-                this.setLoading(true);
-
-                try {
-                    await this.simulateApiCall();
-                    
-                    this.showSuccessMessage();
-                    
-                    setTimeout(() => {
-                        window.location.href = 'page_login.html';
-                    }, 2000);
-                    
-                } catch (error) {
-                    this.showErrorMessage('Erro ao redefinir senha. Tente novamente.');
-                } finally {
-                    this.setLoading(false);
-                }
-            }
-
-            setLoading(loading) {
-                const btnText = this.submitBtn.querySelector('.btn-text');
-                const loadingSpinner = this.submitBtn.querySelector('.loading');
-
-                if (loading) {
-                    this.submitBtn.classList.add('loading');
-                    this.submitBtn.disabled = true;
-                    btnText.style.display = 'none';
-                    loadingSpinner.style.display = 'inline-block';
-                } else {
-                    this.submitBtn.classList.remove('loading');
-                    this.submitBtn.disabled = false;
-                    btnText.style.display = 'inline';
-                    loadingSpinner.style.display = 'none';
-                }
-            }
-
-            simulateApiCall() {
-                return new Promise((resolve) => {
-                    setTimeout(resolve, 1500);
-                });
-            }
-
-            showSuccessMessage() {
-                const toast = document.createElement('div');
-                toast.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: #27ae60;
-                    color: white;
-                    padding: 1rem 1.5rem;
-                    border-radius: 8px;
-                    font-weight: 500;
-                    z-index: 10000;
-                    animation: slideInRight 0.3s ease;
-                `;
-                toast.textContent = 'Senha redefinida com sucesso! Redirecionando...';
                 
-                document.body.appendChild(toast);
+                const box = document.querySelector('.password-reset-box');
+                box.classList.add('success-animation');
                 
+                alert('🎉 Senha redefinida com sucesso! Redirecionando para o login...');
+                
+               
                 setTimeout(() => {
-                    toast.remove();
-                }, 3000);
-            }
+                    window.location.href = 'page-Login.html'; 
+                }, 2000);
+            });
 
-            showErrorMessage(message) {
-                const toast = document.createElement('div');
-                toast.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: #e74c3c;
-                    color: white;
-                    padding: 1rem 1.5rem;
-                    border-radius: 8px;
-                    font-weight: 500;
-                    z-index: 10000;
-                    animation: slideInRight 0.3s ease;
-                `;
-                toast.textContent = message;
-                
-                document.body.appendChild(toast);
-                
-                setTimeout(() => {
-                    toast.remove();
-                }, 4000);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            new PasswordReset();
+           
+            backToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'page-Login.html'; 
+            });
         });
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
