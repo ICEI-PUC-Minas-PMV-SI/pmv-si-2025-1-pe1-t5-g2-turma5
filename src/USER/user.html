@@ -4,6 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil | Tô Lendo</title>
+    <style>
+        /* Prevent layout flash */
+        body { 
+            opacity: 0; 
+            transition: opacity 0.3s ease;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body.loaded { 
+            opacity: 1; 
+        }
+        
+        /* Critical CSS for initial layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            flex: 0 0 350px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .content {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 2rem;
+        }
+    </style>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -34,47 +73,50 @@
             <div class="profile-card">
                 <div class="profile-header">
                     <div class="profile-avatar">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%23e9ecef'/%3E%3Ccircle cx='60' cy='45' r='20' fill='%236c757d'/%3E%3Cellipse cx='60' cy='95' rx='30' ry='20' fill='%236c757d'/%3E%3C/svg%3E" alt="Igor da Silva">
-                        <button class="edit-profile-btn">
+                        <img id="profileAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Ccircle cx='70' cy='70' r='70' fill='%23e9ecef'/%3E%3Ccircle cx='70' cy='55' r='25' fill='%236c757d'/%3E%3Cellipse cx='70' cy='110' rx='35' ry='25' fill='%236c757d'/%3E%3C/svg%3E" alt="Foto do perfil">
+                        <button class="edit-avatar-btn" onclick="triggerAvatarUpload()">
                             <i class="fas fa-camera"></i>
                         </button>
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(event)">
                     </div>
                     <h2 class="profile-name">Usuário</h2>
                     <p class="profile-username">@usuario</p>
                 </div>
 
-                <div class="genre-tags">
-                    <span class="genre-tag active">Ficção</span>
-                    <span class="genre-tag">Romance</span>
-                    <span class="genre-tag">Terror</span>
-                    <span class="genre-tag">Fantasia</span>
+                <div class="genre-tags" id="genreTags">
+                    <!-- Gêneros serão carregados dinamicamente -->
+                    <button class="genre-add-btn" onclick="openGenreModal()" title="Adicionar gênero favorito">
+                        <i class="fas fa-plus"></i>
+                    </button>
                 </div>
 
                 <div class="reading-stats">
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number" id="finishedBooksCount">0</span>
                         <span class="stat-label">Lidos</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number" id="favoriteBooksCount">0</span>
                         <span class="stat-label">Favoritos</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number" id="currentlyReadingCount">0</span>
                         <span class="stat-label">Lendo</span>
                     </div>
                 </div>
 
-                <div class="currently-reading">
+                <div class="currently-reading sidebar-currently-reading">
                     <h3>Lendo Agora</h3>
-                    <p class="no-book">Nenhum livro sendo lido no momento</p>
+                    <div class="books-list">
+                        <p class="no-books">Nenhum livro sendo lido no momento</p>
+                    </div>
                 </div>
 
                 <div class="profile-actions">
-                    <button class="btn-secondary">
+                    <button class="btn-primary" onclick="openEditProfileModal()">
                         <i class="fas fa-edit"></i> Editar Perfil
                     </button>
-                    <button class="btn-primary">
+                    <button class="btn-primary" onclick="openAddBookModal()">
                         <i class="fas fa-plus"></i> Adicionar Livro
                     </button>
                     
@@ -163,6 +205,7 @@
                         <div class="section-header">
                             <h3><i class="fas fa-heart"></i> Meus Favoritos</h3>
                         </div>
+                        <div class="books-grid" id="favoriteBooksContainer"></div>
                         <div class="empty-state">
                             <i class="fas fa-heart"></i>
                             <p>Nenhum livro favorito ainda.</p>
@@ -174,6 +217,7 @@
                         <div class="section-header">
                             <h3><i class="fas fa-book-open"></i> Lendo Atualmente</h3>
                         </div>
+                        <div class="books-grid" id="currentlyReadingContainer"></div>
                         <div class="empty-state">
                             <i class="fas fa-book-open"></i>
                             <p>Nenhum livro nesta seção ainda.</p>
@@ -185,6 +229,7 @@
                         <div class="section-header">
                             <h3><i class="fas fa-bookmark"></i> Quero Ler</h3>
                         </div>
+                        <div class="books-grid" id="wantToReadContainer"></div>
                         <div class="empty-state">
                             <i class="fas fa-bookmark"></i>
                             <p>Nenhum livro nesta seção ainda.</p>
@@ -196,6 +241,7 @@
                         <div class="section-header">
                             <h3><i class="fas fa-check-circle"></i> Livros Finalizados</h3>
                         </div>
+                        <div class="books-grid" id="finishedBooksContainer"></div>
                         <div class="empty-state">
                             <i class="fas fa-check-circle"></i>
                             <p>Nenhum livro nesta seção ainda.</p>
@@ -206,193 +252,9 @@
         </div>
     </main>
 
-    <!-- Profile Edit Modal -->
-    <div id="editProfileModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Editar Perfil</h2>
-                <button class="modal-close" id="closeEditModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="editProfileForm">
-                    <div class="form-group">
-                        <label for="fullName">Nome Completo</label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Digite seu nome completo" value="Igor da Silva">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="username">Nome de Usuário</label>
-                        <input type="text" id="username" name="username" placeholder="@seu_usuario" value="@IGORDASILVA">
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="age">Idade</label>
-                            <select id="age" name="age">
-                                <option value="">Selecione</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option value="29" selected>29</option>
-                                <option value="30">30</option>
-                                <option value="31">31</option>
-                                <option value="32">32</option>
-                                <option value="33">33</option>
-                                <option value="34">34</option>
-                                <option value="35">35</option>
-                                <option value="36">36</option>
-                                <option value="37">37</option>
-                                <option value="38">38</option>
-                                <option value="39">39</option>
-                                <option value="40">40</option>
-                                <option value="41">41</option>
-                                <option value="42">42</option>
-                                <option value="43">43</option>
-                                <option value="44">44</option>
-                                <option value="45">45</option>
-                                <option value="46">46</option>
-                                <option value="47">47</option>
-                                <option value="48">48</option>
-                                <option value="49">49</option>
-                                <option value="50">50+</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="location">Localização</label>
-                            <input type="text" id="location" name="location" placeholder="São Paulo, SP" value="Belo Horizonte, MG">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="profession">Profissão</label>
-                        <input type="text" id="profession" name="profession" placeholder="Desenvolvedor, Professor, Engenheiro..." value="Analista">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bio">Sobre Mim</label>
-                        <textarea id="bio" name="bio" placeholder="Conte um pouco sobre você, seus gostos literários e o que mais gosta de ler..." rows="4">JOVEM E CASEIRO</textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="readingGoal">Meta de Livros por Ano</label>
-                        <select id="readingGoal" name="readingGoal">
-                            <option value="">Selecione</option>
-                            <option value="5">5 livros</option>
-                            <option value="10">10 livros</option>
-                            <option value="12">12 livros</option>
-                            <option value="15">15 livros</option>
-                            <option value="20">20 livros</option>
-                            <option value="25" selected>25 livros</option>
-                            <option value="30">30 livros</option>
-                            <option value="35">35 livros</option>
-                            <option value="40">40 livros</option>
-                            <option value="50">50 livros</option>
-                            <option value="100">100+ livros</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" id="cancelEdit">Cancelar</button>
-                <button type="submit" class="btn-primary" id="saveProfile">Salvar Perfil</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Book Modal -->
-    <div id="addBookModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Adicionar Livro</h2>
-                <button class="modal-close" id="closeAddBookModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="addBookForm">
-                    <div class="form-group">
-                        <label for="bookTitle">Título</label>
-                        <input type="text" id="bookTitle" name="bookTitle" placeholder="Digite o título do livro" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bookAuthor">Autor</label>
-                        <input type="text" id="bookAuthor" name="bookAuthor" placeholder="Digite o nome do autor" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bookGenre">Gênero</label>
-                        <select id="bookGenre" name="bookGenre" required>
-                            <option value="">Selecione um gênero</option>
-                            <option value="Ficção">Ficção</option>
-                            <option value="Romance">Romance</option>
-                            <option value="Terror">Terror</option>
-                            <option value="Fantasia">Fantasia</option>
-                            <option value="Mistério">Mistério</option>
-                            <option value="Biografia">Biografia</option>
-                            <option value="História">História</option>
-                            <option value="Autoajuda">Autoajuda</option>
-                            <option value="Ciência">Ciência</option>
-                            <option value="Tecnologia">Tecnologia</option>
-                            <option value="Filosofia">Filosofia</option>
-                            <option value="Poesia">Poesia</option>
-                            <option value="Drama">Drama</option>
-                            <option value="Aventura">Aventura</option>
-                            <option value="Suspense">Suspense</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bookStatus">Status</label>
-                        <select id="bookStatus" name="bookStatus" required>
-                            <option value="">Selecione o status</option>
-                            <option value="Quero ler">Quero ler</option>
-                            <option value="Lendo">Lendo</option>
-                            <option value="Finalizado">Finalizado</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bookPages">Total de páginas</label>
-                        <input type="number" id="bookPages" name="bookPages" placeholder="0" min="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bookCover">URL da Capa</label>
-                        <input type="url" id="bookCover" name="bookCover" placeholder="https://exemplo.com/capa.jpg">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bookReview">Resenha (opcional)</label>
-                        <textarea id="bookReview" name="bookReview" placeholder="Escreva sua opinião sobre o livro..." rows="4"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="bookFavorite" name="bookFavorite">
-                            <span class="checkmark"></span>
-                            Marcar como favorito
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" id="cancelAddBook">Cancelar</button>
-                <button type="submit" class="btn-primary" id="saveBook">Salvar</button>
-            </div>
-        </div>
-    </div>
+    <!-- Add Book Modal will be created dynamically by JavaScript -->
 
     <!-- Genre Selection Modal -->
     <div id="genreSelectionModal" class="modal-overlay">
@@ -483,6 +345,135 @@
             <div class="modal-footer">
                 <button type="button" class="btn-secondary" id="cancelGenreSelection">Cancelar</button>
                 <button type="button" class="btn-primary" id="saveGenres">Salvar Gêneros</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Edit Modal - Blue Theme -->
+    <div id="editProfileModal" class="modal-overlay">
+        <div class="edit-profile-modal">
+            <div class="edit-modal-header">
+                <h2>Editar Perfil</h2>
+                <button class="edit-modal-close" id="closeEditModal" type="button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="edit-modal-body">
+                <form id="editProfileForm">
+                    <div class="form-group">
+                        <label for="editName">Nome Completo</label>
+                        <input type="text" id="editName" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editUsername">Nome de Usuário</label>
+                        <input type="text" id="editUsername" name="username" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="editAge">Idade</label>
+                            <select id="editAge" name="age">
+                                <option value="">Selecione</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                                <option value="60">60</option>
+                                <option value="61">61</option>
+                                <option value="62">62</option>
+                                <option value="63">63</option>
+                                <option value="64">64</option>
+                                <option value="65">65</option>
+                                <option value="66">66</option>
+                                <option value="67">67</option>
+                                <option value="68">68</option>
+                                <option value="69">69</option>
+                                <option value="70">70</option>
+                                <option value="71">71</option>
+                                <option value="72">72</option>
+                                <option value="73">73</option>
+                                <option value="74">74</option>
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group half-width">
+                            <label for="editLocation">Localização</label>
+                            <input type="text" id="editLocation" name="location">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editProfession">Profissão</label>
+                        <input type="text" id="editProfession" name="profession" placeholder="Desenvolvedor, Professor, Engenheiro...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBio">Sobre Mim</label>
+                        <textarea id="editBio" name="bio" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editReadingGoal">Meta de Livros por Ano</label>
+                        <select id="editReadingGoal" name="readingGoal">
+                            <option value="">Selecione</option>
+                            <option value="12">12 livros</option>
+                            <option value="24">24 livros</option>
+                            <option value="36">36 livros</option>
+                            <option value="50">50 livros</option>
+                            <option value="75">75 livros</option>
+                            <option value="100">100 livros</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="edit-modal-footer">
+                <button type="button" class="btn-cancel" id="cancelEdit">Cancelar</button>
+                <button type="submit" form="editProfileForm" class="btn-save" id="saveProfile">Salvar Perfil</button>
             </div>
         </div>
     </div>
@@ -742,44 +733,97 @@
                 });
             });
             
-            // Add book button functionality
-            const addBookButton = document.querySelector('.btn-primary');
-            const addBookModal = document.getElementById('addBookModal');
-            const closeAddBookModal = document.getElementById('closeAddBookModal');
-            const cancelAddBook = document.getElementById('cancelAddBook');
-            const saveBook = document.getElementById('saveBook');
-            const addBookForm = document.getElementById('addBookForm');
-            
-            if (addBookButton) {
-                addBookButton.addEventListener('click', function() {
-                    addBookModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
+            // Add book button functionality is handled by script.js
 
-            // Close add book modal functionality
-            function closeAddBookModalFunc() {
-                addBookModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                addBookForm.reset();
-            }
-
-            if (closeAddBookModal) {
-                closeAddBookModal.addEventListener('click', closeAddBookModalFunc);
-            }
-
-            if (cancelAddBook) {
-                cancelAddBook.addEventListener('click', closeAddBookModalFunc);
-            }
-
-            // Close modal when clicking outside
-            addBookModal.addEventListener('click', function(e) {
-                if (e.target === addBookModal) {
-                    closeAddBookModalFunc();
-                }
+            // Catalog search and filter functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add event listeners when DOM is ready
+                setTimeout(() => {
+                    const catalogSearchInput = document.getElementById('catalogSearchInput');
+                    const catalogGenreFilter = document.getElementById('catalogGenreFilter');
+                    
+                    if (catalogSearchInput) {
+                        catalogSearchInput.addEventListener('input', searchCatalogBooks);
+                    }
+                    
+                    if (catalogGenreFilter) {
+                        catalogGenreFilter.addEventListener('change', searchCatalogBooks);
+                    }
+                }, 100);
             });
 
+            // Search and filter catalog books function
+            function searchCatalogBooks() {
+                console.log('=== INÍCIO searchCatalogBooks ===');
+                
+                const searchInput = document.getElementById('catalogSearchInput');
+                const genreFilter = document.getElementById('catalogGenreFilter');
+                
+                if (!searchInput || !genreFilter) {
+                    console.log('Elementos de busca/filtro não encontrados');
+                    return;
+                }
+                
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const selectedGenre = genreFilter.value;
+                
+                console.log('Termo de busca:', searchTerm);
+                console.log('Gênero selecionado:', selectedGenre);
+                console.log('Total de livros no catálogo:', catalogBooksData.length);
+                
+                // Start with all books
+                let filtered = [...catalogBooksData];
+                
+                // Apply search filter
+                if (searchTerm) {
+                    filtered = filtered.filter(book => {
+                        const titleMatch = book.title.toLowerCase().includes(searchTerm);
+                        const authorMatch = book.author.toLowerCase().includes(searchTerm);
+                        const genreMatch = book.genre && book.genre.toLowerCase().includes(searchTerm);
+                        
+                        return titleMatch || authorMatch || genreMatch;
+                    });
+                }
+                
+                // Apply genre filter
+                if (selectedGenre && selectedGenre !== '') {
+                    filtered = filtered.filter(book => {
+                        // Handle different genre formats
+                        const bookGenre = book.genre || '';
+                        const normalizedBookGenre = bookGenre.toLowerCase();
+                        const normalizedSelectedGenre = selectedGenre.toLowerCase();
+                        
+                        return normalizedBookGenre === normalizedSelectedGenre || 
+                               normalizedBookGenre.includes(normalizedSelectedGenre) ||
+                               getGenreDisplayName(normalizedSelectedGenre).toLowerCase() === normalizedBookGenre;
+                    });
+                }
+                
+                console.log('Livros filtrados:', filtered.length);
+                console.log('Livros encontrados:', filtered.map(b => `${b.title} - ${b.author} - ${b.genre}`));
+                
+                // Update filtered books and re-render
+                filteredCatalogBooks = filtered;
+                renderCatalogBooks();
+                
+                console.log('=== FIM searchCatalogBooks ===');
+            }
+
+            // Clear search filters
+            function clearSearch() {
+                const searchInput = document.getElementById('catalogSearchInput');
+                const genreFilter = document.getElementById('catalogGenreFilter');
+                
+                if (searchInput) searchInput.value = '';
+                if (genreFilter) genreFilter.value = '';
+                
+                // Reset to show all books
+                filteredCatalogBooks = [...catalogBooksData];
+                renderCatalogBooks();
+            }
+
             // Save book functionality
+            const saveBook = document.getElementById('saveBook');
             if (saveBook) {
                 saveBook.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -906,48 +950,7 @@
                 });
             }
             
-            // Edit profile button functionality
-            const editProfileButton = document.querySelector('.btn-secondary');
-            const editProfileModal = document.getElementById('editProfileModal');
-            const closeEditModal = document.getElementById('closeEditModal');
-            const cancelEdit = document.getElementById('cancelEdit');
-            const saveProfile = document.getElementById('saveProfile');
-            const editProfileForm = document.getElementById('editProfileForm');
-            
-            if (editProfileButton) {
-                editProfileButton.addEventListener('click', function() {
-                    editProfileModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-
-            // Close modal functionality
-            function closeModal() {
-                editProfileModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-
-            if (closeEditModal) {
-                closeEditModal.addEventListener('click', closeModal);
-            }
-
-            if (cancelEdit) {
-                cancelEdit.addEventListener('click', closeModal);
-            }
-
-            // Close modal when clicking outside
-            editProfileModal.addEventListener('click', function(e) {
-                if (e.target === editProfileModal) {
-                    closeModal();
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && editProfileModal.classList.contains('active')) {
-                    closeModal();
-                }
-            });
+            // Edit profile modal functionality will be handled by script.js
 
             // Save profile functionality
             if (saveProfile) {
@@ -984,57 +987,96 @@
             const editAvatarButton = document.querySelector('.edit-profile-btn');
             
             if (editAvatarButton) {
-                editAvatarButton.addEventListener('click', function() {
+                editAvatarButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log('Edit avatar clicked');
                     
-                    // Create file input for image upload
-                    const fileInput = document.createElement('input');
-                    fileInput.type = 'file';
-                    fileInput.accept = 'image/*';
-                    fileInput.style.display = 'none';
+                    // Create and trigger file input
+                    triggerAvatarUpload();
+                });
+            }
+            
+            // Function to trigger avatar upload
+            function triggerAvatarUpload() {
+                console.log('Triggering avatar upload...');
+                
+                // Create file input for image upload
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/jpeg,image/jpg,image/png,image/gif,image/webp';
+                fileInput.style.display = 'none';
+                fileInput.multiple = false;
+                
+                // Add to DOM temporarily
+                document.body.appendChild(fileInput);
+                
+                fileInput.addEventListener('change', function(event) {
+                    console.log('File selected:', event.target.files.length);
+                    handleAvatarUpload(event);
                     
-                    fileInput.addEventListener('change', function(event) {
-                        const file = event.target.files[0];
-                        if (file) {
-                            // Validate file type
-                            if (!file.type.startsWith('image/')) {
-                                showNotification('Por favor, selecione apenas arquivos de imagem.', 'error');
-                                return;
-                            }
-                            
-                            // Validate file size (max 5MB)
-                            if (file.size > 5 * 1024 * 1024) {
-                                showNotification('O arquivo deve ter no máximo 5MB.', 'error');
-                                return;
-                            }
-                            
-                            // Create FileReader to convert image to base64
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                const base64Image = e.target.result;
-                                
-                                // Update profile avatar
-                                updateProfileAvatar(base64Image);
-                                
-                                // Save to localStorage
-                                saveToLocalStorage('profileAvatar', base64Image);
-                                
-                                showNotification('Foto de perfil atualizada com sucesso!', 'success');
-                            };
-                            
-                            reader.onerror = function() {
-                                showNotification('Erro ao carregar a imagem. Tente novamente.', 'error');
-                            };
-                            
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                    
-                    // Trigger file selection
-                    document.body.appendChild(fileInput);
-                    fileInput.click();
+                    // Remove input after use
                     document.body.removeChild(fileInput);
                 });
+                
+                // Trigger click
+                setTimeout(() => {
+                    fileInput.click();
+                }, 100);
+            }
+            
+            // Handle avatar upload
+            function handleAvatarUpload(event) {
+                const file = event.target.files[0];
+                if (!file) {
+                    console.log('Nenhum arquivo selecionado');
+                    return;
+                }
+                
+                console.log('Arquivo selecionado:', file.name, file.type, file.size);
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    showNotification('Por favor, selecione apenas arquivos de imagem.', 'error');
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('O arquivo deve ter no máximo 5MB.', 'error');
+                    return;
+                }
+                
+                // Show loading notification
+                showNotification('Carregando imagem...', 'info');
+                
+                // Create FileReader to convert image to base64
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Image = e.target.result;
+                    console.log('Imagem convertida para base64');
+                    
+                    // Update profile avatar
+                    updateProfileAvatar(base64Image);
+                    
+                    // Save to localStorage
+                    saveToLocalStorage('profileAvatar', base64Image);
+                    
+                    // Save to current profile
+                    const currentProfile = getCurrentProfile();
+                    if (currentProfile) {
+                        currentProfile.avatar = base64Image;
+                        saveCurrentProfile();
+                    }
+                    
+                    showNotification('Foto de perfil atualizada com sucesso!', 'success');
+                };
+                
+                reader.onerror = function() {
+                    showNotification('Erro ao carregar a imagem. Tente novamente.', 'error');
+                };
+                
+                reader.readAsDataURL(file);
             }
             
             // Smooth scrolling for internal navigation
@@ -1091,6 +1133,30 @@
             
             // Load saved profile avatar
             loadProfileAvatar();
+            
+            // Initialize books display on page load
+            setTimeout(() => {
+                console.log('=== INICIALIZAÇÃO DA PÁGINA ===');
+                const profile = getCurrentProfile();
+                console.log('Perfil carregado:', profile);
+                if (profile && profile.books) {
+                    console.log('Livros encontrados no perfil:', profile.books.length);
+                } else {
+                    console.log('Nenhum livro encontrado no perfil');
+                }
+                renderBooks();
+                updateReadingStats();
+                console.log('=== FIM INICIALIZAÇÃO ===');
+            }, 100);
+            
+            // Auto-save functionality every 30 seconds
+            setInterval(() => {
+                const currentProfile = getCurrentProfile();
+                if (currentProfile && currentProfile.books && currentProfile.books.length > 0) {
+                    saveCurrentProfileWithBooks(currentProfile);
+                    console.log('Auto-save completo para:', currentProfile.name);
+                }
+            }, 30000);
             
             // Search functionality (placeholder)
             function searchBooks(query) {
@@ -1171,30 +1237,37 @@
 
         // Create book card function
         function createBookCard(bookData) {
+            console.log('Criando card para livro:', bookData);
+            
             const bookCard = document.createElement('div');
             bookCard.className = 'book-card';
             bookCard.dataset.bookId = bookData.id;
             
-            const coverUrl = bookData.cover || createPlaceholderCover(bookData.title);
+            // Usar coverUrl ou cover como fallback
+            const coverUrl = bookData.coverUrl || bookData.cover || createPlaceholderCover(bookData.title);
             const statusClass = bookData.status === 'Finalizado' ? 'finished' : 'reading';
             
             bookCard.innerHTML = `
                 <div class="book-cover">
-                    <img src="${coverUrl}" alt="${bookData.title}">
+                    <img src="${coverUrl}" alt="${bookData.title}" onerror="this.src='${createPlaceholderCover(bookData.title)}'">
                 </div>
                 <div class="book-info">
                     <h4 class="book-title">${bookData.title}</h4>
                     <p class="book-author">${bookData.author}</p>
-                    <span class="book-status ${statusClass}">${bookData.status}</span>
+                    <div class="book-meta">
+                        <span class="book-genre">${bookData.genre || 'Geral'}</span>
+                        <span class="book-status ${statusClass}">${bookData.status}</span>
+                        ${bookData.pages ? `<span class="book-pages">${bookData.pages} páginas</span>` : ''}
+                    </div>
                 </div>
                 <div class="book-actions">
-                    <button class="action-btn favorite ${bookData.favorite ? 'active' : ''}">
+                    <button class="action-btn favorite ${bookData.favorite ? 'active' : ''}" title="${bookData.favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
                         <i class="${bookData.favorite ? 'fas' : 'far'} fa-heart"></i>
                     </button>
-                    <button class="action-btn edit">
+                    <button class="action-btn edit" title="Editar livro">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="action-btn delete">
+                    <button class="action-btn delete" title="Remover livro">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -1203,6 +1276,7 @@
             // Add event listeners to the new book card
             addBookCardEventListeners(bookCard);
             
+            console.log('Card criado para:', bookData.title);
             return bookCard;
         }
 
@@ -1217,55 +1291,153 @@
         // Add event listeners to book card
         function addBookCardEventListeners(bookCard) {
             const favoriteBtn = bookCard.querySelector('.action-btn.favorite');
+            const favoriteQuickBtn = bookCard.querySelector('.quick-btn.favorite-quick');
             const editBtn = bookCard.querySelector('.action-btn.edit');
+            const statusQuickBtn = bookCard.querySelector('.quick-btn.status-quick');
             const deleteBtn = bookCard.querySelector('.action-btn.delete');
             
-            favoriteBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
+            // Favorite button functionality
+            function toggleFavoriteStatus(button, bookCard) {
                 const bookId = bookCard.dataset.bookId;
-                const isCurrentlyFavorite = this.classList.contains('active');
+                const isCurrentlyFavorite = button.classList.contains('active');
                 
-                // Toggle favorite status
-                this.classList.toggle('active');
-                const icon = this.querySelector('i');
-                if (this.classList.contains('active')) {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                } else {
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-                }
+                // Toggle favorite status for both buttons
+                const allFavoriteButtons = bookCard.querySelectorAll('.favorite, .favorite-quick');
+                allFavoriteButtons.forEach(btn => {
+                    btn.classList.toggle('active');
+                    const icon = btn.querySelector('i');
+                    if (btn.classList.contains('active')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        btn.title = 'Remover dos favoritos';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        btn.title = 'Adicionar aos favoritos';
+                    }
+                });
                 
-                // Update book in user-specific localStorage
-                let books = loadFromLocalStorage('userBooks') || [];
-                const bookIndex = books.findIndex(book => book.id == bookId);
-                if (bookIndex !== -1) {
-                    books[bookIndex].favorite = !isCurrentlyFavorite;
-                    saveToLocalStorage('userBooks', books);
-                    
-                    // Update favorites section
-                    updateFavoritesDisplay();
-                }
+                // Update book in profile
+                updateBookFavoriteInProfile(bookId, !isCurrentlyFavorite);
+                
+                // Show notification
+                const bookTitle = bookCard.querySelector('.book-title').textContent;
+                const message = !isCurrentlyFavorite ? 
+                    `"${bookTitle}" foi adicionado aos favoritos!` : 
+                    `"${bookTitle}" foi removido dos favoritos.`;
+                showNotification(message, 'success');
                 
                 updateReadingStats();
+            }
+
+            favoriteBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleFavoriteStatus(this, bookCard);
             });
+
+            if (favoriteQuickBtn) {
+                favoriteQuickBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleFavoriteStatus(this, bookCard);
+                });
+            }
             
+            // Status change functionality
+            function openQuickStatusMenu(bookCard) {
+                const bookId = bookCard.dataset.bookId;
+                const currentStatus = bookCard.querySelector('.book-status').textContent;
+                
+                // Create quick status menu
+                const statusMenu = document.createElement('div');
+                statusMenu.className = 'quick-status-menu';
+                statusMenu.innerHTML = `
+                    <div class="status-option ${currentStatus === 'QUERO LER' ? 'active' : ''}" data-status="QUERO LER">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Quero Ler</span>
+                    </div>
+                    <div class="status-option ${currentStatus === 'LENDO AGORA' ? 'active' : ''}" data-status="LENDO AGORA">
+                        <i class="fas fa-book-open"></i>
+                        <span>Lendo Agora</span>
+                    </div>
+                    <div class="status-option ${currentStatus === 'JÁ LI' ? 'active' : ''}" data-status="JÁ LI">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Já Li</span>
+                    </div>
+                `;
+                
+                // Position menu
+                document.body.appendChild(statusMenu);
+                const rect = bookCard.getBoundingClientRect();
+                statusMenu.style.position = 'fixed';
+                statusMenu.style.top = rect.top + 'px';
+                statusMenu.style.left = (rect.left + rect.width / 2) + 'px';
+                statusMenu.style.transform = 'translateX(-50%)';
+                statusMenu.style.zIndex = '1000';
+                
+                // Add event listeners to status options
+                statusMenu.querySelectorAll('.status-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const newStatus = this.dataset.status;
+                        if (newStatus !== currentStatus) {
+                            updateBookStatus(bookId, newStatus);
+                            
+                            // Update UI
+                            const statusElement = bookCard.querySelector('.book-status');
+                            statusElement.textContent = newStatus;
+                            statusElement.className = `book-status ${newStatus === 'JÁ LI' ? 'finished' : 'reading'}`;
+                            
+                            // Re-render books to move to correct section
+                            setTimeout(() => {
+                                renderBooks();
+                                showNotification(`Status alterado para "${newStatus}"`, 'success');
+                            }, 100);
+                        }
+                        statusMenu.remove();
+                    });
+                });
+                
+                // Close menu when clicking outside
+                setTimeout(() => {
+                    document.addEventListener('click', function closeMenu(e) {
+                        if (!statusMenu.contains(e.target)) {
+                            statusMenu.remove();
+                            document.removeEventListener('click', closeMenu);
+                        }
+                    });
+                }, 100);
+            }
+
             editBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const bookId = bookCard.dataset.bookId;
                 openEditBookModal(bookId);
             });
+
+            if (statusQuickBtn) {
+                statusQuickBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openQuickStatusMenu(bookCard);
+                });
+            }
             
             deleteBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (confirm('Tem certeza que deseja remover este livro?')) {
                     const bookId = bookCard.dataset.bookId;
-                    removeBookFromStorage(bookId);
+                    const bookTitle = bookCard.querySelector('.book-title').textContent;
+                    
+                    console.log('Removendo livro:', bookId, bookTitle);
+                    
+                    // Remove from profile
+                    removeBookFromProfile(bookId);
+                    
+                    // Animate removal
                     bookCard.style.transform = 'scale(0)';
                     bookCard.style.opacity = '0';
                     setTimeout(() => {
                         bookCard.remove();
                         updateReadingStats();
+                        showNotification(`"${bookTitle}" foi removido da biblioteca`, 'success');
                     }, 300);
                 }
             });
@@ -1287,17 +1459,317 @@
             saveToLocalStorage('userBooks', books);
         }
 
-        // Remove book from localStorage
+        // Main function to render all books in the library
+        function renderBooks() {
+            const currentProfile = getCurrentProfile();
+            console.log('renderBooks - Perfil atual:', currentProfile);
+            
+            if (!currentProfile) {
+                console.log('Nenhum perfil encontrado');
+                return;
+            }
+            
+            // Load books from biblioteca_livros for current user
+            let books = [];
+            const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaLivrosData) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaLivrosData);
+                    books = allBooks.filter(book => book.profileId === currentProfile.id);
+                    console.log('Livros carregados de biblioteca_livros:', books.length);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros:', e);
+                    books = [];
+                }
+            }
+            
+            if (books.length === 0) {
+                console.log('Nenhum livro encontrado para o usuário atual');
+                clearAllBookSections();
+                return;
+            }
+
+            console.log('Renderizando', books.length, 'livros da biblioteca_livros');
+
+            // Clear all sections
+            clearAllBookSections();
+
+            // Group books by status - handle both old and new status formats
+            const booksByStatus = {
+                'QUERO LER': books.filter(book => book.status === 'QUERO LER' || book.status === 'Quero ler'),
+                'LENDO AGORA': books.filter(book => book.status === 'LENDO AGORA' || book.status === 'Lendo'),
+                'JÁ LI': books.filter(book => book.status === 'JÁ LI' || book.status === 'Finalizado')
+            };
+
+            console.log('Livros por status:', booksByStatus);
+
+            // Render books in each section
+            Object.keys(booksByStatus).forEach(status => {
+                const sectionBooks = booksByStatus[status];
+                if (sectionBooks.length > 0) {
+                    renderBooksInSection(status, sectionBooks);
+                }
+            });
+
+            // Update favorites display - check profile data too
+            console.log('=== DEBUG FAVORITOS ===');
+            console.log('Total de livros para filtrar:', books.length);
+            books.forEach((book, index) => {
+                console.log(`Livro ${index}:`, book.title, 'favorite:', book.favorite, 'tipo:', typeof book.favorite);
+            });
+            
+            // Also check profile books for comparison
+            if (currentProfile.books) {
+                console.log('=== LIVROS NO PERFIL ===');
+                currentProfile.books.forEach((book, index) => {
+                    console.log(`Perfil ${index}:`, book.title, 'favorite:', book.favorite, 'tipo:', typeof book.favorite);
+                });
+            }
+            
+            const favoriteBooks = books.filter(book => book.favorite === true);
+            console.log('Livros favoritos encontrados:', favoriteBooks.length);
+            console.log('Favoritos:', favoriteBooks);
+            
+            // Force sync favorites from profile if different
+            if (currentProfile.books && currentProfile.books.length > 0) {
+                const profileFavorites = currentProfile.books.filter(book => book.favorite === true);
+                if (profileFavorites.length > favoriteBooks.length) {
+                    console.log('Usando favoritos do perfil:', profileFavorites.length);
+                    renderFavoriteBooks(profileFavorites);
+                } else {
+                    renderFavoriteBooks(favoriteBooks);
+                }
+            } else {
+                renderFavoriteBooks(favoriteBooks);
+            }
+            console.log('=== FIM DEBUG FAVORITOS ===');
+
+            // Update reading stats
+            updateReadingStats();
+            
+            // Update sidebar "Lendo Agora" section
+            updateSidebarCurrentlyReading(books);
+            
+            // Reviews will be loaded automatically when tab is clicked
+        }
+
+        // Clear all book sections
+        function clearAllBookSections() {
+            const sections = [
+                '#want-to-read',
+                '#currently-reading', 
+                '#finished-books',
+                '#favorites'
+            ];
+
+            sections.forEach(selector => {
+                const section = document.querySelector(selector);
+                if (section) {
+                    // Remove existing book grids and restore empty state
+                    const existingGrid = section.querySelector('.books-grid');
+                    if (existingGrid) {
+                        existingGrid.remove();
+                    }
+                    
+                    // Ensure empty state is visible
+                    const emptyState = section.querySelector('.empty-state');
+                    if (emptyState) {
+                        emptyState.style.display = 'block';
+                    }
+                }
+            });
+        }
+
+        // Render books in specific section
+        function renderBooksInSection(status, books) {
+            let sectionSelector;
+            
+            switch(status) {
+                case 'QUERO LER':
+                    sectionSelector = '#want-to-read';
+                    break;
+                case 'LENDO AGORA':
+                    sectionSelector = '#currently-reading';
+                    break;
+                case 'JÁ LI':
+                    sectionSelector = '#finished-books';
+                    break;
+                default:
+                    return;
+            }
+
+            const section = document.querySelector(sectionSelector);
+            if (!section) {
+                console.error('Seção não encontrada:', sectionSelector);
+                return;
+            }
+
+            // Hide empty state
+            const emptyState = section.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.style.display = 'none';
+            }
+
+            // Create or get books grid
+            let grid = section.querySelector('.books-grid');
+            if (!grid) {
+                grid = document.createElement('div');
+                grid.className = 'books-grid';
+                section.appendChild(grid);
+            }
+
+            books.forEach(book => {
+                const bookCard = createBookCard(book);
+                grid.appendChild(bookCard);
+            });
+
+            console.log(`${books.length} livros adicionados à seção ${status}`);
+        }
+
+        // Render favorite books
+        function renderFavoriteBooks(favoriteBooks) {
+            console.log('=== INÍCIO renderFavoriteBooks ===');
+            console.log('Favoritos recebidos:', favoriteBooks.length);
+            
+            const favoritesSection = document.querySelector('#favorites');
+            if (!favoritesSection) {
+                console.error('Seção de favoritos não encontrada');
+                return;
+            }
+
+            // Clear existing content
+            const existingContent = favoritesSection.querySelectorAll('.books-grid, .book-grid, .empty-state');
+            existingContent.forEach(element => element.remove());
+
+            if (favoriteBooks.length === 0) {
+                // Show empty state
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = '<i class="fas fa-heart"></i><p>Nenhum livro favorito ainda.</p>';
+                favoritesSection.appendChild(emptyState);
+                console.log('Estado vazio exibido para favoritos');
+                return;
+            }
+
+            // Create books grid with the correct class name
+            const grid = document.createElement('div');
+            grid.className = 'books-grid';
+            favoritesSection.appendChild(grid);
+
+            favoriteBooks.forEach(book => {
+                console.log('Criando card para favorito:', book.title);
+                const bookCard = createBookCard(book);
+                grid.appendChild(bookCard);
+            });
+
+            console.log(`${favoriteBooks.length} livros favoritos renderizados`);
+            console.log('=== FIM renderFavoriteBooks ===');
+        }
+
+        // Remove book from localStorage.biblioteca_livros
         function removeBookFromStorage(bookId) {
-            let books = loadFromLocalStorage('userBooks') || [];
-            books = books.filter(book => book.id != bookId);
-            saveToLocalStorage('userBooks', books);
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            // Remove from biblioteca_livros
+            const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaLivrosData) {
+                try {
+                    let allBooks = JSON.parse(bibliotecaLivrosData);
+                    allBooks = allBooks.filter(book => !(book.id === bookId && book.profileId === currentProfile.id));
+                    localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+                    console.log('Livro removido de biblioteca_livros');
+                } catch (e) {
+                    console.error('Erro ao remover livro de biblioteca_livros:', e);
+                }
+            }
+            
+            // Also maintain profile compatibility
+            if (currentProfile.books) {
+                currentProfile.books = currentProfile.books.filter(book => book.id !== bookId);
+                saveCurrentProfileWithBooks(currentProfile);
+            }
+            
+            // Clear auto-save backup to prevent restoration
+            clearAutoSaveBackup(currentProfile.id);
+        }
+        
+        // Clear auto-save backup data
+        function clearAutoSaveBackup(profileId) {
+            const autoSaveKey = `autosave_${profileId}`;
+            localStorage.removeItem(autoSaveKey);
+            console.log('Auto-save backup limpo para prevenir restauração');
+        }
+
+        // Clear all user books and prevent restoration
+        function clearAllUserBooks() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            // Disable auto-save temporarily
+            localStorage.setItem(`autosave_disabled_${currentProfile.id}`, 'true');
+            
+            // Stop current auto-save interval
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+                autoSaveInterval = null;
+            }
+            
+            // Clear from biblioteca_livros
+            const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaLivrosData) {
+                try {
+                    let allBooks = JSON.parse(bibliotecaLivrosData);
+                    allBooks = allBooks.filter(book => book.profileId !== currentProfile.id);
+                    localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+                    console.log('Todos os livros do usuário removidos de biblioteca_livros');
+                } catch (e) {
+                    console.error('Erro ao limpar biblioteca_livros:', e);
+                }
+            }
+            
+            // Clear from profile
+            currentProfile.books = [];
+            saveCurrentProfileWithBooks(currentProfile);
+            
+            // Clear auto-save backup
+            clearAutoSaveBackup(currentProfile.id);
+            
+            // Clear user-specific localStorage
+            const userBooksKey = `${currentProfile.id}_userBooks`;
+            localStorage.removeItem(userBooksKey);
+            localStorage.removeItem('userBooks');
+            
+            // Re-enable auto-save after a delay
+            setTimeout(() => {
+                localStorage.removeItem(`autosave_disabled_${currentProfile.id}`);
+                startAutoSave();
+                console.log('Auto-save reabilitado');
+            }, 5000);
+            
+            console.log('Todos os dados de livros do usuário foram limpos');
+            
+            // Refresh the page display
+            renderBooks();
+            updateReadingStats();
         }
 
         // Open edit book modal
         function openEditBookModal(bookId) {
-            const books = loadFromLocalStorage('userBooks') || [];
-            const book = books.find(b => b.id == bookId);
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            // Find book in biblioteca_livros
+            let book = null;
+            const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaLivrosData) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaLivrosData);
+                    book = allBooks.find(b => b.id === bookId && b.profileId === currentProfile.id);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros para edição:', e);
+                }
+            }
             
             if (!book) {
                 showNotification('Livro não encontrado.', 'error');
@@ -1320,16 +1792,40 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Update book in localStorage
+        // Update book in localStorage.biblioteca_livros
         function updateBookInStorage(updatedBookData) {
-            let books = loadFromLocalStorage('userBooks') || [];
-            const bookIndex = books.findIndex(book => book.id == updatedBookData.id);
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
             
-            if (bookIndex !== -1) {
-                // Preserve original date if it exists
-                updatedBookData.dateAdded = books[bookIndex].dateAdded || updatedBookData.dateAdded;
-                books[bookIndex] = updatedBookData;
-                saveToLocalStorage('userBooks', books);
+            // Update in biblioteca_livros
+            const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaLivrosData) {
+                try {
+                    let allBooks = JSON.parse(bibliotecaLivrosData);
+                    const bookIndex = allBooks.findIndex(book => 
+                        book.id === updatedBookData.id && book.profileId === currentProfile.id
+                    );
+                    
+                    if (bookIndex !== -1) {
+                        // Preserve original data
+                        updatedBookData.dateAdded = allBooks[bookIndex].dateAdded || updatedBookData.dateAdded;
+                        updatedBookData.profileId = currentProfile.id;
+                        allBooks[bookIndex] = updatedBookData;
+                        localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+                        console.log('Livro atualizado em biblioteca_livros');
+                    }
+                } catch (e) {
+                    console.error('Erro ao atualizar livro em biblioteca_livros:', e);
+                }
+            }
+            
+            // Also maintain profile compatibility
+            if (currentProfile.books) {
+                const profileBookIndex = currentProfile.books.findIndex(book => book.id === updatedBookData.id);
+                if (profileBookIndex !== -1) {
+                    currentProfile.books[profileBookIndex] = updatedBookData;
+                    saveCurrentProfileWithBooks(currentProfile);
+                }
             }
         }
 
@@ -1342,9 +1838,23 @@
             const existingContent = favoritesSection.querySelectorAll('.book-grid, .empty-state');
             existingContent.forEach(element => element.remove());
 
-            // Get all favorite books
-            const books = loadFromLocalStorage('userBooks') || [];
-            const favoriteBooks = books.filter(book => book.favorite);
+            // Get all favorite books from biblioteca_livros for current user
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            let favoriteBooks = [];
+            const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaLivrosData) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaLivrosData);
+                    favoriteBooks = allBooks.filter(book => 
+                        book.profileId === currentProfile.id && book.favorite === true
+                    );
+                } catch (e) {
+                    console.error('Erro ao carregar favoritos de biblioteca_livros:', e);
+                    favoriteBooks = [];
+                }
+            }
 
             if (favoriteBooks.length === 0) {
                 // Show empty state only if none exists
@@ -1497,13 +2007,31 @@
 
         // Utility functions
         function updateReadingStats() {
-            // Get books from localStorage instead of counting DOM elements
-            const books = loadFromLocalStorage('userBooks') || [];
+            console.log('=== INÍCIO updateReadingStats ===');
+            // Get books from biblioteca_livros for current user
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
             
-            // Count books by status from stored data
-            const finishedBooks = books.filter(book => book.status === 'Finalizado').length;
+            let books = [];
+            const bibliotecaStatsData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaStatsData) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaStatsData);
+                    books = allBooks.filter(book => book.profileId === currentProfile.id);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros para stats:', e);
+                    books = [];
+                }
+            }
+            
+            console.log('Calculando estatísticas para', books.length, 'livros');
+            
+            // Count books by status from stored data - handle both old and new formats
+            const finishedBooks = books.filter(book => book.status === 'JÁ LI' || book.status === 'Finalizado').length;
             const favoriteBooks = books.filter(book => book.favorite === true).length;
-            const currentlyReading = books.filter(book => book.status === 'Lendo').length;
+            const currentlyReading = books.filter(book => book.status === 'LENDO AGORA' || book.status === 'Lendo').length;
+            
+            console.log('Estatísticas calculadas:', {finishedBooks, favoriteBooks, currentlyReading});
             
             // Update the stats display
             const statItems = document.querySelectorAll('.stat-item .stat-number');
@@ -1511,7 +2039,24 @@
                 statItems[0].textContent = finishedBooks; // Lidos
                 statItems[1].textContent = favoriteBooks; // Favoritos
                 statItems[2].textContent = currentlyReading; // Lendo
+                console.log('Livros lidos atualizados:', finishedBooks);
+                console.log('Favoritos atualizados:', favoriteBooks);
+                console.log('Lendo agora atualizados:', currentlyReading);
             }
+            
+            // Save stats to profile for persistence
+            if (currentProfile) {
+                currentProfile.stats = {
+                    finishedBooks,
+                    favoriteBooks,
+                    currentlyReading,
+                    totalBooks: books.length
+                };
+                saveCurrentProfileWithBooks(currentProfile);
+                console.log('Estatísticas salvas no perfil');
+            }
+            
+            console.log('=== FIM updateReadingStats ===');
         }
 
         function showNotification(message, type = 'info') {
@@ -1520,20 +2065,51 @@
             notification.className = `notification notification-${type}`;
             notification.textContent = message;
             
+            // Define colors based on type
+            let backgroundColor, textColor, borderColor;
+            
+            switch(type) {
+                case 'success':
+                    backgroundColor = '#2ECC71';
+                    textColor = 'white';
+                    borderColor = '#27AE60';
+                    break;
+                case 'error':
+                    backgroundColor = '#E74C3C';
+                    textColor = 'white';
+                    borderColor = '#C0392B';
+                    break;
+                case 'warning':
+                    backgroundColor = '#F39C12';
+                    textColor = 'white';
+                    borderColor = '#E67E22';
+                    break;
+                case 'info':
+                default:
+                    backgroundColor = '#3498DB';
+                    textColor = 'white';
+                    borderColor = '#2980B9';
+                    break;
+            }
+            
             // Style the notification
-            const bgColor = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--error)' : 'var(--primary)';
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${bgColor};
-                color: white;
+                background: ${backgroundColor};
+                color: ${textColor};
                 padding: 1rem 1.5rem;
                 border-radius: 8px;
-                box-shadow: 0 4px 12px var(--shadow);
+                border-left: 4px solid ${borderColor};
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 z-index: 1000;
                 transform: translateX(100%);
                 transition: transform 0.3s ease;
+                font-weight: 500;
+                min-width: 300px;
+                max-width: 400px;
+                word-wrap: break-word;
             `;
             
             document.body.appendChild(notification);
@@ -1547,7 +2123,9 @@
             setTimeout(() => {
                 notification.style.transform = 'translateX(100%)';
                 setTimeout(() => {
-                    document.body.removeChild(notification);
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
                 }, 300);
             }, 3000);
         }
@@ -1571,6 +2149,235 @@
             }
         }
 
+        // Logout function
+        function logoutUser() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('tolendo_active_profile');
+                window.location.href = '/';
+            }
+        }
+
+        // Update sidebar "Lendo Agora" section
+        function updateSidebarCurrentlyReading(books) {
+            console.log('=== INÍCIO updateSidebarCurrentlyReading ===');
+            
+            const currentlyReadingSection = document.querySelector('.currently-reading');
+            if (!currentlyReadingSection) {
+                console.error('Seção "Lendo Agora" da sidebar não encontrada');
+                return;
+            }
+
+            // Filter books that are currently being read
+            const currentlyReadingBooks = books.filter(book => 
+                book.status === 'Lendo' || book.status === 'LENDO AGORA'
+            );
+
+            console.log('Livros sendo lidos encontrados:', currentlyReadingBooks.length);
+            console.log('Livros:', currentlyReadingBooks);
+
+            // Clear existing content except the title
+            const existingContent = currentlyReadingSection.querySelectorAll('p, .sidebar-book-item');
+            existingContent.forEach(item => item.remove());
+
+            if (currentlyReadingBooks.length === 0) {
+                // Show "no books" message
+                const noBookMsg = document.createElement('p');
+                noBookMsg.className = 'no-book';
+                noBookMsg.textContent = 'Nenhum livro sendo lido no momento';
+                currentlyReadingSection.appendChild(noBookMsg);
+            } else {
+                // Show currently reading books
+                currentlyReadingBooks.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.className = 'sidebar-book-item';
+                    bookItem.innerHTML = `
+                        <div class="sidebar-book-cover">
+                            <img src="${book.coverUrl || book.cover || book.coverImage || 'https://via.placeholder.com/40x60?text=Livro'}" 
+                                 alt="${book.title}" onerror="this.src='https://via.placeholder.com/40x60?text=Livro'">
+                        </div>
+                        <div class="sidebar-book-info">
+                            <h4>${book.title}</h4>
+                            <p>${book.author || 'Autor desconhecido'}</p>
+                        </div>
+                    `;
+                    currentlyReadingSection.appendChild(bookItem);
+                });
+            }
+
+            // Add scroll indicators functionality
+            setupScrollIndicators();
+            
+            console.log('=== FIM updateSidebarCurrentlyReading ===');
+        }
+
+        // Setup scroll indicators for currently reading section
+        function setupScrollIndicators() {
+            const currentlyReadingSection = document.querySelector('.currently-reading');
+            if (!currentlyReadingSection) return;
+
+            function updateScrollIndicators() {
+                const { scrollTop, scrollHeight, clientHeight } = currentlyReadingSection;
+                
+                // Check if content is scrollable
+                if (scrollHeight <= clientHeight) {
+                    currentlyReadingSection.classList.remove('has-scroll-top', 'has-scroll-bottom');
+                    return;
+                }
+                
+                // Show top indicator if not at top
+                if (scrollTop > 10) {
+                    currentlyReadingSection.classList.add('has-scroll-top');
+                } else {
+                    currentlyReadingSection.classList.remove('has-scroll-top');
+                }
+                
+                // Show bottom indicator if not at bottom
+                if (scrollTop < scrollHeight - clientHeight - 10) {
+                    currentlyReadingSection.classList.add('has-scroll-bottom');
+                } else {
+                    currentlyReadingSection.classList.remove('has-scroll-bottom');
+                }
+            }
+
+            // Add scroll event listener
+            currentlyReadingSection.addEventListener('scroll', updateScrollIndicators);
+            
+            // Initial check
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        // Load and render user reviews - using function from perfil.js
+
+        // Render reviews in the reviews tab
+        function renderReviewsInTab(reviews) {
+            const reviewsContainer = document.getElementById('reviewsContainer');
+            const totalReviewsSpan = document.getElementById('totalReviews');
+            
+            if (!reviewsContainer) {
+                console.error('Container de resenhas não encontrado');
+                return;
+            }
+
+            // Update reviews count
+            if (totalReviewsSpan) {
+                totalReviewsSpan.textContent = reviews.length;
+            }
+
+            // Clear existing content
+            reviewsContainer.innerHTML = '';
+
+            if (reviews.length === 0) {
+                // Show empty state
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <i class="fas fa-pen-fancy"></i>
+                    <p>Nenhuma resenha escrita ainda.</p>
+                    <p class="empty-subtitle">Adicione livros com resenhas para vê-las aqui!</p>
+                `;
+                reviewsContainer.appendChild(emptyState);
+                return;
+            }
+
+            // Sort reviews by date (newest first)
+            reviews.sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate));
+
+            // Create review cards
+            reviews.forEach(review => {
+                const reviewCard = createReviewCard(review);
+                reviewsContainer.appendChild(reviewCard);
+            });
+
+            console.log(`${reviews.length} resenhas renderizadas na aba`);
+        }
+
+        // Create review card for reviews tab
+        function createReviewCard(review) {
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.dataset.bookId = review.id;
+            reviewCard.dataset.source = review.source;
+
+            const coverUrl = review.cover || 'https://via.placeholder.com/60x90?text=Livro';
+            const reviewDate = new Date(review.reviewDate).toLocaleDateString('pt-BR');
+            const reviewText = review.reviewText || '';
+            const reviewTitle = review.reviewTitle || '';
+            const reviewRating = review.reviewRating || null;
+
+            reviewCard.innerHTML = `
+                <div class="review-header">
+                    <div class="review-book-cover">
+                        <img src="${coverUrl}" alt="${review.title}" 
+                             onerror="this.src='https://via.placeholder.com/60x90?text=Livro'">
+                    </div>
+                    <div class="review-book-info">
+                        <h4 class="review-book-title">${review.title}</h4>
+                        <p class="review-book-author">por ${review.author || 'Autor desconhecido'}</p>
+                        ${review.genre ? `<span class="review-book-genre">${review.genre}</span>` : ''}
+                        <span class="review-source">Fonte: ${review.source}</span>
+                        ${reviewRating ? `<div class="review-rating">Avaliação: ${'★'.repeat(reviewRating)}${'☆'.repeat(5-reviewRating)} (${reviewRating}/5)</div>` : ''}
+                    </div>
+                </div>
+                <div class="review-content">
+                    ${reviewTitle ? `<h5 class="review-title">${reviewTitle}</h5>` : ''}
+                    <div class="review-text">${reviewText}</div>
+                </div>
+                <div class="review-footer">
+                    <span class="review-date">Escrita em ${reviewDate}</span>
+                    <div class="review-actions">
+                        ${review.source === 'catálogo' ? 
+                            `<button class="action-btn view-catalog" data-book-id="${review.id}" title="Ver no catálogo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>` : 
+                            `<button class="action-btn edit-review" data-book-id="${review.id}" title="Editar resenha">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-review" data-book-id="${review.id}" title="Remover resenha">
+                                <i class="fas fa-trash"></i>
+                            </button>`
+                        }
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners for review actions
+            if (review.source === 'catálogo') {
+                const viewBtn = reviewCard.querySelector('.view-catalog');
+                viewBtn?.addEventListener('click', function() {
+                    window.open('/attached_assets/catalogo.html', '_blank');
+                });
+            } else {
+                const editBtn = reviewCard.querySelector('.edit-review');
+                const deleteBtn = reviewCard.querySelector('.delete-review');
+
+                editBtn?.addEventListener('click', function() {
+                    openEditBookModal(review.id);
+                });
+
+                deleteBtn?.addEventListener('click', function() {
+                    if (confirm('Tem certeza que deseja remover esta resenha?')) {
+                        removeReviewFromBook(review.id);
+                    }
+                });
+            }
+
+            return reviewCard;
+        }
+
+        // Remove review from book
+        function removeReviewFromBook(bookId) {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !currentProfile.books) return;
+
+            const bookIndex = currentProfile.books.findIndex(book => book.id === bookId);
+            
+            if (bookIndex !== -1) {
+                currentProfile.books[bookIndex].review = '';
+                saveCurrentProfile();
+                showNotification('Resenha removida com sucesso!', 'success');
+            }
+        }
+
         // Tab switching function
         function switchTab(tabName) {
             // Hide all tab panels
@@ -1587,45 +2394,1673 @@
                 targetPanel.style.display = 'block';
             }
 
-            // Load specific tab content
-            if (tabName === 'resenhas') {
-                loadReviews();
+            // Tab content loaded automatically by script.js event listeners
+        }
+
+
+
+        // Load books from catalog (localStorage)
+        function loadCatalogBooks() {
+            try {
+                const catalogBooks = localStorage.getItem('catalogBooks');
+                if (catalogBooks) {
+                    const parsed = JSON.parse(catalogBooks);
+                    // Check if it's the new format from the imported JSON
+                    if (parsed.biblioteca && parsed.biblioteca.livros) {
+                        return parsed.biblioteca.livros;
+                    }
+                    // Check if it's an array (old format)
+                    if (Array.isArray(parsed)) {
+                        return parsed;
+                    }
+                    // If it's a single object, wrap in array
+                    if (parsed.livros && Array.isArray(parsed.livros)) {
+                        return parsed.livros;
+                    }
+                }
+                return [];
+            } catch (error) {
+                console.warn('Erro ao carregar livros do catálogo:', error);
+                return [];
             }
         }
 
-        // Load and display reviews
-        function loadReviews() {
-            const books = loadFromLocalStorage('userBooks') || [];
-            const booksWithReviews = books.filter(book => book.review && book.review.trim() !== '');
+        // Function to help catalog save reviews with user ID
+        function saveCatalogReview(bookId, reviewData) {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return false;
+
+            try {
+                const catalogBooks = loadCatalogBooks();
+                const bookIndex = catalogBooks.findIndex(book => book.id === bookId);
+                
+                if (bookIndex === -1) return false;
+
+                // Initialize userReviews array if it doesn't exist
+                if (!catalogBooks[bookIndex].userReviews) {
+                    catalogBooks[bookIndex].userReviews = [];
+                }
+
+                // Remove existing review from this user
+                catalogBooks[bookIndex].userReviews = catalogBooks[bookIndex].userReviews
+                    .filter(review => review.userId !== currentProfile.id);
+
+                // Add new review with user ID
+                const reviewWithUserId = {
+                    ...reviewData,
+                    userId: currentProfile.id,
+                    userName: currentProfile.name,
+                    date: new Date().toISOString()
+                };
+
+                catalogBooks[bookIndex].userReviews.push(reviewWithUserId);
+
+                // Save back to localStorage
+                localStorage.setItem('catalogBooks', JSON.stringify(catalogBooks));
+                localStorage.setItem('catalogBooksLastModified', new Date().toISOString());
+
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar resenha do catálogo:', error);
+                return false;
+            }
+        }
+
+        // Function to get current active profile for external use
+        function getCurrentActiveProfile() {
+            return getCurrentProfile();
+        }
+
+        // Expose functions globally for catalog to use
+        window.saveCatalogReview = saveCatalogReview;
+        window.getCurrentActiveProfile = getCurrentActiveProfile;
+        window.clearAllUserBooks = clearAllUserBooks;
+
+        // Catalog book selection functionality
+        let catalogBooksData = [];
+        let filteredCatalogBooks = [];
+
+        function loadCatalogBooksForSelection() {
+            const loadingState = document.getElementById('catalogLoadingState');
+            const booksGrid = document.getElementById('catalogBooksGrid');
+            const emptyState = document.getElementById('catalogEmptyState');
             
-            const reviewsContainer = document.getElementById('reviewsContainer');
-            const totalReviewsSpan = document.getElementById('totalReviews');
+            if (loadingState) loadingState.style.display = 'block';
+            if (booksGrid) booksGrid.innerHTML = '';
+            if (emptyState) emptyState.style.display = 'none';
             
-            if (!reviewsContainer || !totalReviewsSpan) return;
+            try {
+                // Carregar livros do catálogo real (não os livros do usuário)
+                let books = [];
+                
+                // Primeira tentativa: catalogBooks (catálogo real)
+                const catalogBooks = localStorage.getItem('catalogBooks');
+                if (catalogBooks) {
+                    try {
+                        books = JSON.parse(catalogBooks);
+                        console.log('Livros carregados de catalogBooks:', books.length);
+                    } catch (e) {
+                        console.error('Erro ao parsear catalogBooks:', e);
+                        books = [];
+                    }
+                }
+                
+                // Incluir TODOS os livros cadastrados em biblioteca_livros como opções do catálogo
+                const bibliotecaLivrosData = localStorage.getItem('biblioteca_livros');
+                if (bibliotecaLivrosData) {
+                    try {
+                        const allUserBooks = JSON.parse(bibliotecaLivrosData);
+                        // Criar livros únicos para o catálogo baseados nos catalogIds
+                        const uniqueBooks = [];
+                        const seenTitles = new Set(books.map(book => `${book.title.toLowerCase()}_${book.author.toLowerCase()}`));
+                        
+                        allUserBooks.forEach(userBook => {
+                            const bookKey = `${userBook.title.toLowerCase()}_${userBook.author.toLowerCase()}`;
+                            
+                            // Se o livro ainda não existe no catálogo, adiciona
+                            if (!seenTitles.has(bookKey)) {
+                                seenTitles.add(bookKey);
+                                // Criar versão do catálogo
+                                const catalogBook = {
+                                    id: userBook.catalogId || `catalog_${userBook.title}_${userBook.author}_${Date.now()}`,
+                                    title: userBook.title,
+                                    author: userBook.author,
+                                    genre: userBook.genre,
+                                    pages: userBook.pages,
+                                    coverImage: userBook.coverUrl,
+                                    coverUrl: userBook.coverUrl,
+                                    publisher: userBook.publisher,
+                                    publicationYear: userBook.publicationYear,
+                                    synopsis: userBook.synopsis,
+                                    source: 'user_registered'
+                                };
+                                uniqueBooks.push(catalogBook);
+                            }
+                        });
+                        
+                        books = [...books, ...uniqueBooks];
+                        console.log('Livros únicos de biblioteca_livros adicionados ao catálogo:', uniqueBooks.length);
+                        console.log('Livros únicos encontrados:', uniqueBooks.map(b => b.title));
+                    } catch (e) {
+                        console.error('Erro ao carregar livros de biblioteca_livros:', e);
+                    }
+                }
+                
+                // Incluir livros cadastrados diretamente pelos usuários
+                const userRegisteredBooks = localStorage.getItem('userRegisteredBooks');
+                if (userRegisteredBooks) {
+                    try {
+                        const registeredBooks = JSON.parse(userRegisteredBooks);
+                        books = [...books, ...registeredBooks];
+                        console.log('Livros cadastrados adicionados ao catálogo:', registeredBooks.length);
+                    } catch (e) {
+                        console.error('Erro ao carregar livros cadastrados:', e);
+                    }
+                }
+                
+                // Segunda tentativa: estrutura de biblioteca (catálogo)
+                if (books.length === 0) {
+                    const bibliotecaCatalogData = localStorage.getItem('biblioteca');
+                    if (bibliotecaCatalogData) {
+                        try {
+                            const parsed = JSON.parse(bibliotecaCatalogData);
+                            if (parsed.biblioteca && parsed.biblioteca.livros) {
+                                books = parsed.biblioteca.livros;
+                                console.log('Livros carregados da estrutura biblioteca:', books.length);
+                                
+                                // Sincronizar com catalogBooks
+                                localStorage.setItem('catalogBooks', JSON.stringify(books));
+                            }
+                        } catch (e) {
+                            console.error('Erro ao parsear estrutura biblioteca:', e);
+                        }
+                    }
+                }
+                
+                catalogBooksData = books;
+                
+                // Debug storage
+                console.log('LocalStorage keys:', Object.keys(localStorage));
+                console.log('Total de livros no catálogo:', catalogBooksData.length);
+                console.log('Livros disponíveis para busca:', catalogBooksData.map(b => `${b.title} - ${b.author}`));
+                
+                filteredCatalogBooks = [...catalogBooksData];
+                renderCatalogBooks();
+                
+                // Setup search and filter event listeners after loading
+                setupCatalogSearchListeners();
+            } catch (error) {
+                console.error('Erro ao carregar livros do catálogo:', error);
+                catalogBooksData = [];
+                showCatalogEmptyState();
+            }
+        }
 
-            // Update reviews count
-            totalReviewsSpan.textContent = booksWithReviews.length;
+        // Setup catalog search and filter event listeners
+        function setupCatalogSearchListeners() {
+            console.log('Configurando event listeners do catálogo...');
+            
+            const catalogSearchInput = document.getElementById('catalogSearchInput');
+            const catalogGenreFilter = document.getElementById('catalogGenreFilter');
+            
+            // Remove existing listeners to avoid duplicates
+            if (catalogSearchInput) {
+                catalogSearchInput.removeEventListener('input', searchCatalogBooks);
+                catalogSearchInput.addEventListener('input', searchCatalogBooks);
+                console.log('Event listener de busca configurado');
+            }
+            
+            if (catalogGenreFilter) {
+                catalogGenreFilter.removeEventListener('change', searchCatalogBooks);
+                catalogGenreFilter.addEventListener('change', searchCatalogBooks);
+                console.log('Event listener de filtro por gênero configurado');
+            }
+        }
 
-            // Clear container
-            reviewsContainer.innerHTML = '';
 
-            if (booksWithReviews.length === 0) {
-                // Show empty state
-                reviewsContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-pen-fancy"></i>
-                        <p>Nenhuma resenha escrita ainda.</p>
-                        <p class="empty-subtitle">Adicione livros com resenhas para vê-las aqui!</p>
+
+        function renderCatalogBooks() {
+            document.getElementById('catalogLoadingState').style.display = 'none';
+            const grid = document.getElementById('catalogBooksGrid');
+            const emptyState = document.getElementById('catalogEmptyState');
+            
+            if (filteredCatalogBooks.length === 0) {
+                grid.innerHTML = '';
+                
+                // Check if it's a search with no results vs no books at all
+                const searchTerm = document.getElementById('catalogSearchInput')?.value?.trim();
+                const genreFilter = document.getElementById('catalogGenreFilter')?.value;
+                
+                if (searchTerm || genreFilter) {
+                    // Show "no results found" message
+                    emptyState.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>Nenhum livro encontrado</p>
+                            <p class="empty-subtitle">Tente ajustar sua pesquisa ou <a href="#" onclick="clearSearch()">limpar filtros</a></p>
+                        </div>
+                    `;
+                } else {
+                    // Show "no books available" message
+                    emptyState.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-book"></i>
+                            <p>Nenhum livro disponível no catálogo</p>
+                            <p class="empty-subtitle">Cadastre novos livros para vê-los aqui</p>
+                        </div>
+                    `;
+                }
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            grid.innerHTML = '';
+            
+            console.log('Renderizando', filteredCatalogBooks.length, 'livros no catálogo');
+            
+            filteredCatalogBooks.forEach(book => {
+                const bookItem = createCatalogBookItem(book);
+                grid.appendChild(bookItem);
+            });
+        }
+
+        function createCatalogBookItem(book) {
+            const item = document.createElement('div');
+            item.className = 'catalog-book-item';
+            item.dataset.bookId = book.id;
+            
+            // Check if book is already in user's library using biblioteca_livros
+            const bibliotecaStorageData = localStorage.getItem('biblioteca_livros');
+            let isInLibrary = false;
+            let existingBook = null;
+            
+            if (bibliotecaStorageData) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaStorageData);
+                    const currentProfile = getCurrentProfile();
+                    if (currentProfile) {
+                        existingBook = allBooks.find(userBook => 
+                            userBook.catalogId === book.id && userBook.profileId === currentProfile.id
+                        );
+                        isInLibrary = !!existingBook;
+                    }
+                } catch (e) {
+                    console.error('Erro ao verificar biblioteca_livros:', e);
+                }
+            }
+            
+            if (isInLibrary && existingBook) {
+                item.classList.add('already-in-library');
+                item.title = `Já está na sua biblioteca na categoria "${existingBook.status}"`;
+            }
+            
+            const cover = document.createElement('div');
+            cover.className = 'catalog-book-cover';
+            
+            // Check for cover URL in multiple possible properties
+            const coverUrl = book.coverUrl || book.coverImage || book.cover;
+            
+            if (coverUrl && coverUrl.trim() !== '') {
+                const img = document.createElement('img');
+                img.src = coverUrl;
+                img.alt = book.title;
+                img.loading = 'lazy';
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                
+                img.onload = function() {
+                    this.style.opacity = '1';
+                };
+                
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    cover.innerHTML = `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666; font-size: 12px; text-align: center;">${book.title}</div>`;
+                };
+                
+                cover.appendChild(img);
+            } else {
+                cover.innerHTML = `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666; font-size: 12px; text-align: center;">${book.title}</div>`;
+            }
+            
+            const title = document.createElement('div');
+            title.className = 'catalog-book-title';
+            title.textContent = book.title || 'Título não disponível';
+            
+            const author = document.createElement('div');
+            author.className = 'catalog-book-author';
+            author.textContent = book.author || 'Autor não disponível';
+            
+            const genre = document.createElement('div');
+            genre.className = 'catalog-book-genre';
+            genre.textContent = getGenreDisplayName(book.genre);
+            
+            item.appendChild(cover);
+            item.appendChild(title);
+            item.appendChild(author);
+            item.appendChild(genre);
+            
+            item.addEventListener('click', () => {
+                // If book is already in library, don't allow selection
+                if (isInLibrary) {
+                    showNotification(`"${book.title}" já está na sua biblioteca na seção "${existingBook.status}"!`, 'warning');
+                    return;
+                }
+                
+                // Check for duplicates before opening modal using biblioteca_livros
+                const bibliotecaCheckData = localStorage.getItem('biblioteca_livros');
+                const currentProfile = getCurrentProfile();
+                
+                if (bibliotecaCheckData && currentProfile) {
+                    try {
+                        const allBooks = JSON.parse(bibliotecaCheckData);
+                        const existingBook = allBooks.find(userBook => 
+                            userBook.catalogId === book.id && userBook.profileId === currentProfile.id
+                        );
+                        
+                        if (existingBook) {
+                            showNotification(`"${book.title}" já está na sua biblioteca na categoria "${existingBook.status}"`, 'warning');
+                            return;
+                        }
+                    } catch (e) {
+                        console.error('Erro ao verificar duplicatas:', e);
+                    }
+                }
+                
+                // Remove selection from other items
+                document.querySelectorAll('.catalog-book-item.selected').forEach(selectedItem => {
+                    selectedItem.classList.remove('selected');
+                });
+                
+                // Select current item
+                item.classList.add('selected');
+                
+                // Show confirmation modal immediately when clicking on book
+                showSimpleBookConfirmation(book);
+            });
+            
+            return item;
+        }
+
+        function getGenreDisplayName(genreValue) {
+            const genreMap = {
+                'ficcao': 'Ficção',
+                'nao-ficcao': 'Não-ficção',
+                'romance': 'Romance',
+                'fantasia': 'Fantasia',
+                'misterio': 'Mistério',
+                'biografia': 'Biografia',
+                'historia': 'História',
+                'ciencia': 'Ciência',
+                'autoajuda': 'Autoajuda',
+                'infantil': 'Infantil',
+                'jovem-adulto': 'Jovem Adulto',
+                'poesia': 'Poesia',
+                'drama': 'Drama',
+                'aventura': 'Aventura'
+            };
+            return genreMap[genreValue] || genreValue || 'Gênero';
+        }
+
+        function selectCatalogBook(book, itemElement) {
+            // Remove selection from other items
+            document.querySelectorAll('.catalog-book-item.selected').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Select current item
+            itemElement.classList.add('selected');
+            
+            // Show simple confirmation modal
+            showSimpleBookConfirmation(book);
+        }
+
+        function showBookSelectionModal(book) {
+            const modal = `
+                <div id="bookSelectionModal" class="modal-overlay active">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2>Adicionar "${book.title}" à sua biblioteca</h2>
+                            <button class="modal-close" onclick="closeBookSelectionModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="book-selection-info">
+                                <div class="book-preview">
+                                    <div class="book-cover-preview">
+                                        ${book.coverImage ? 
+                                            '<img src="' + book.coverImage + '" alt="' + book.title + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+                                             '<div class="no-cover" style="display: none;">Sem capa</div>' : 
+                                            '<div class="no-cover">Sem capa</div>'
+                                        }
+                                    </div>
+                                    <div class="book-details">
+                                        <strong>Autor:</strong> ${book.author}<br>
+                                        <strong>Gênero:</strong> ${getGenreDisplayName(book.genre)}<br>
+                                        <strong>Páginas:</strong> ${book.pages || 'Não informado'}<br>
+                                        ${book.synopsis ? `<strong>Sinopse:</strong> ${book.synopsis.substring(0, 100)}...` : ''}
+                                    </div>
+                                </div>
+                                
+                                <div class="status-selection">
+                                    <h3>Em qual seção você quer adicionar este livro?</h3>
+                                    <div class="status-options">
+                                        <div class="status-option" data-status="Quero ler" onclick="selectBookStatus('Quero ler')">
+                                            <i class="fas fa-bookmark"></i>
+                                            <span>Quero Ler</span>
+                                            <small>Lista de livros para ler futuramente</small>
+                                        </div>
+                                        <div class="status-option" data-status="Lendo" onclick="selectBookStatus('Lendo')">
+                                            <i class="fas fa-book-open"></i>
+                                            <span>Lendo Atualmente</span>
+                                            <small>Livros que você está lendo agora</small>
+                                        </div>
+                                        <div class="status-option" data-status="Finalizado" onclick="selectBookStatus('Finalizado')">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Livros Finalizados</span>
+                                            <small>Livros que você já terminou de ler</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="additional-options">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="bookSelectionFavorite">
+                                        <span class="checkmark"></span>
+                                        <i class="fas fa-heart"></i> Marcar como favorito
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-secondary" onclick="closeBookSelectionModal()">Cancelar</button>
+                            <button type="button" class="btn-primary" id="confirmAddBook" onclick="confirmBookSelection('${book.id}')" disabled>
+                                <i class="fas fa-plus"></i> Adicionar à Biblioteca
+                            </button>
+                        </div>
                     </div>
-                `;
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modal);
+            
+            // Add click handlers to status options with multiple event types
+            setTimeout(() => {
+                const statusOptions = document.querySelectorAll('.status-option');
+                const confirmButton = document.getElementById('confirmAddBook');
+                let selectedStatus = null;
+                
+                console.log('Configurando event listeners para status:', statusOptions.length);
+                
+                statusOptions.forEach((option, index) => {
+                    console.log(`Opção ${index}:`, option.dataset.status);
+                    
+                    // Add visual feedback on hover
+                    option.addEventListener('mouseenter', function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.backgroundColor = '#f0f7ff';
+                            this.style.borderColor = '#7FAAD1';
+                        }
+                    });
+                    
+                    option.addEventListener('mouseleave', function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.backgroundColor = 'white';
+                            this.style.borderColor = '#e0e6ed';
+                        }
+                    });
+                    
+                    // Multiple event listeners for better compatibility
+                    const handleSelection = function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        console.log('Status selecionado:', this.dataset.status);
+                        
+                        // Remove selection from all options
+                        statusOptions.forEach(opt => {
+                            opt.classList.remove('selected');
+                            opt.style.backgroundColor = 'white';
+                            opt.style.borderColor = '#e0e6ed';
+                        });
+                        
+                        // Select current option
+                        this.classList.add('selected');
+                        this.style.backgroundColor = '#f0f7ff';
+                        this.style.borderColor = '#1C3D6A';
+                        selectedStatus = this.dataset.status;
+                        
+                        // Enable confirm button
+                        if (confirmButton) {
+                            confirmButton.disabled = false;
+                            confirmButton.dataset.selectedStatus = selectedStatus;
+                            confirmButton.style.opacity = '1';
+                            confirmButton.style.cursor = 'pointer';
+                            confirmButton.style.pointerEvents = 'auto';
+                            console.log('Botão habilitado para status:', selectedStatus);
+                        } else {
+                            console.error('Botão de confirmação não encontrado');
+                        }
+                    };
+                    
+                    option.addEventListener('click', handleSelection);
+                    option.addEventListener('touchstart', handleSelection);
+                    option.addEventListener('mousedown', handleSelection);
+                });
+            }, 200);
+        }
+
+        function closeBookSelectionModal() {
+            const modal = document.getElementById('bookSelectionModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function showSimpleBookConfirmation(book) {
+            console.log('Mostrando modal para o livro:', book);
+            
+            // Remove modal anterior se existir
+            const existingModal = document.getElementById('bookConfirmModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Criar elemento do modal
+            const modalDiv = document.createElement('div');
+            modalDiv.id = 'bookConfirmModal';
+            modalDiv.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0,0,0,0.7); z-index: 10000; display: flex; 
+                justify-content: center; align-items: center;
+            `;
+            
+            modalDiv.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #1C3D6A 0%, #2A5698 100%); 
+                    border-radius: 16px; padding: 24px; max-width: 380px; width: 85%; 
+                    box-shadow: 0 15px 35px rgba(28, 61, 106, 0.3); position: relative;
+                    border: 1px solid #0A2348;">
+                    
+                    <button id="closeModalBtn" style="
+                        position: absolute; top: 12px; right: 12px; background: #0A2348; 
+                        border: none; font-size: 18px; cursor: pointer; color: white;
+                        border-radius: 50%; width: 32px; height: 32px; display: flex;
+                        align-items: center; justify-content: center; transition: all 0.2s ease;">
+                        ✕
+                    </button>
+                    
+                    <div style="text-align: center; color: white;">
+                        <h2 style="margin: 0 0 8px 0; font-size: 1.3rem; font-weight: 600; color: #FFFFFF;">${book.title}</h2>
+                        <p style="margin: 0 0 4px 0; color: #F5F9FF; font-size: 0.9rem;">${book.author}</p>
+                        <p style="margin: 0 0 20px 0; color: #7A7A7A; font-size: 0.85rem;">${getGenreDisplayName(book.genre)}</p>
+                        
+                        <p style="margin: 0 0 16px 0; font-size: 0.95rem; font-weight: 500; color: #F5F9FF;">Adicionar em qual seção?</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+                            <button id="btn-quero-ler" style="
+                                background: #7FAAD1; color: #333333; border: none; 
+                                padding: 12px 16px; border-radius: 10px; font-size: 14px; 
+                                font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+                                box-shadow: 0 2px 8px rgba(127, 170, 209, 0.3);">
+                                📖 QUERO LER
+                            </button>
+                            
+                            <button id="btn-lendo" style="
+                                background: #0A2348; color: white; border: 1px solid #2A5698; 
+                                padding: 12px 16px; border-radius: 10px; font-size: 14px; 
+                                font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+                                box-shadow: 0 2px 8px rgba(10, 35, 72, 0.4);">
+                                📚 LENDO AGORA
+                            </button>
+                            
+                            <button id="btn-finalizado" style="
+                                background: #2A5698; color: white; border: none; 
+                                padding: 12px 16px; border-radius: 10px; font-size: 14px; 
+                                font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+                                box-shadow: 0 2px 8px rgba(42, 86, 152, 0.4);">
+                                ✅ JÁ LI
+                            </button>
+                        </div>
+                        
+                        <div style="margin: 16px 0; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.2);">
+                            <label style="display: flex; align-items: center; justify-content: center; cursor: pointer; color: #F5F9FF;">
+                                <input type="checkbox" id="favoriteCheckbox" style="
+                                    margin-right: 8px; width: 18px; height: 18px; cursor: pointer;
+                                    accent-color: #7FAAD1;">
+                                <span style="font-size: 14px; font-weight: 500;">⭐ Adicionar aos Favoritos</span>
+                            </label>
+                        </div>
+                        
+                        <button id="cancelModalBtn" style="
+                            background: transparent; color: #F5F9FF; border: 1px solid #7A7A7A; 
+                            padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-top: 16px;
+                            font-size: 13px; transition: all 0.2s ease;">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modalDiv);
+            
+            // Adicionar eventos aos botões
+            document.getElementById('closeModalBtn').addEventListener('click', closeBookConfirmModal);
+            document.getElementById('cancelModalBtn').addEventListener('click', closeBookConfirmModal);
+            
+            document.getElementById('btn-quero-ler').addEventListener('click', function() {
+                console.log('Botão QUERO LER clicado');
+                const isFavorite = document.getElementById('favoriteCheckbox').checked;
+                addBookQuick(book.id, 'Quero ler', isFavorite);
+            });
+            
+            document.getElementById('btn-lendo').addEventListener('click', function() {
+                console.log('Botão LENDO AGORA clicado');
+                const isFavorite = document.getElementById('favoriteCheckbox').checked;
+                addBookQuick(book.id, 'Lendo', isFavorite);
+            });
+            
+            document.getElementById('btn-finalizado').addEventListener('click', function() {
+                console.log('Botão JÁ LI clicado');
+                const isFavorite = document.getElementById('favoriteCheckbox').checked;
+                addBookQuick(book.id, 'Finalizado', isFavorite);
+            });
+            
+            console.log('Modal criado e eventos adicionados');
+        }
+
+        function closeBookConfirmModal() {
+            const modal = document.getElementById('bookConfirmModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function confirmBookWithStatus(bookId, status, favorite) {
+            const book = catalogBooksData.find(b => b.id === bookId);
+            if (!book) {
+                console.error('Livro não encontrado:', bookId);
+                return;
+            }
+            
+            console.log(`Confirmando livro "${book.title}" com status "${status}" e favorito: ${favorite}`);
+            
+            // Create book data for user library
+            const userBook = {
+                id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                title: book.title,
+                author: book.author,
+                genre: getGenreDisplayName(book.genre),
+                status: status,
+                pages: book.pages || '',
+                coverUrl: book.coverImage || '',
+                review: '',
+                favorite: favorite,
+                dateAdded: new Date().toISOString(),
+                catalogId: book.id,
+                publisher: book.publisher || '',
+                publicationYear: book.publicationYear || '',
+                synopsis: book.synopsis || ''
+            };
+            
+            // Get current profile
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                console.error('Perfil não encontrado');
+                showNotification('Erro: perfil não encontrado', 'error');
+                return;
+            }
+            
+            // Check if book already exists in biblioteca_livros for this profile
+            console.log('=== VERIFICAÇÃO DE DUPLICATAS ===');
+            console.log('catalogId procurado:', book.id);
+            console.log('profileId atual:', currentProfile.id);
+            
+            const bibliotecaCheckData1 = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaCheckData1) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaCheckData1);
+                    console.log('Total de livros em biblioteca_livros:', allBooks.length);
+                    console.log('Livros do perfil atual:', allBooks.filter(b => b.profileId === currentProfile.id).length);
+                    
+                    const existingBook = allBooks.find(userBook => {
+                        console.log(`Comparando: ${userBook.catalogId} === ${book.id} && ${userBook.profileId} === ${currentProfile.id}`);
+                        return userBook.catalogId === book.id && userBook.profileId === currentProfile.id;
+                    });
+                    
+                    if (existingBook) {
+                        console.log('DUPLICATA ENCONTRADA:', existingBook);
+                        showNotification(`"${book.title}" já está na sua biblioteca na seção "${existingBook.status}"!`, 'error');
+                        closeBookConfirmModal();
+                        if (typeof closeAddBookModalFunc === 'function') {
+                            closeAddBookModalFunc();
+                        }
+                        return;
+                    } else {
+                        console.log('Nenhuma duplicata encontrada - pode adicionar');
+                    }
+                } catch (e) {
+                    console.error('Erro ao verificar duplicatas:', e);
+                }
+            } else {
+                console.log('biblioteca_livros está vazia - pode adicionar');
+            }
+            
+            // Initialize books array if it doesn't exist
+            if (!currentProfile.books) {
+                currentProfile.books = [];
+            }
+            
+            // Add profileId to userBook for biblioteca_livros tracking
+            userBook.profileId = currentProfile.id;
+            
+            // Check if book already exists in biblioteca_livros (global catalog)
+            const bibliotecaDataForSave = localStorage.getItem('biblioteca_livros');
+            let allBooks = [];
+            if (bibliotecaDataForSave) {
+                try {
+                    allBooks = JSON.parse(bibliotecaDataForSave);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros:', e);
+                    allBooks = [];
+                }
+            }
+            
+            // Only add to biblioteca_livros if it's not already there (based on catalogId)
+            const existingGlobalBook = allBooks.find(b => b.catalogId === book.id);
+            if (!existingGlobalBook) {
+                // Create a global reference book (without user-specific data)
+                const globalBook = {
+                    id: book.id,
+                    catalogId: book.id,
+                    title: book.title,
+                    author: book.author,
+                    genre: book.genre,
+                    pages: book.pages || '',
+                    coverImage: book.coverImage || '',
+                    publisher: book.publisher || '',
+                    publicationYear: book.publicationYear || '',
+                    synopsis: book.synopsis || '',
+                    created_at: new Date().toISOString(),
+                    registeredAt: new Date().toISOString()
+                };
+                
+                allBooks.push(globalBook);
+                localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+                console.log('Livro adicionado à biblioteca global:', globalBook.title);
+            } else {
+                console.log('Livro já existe na biblioteca global:', existingGlobalBook.title);
+            }
+            
+            // Add only the user book reference to profile
+            currentProfile.books.push(userBook);
+            console.log('Livro adicionado ao perfil do usuário:', userBook.title);
+            
+            // Save updated profile
+            saveCurrentProfileWithBooks(currentProfile);
+            
+            // Update UI immediately
+            renderBooks();
+            updateReadingStats();
+            
+            // Close modals
+            closeBookConfirmModal();
+            if (typeof closeAddBookModalFunc === 'function') {
+                closeAddBookModalFunc();
+            }
+            
+            // Show success message
+            const sectionName = getSectionDisplayName(status);
+            showNotification(`"${book.title}" foi adicionado à seção "${sectionName}"${favorite ? ' e aos Favoritos' : ''}!`, 'success');
+            
+            console.log('Livro adicionado com sucesso:', userBook);
+        }
+
+        // Função simples para adicionar livro rapidamente
+        function addBookQuick(bookId, status, isFavorite = false) {
+            console.log('=== INÍCIO addBookQuick ===');
+            console.log('bookId:', bookId);
+            console.log('status:', status);
+            console.log('isFavorite:', isFavorite);
+            
+            const book = catalogBooksData.find(b => b.id === bookId);
+            if (!book) {
+                console.error('Livro não encontrado:', bookId);
+                console.log('catalogBooksData:', catalogBooksData);
+                return;
+            }
+            
+            console.log('Livro encontrado:', book.title);
+            
+            // Check if book already exists using biblioteca_livros
+            const currentProfile = getCurrentProfile();
+            if (currentProfile) {
+                const bibliotecaCheckData2 = localStorage.getItem('biblioteca_livros');
+                if (bibliotecaCheckData2) {
+                    try {
+                        const allBooks = JSON.parse(bibliotecaCheckData2);
+                        const existingBook = allBooks.find(userBook => 
+                            userBook.catalogId === bookId && userBook.profileId === currentProfile.id
+                        );
+                        
+                        if (existingBook) {
+                            console.log('Livro já existe na biblioteca:', existingBook);
+                            showNotification(`"${book.title}" já está na sua biblioteca na categoria "${existingBook.status}"`, 'warning');
+                            return;
+                        }
+                    } catch (e) {
+                        console.error('Erro ao verificar biblioteca_livros:', e);
+                    }
+                }
+            }
+            
+            // Create book data for user library
+            const userBook = {
+                id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                title: book.title,
+                author: book.author,
+                genre: getGenreDisplayName(book.genre),
+                status: status,
+                pages: book.pages || '',
+                coverUrl: book.coverImage || '',
+                review: '',
+                favorite: isFavorite,
+                dateAdded: new Date().toISOString(),
+                catalogId: book.id,
+                publisher: book.publisher || '',
+                publicationYear: book.publicationYear || '',
+                synopsis: book.synopsis || '',
+                profileId: currentProfile.id
+            };
+            
+            console.log('Livro do usuário criado:', userBook);
+            
+            // Save user book to biblioteca_livros with profileId
+            let allBooks = [];
+            const bibliotecaCheckData3 = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaCheckData3) {
+                try {
+                    allBooks = JSON.parse(bibliotecaCheckData3);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros:', e);
+                    allBooks = [];
+                }
+            }
+            
+            // Add user book with profileId to biblioteca_livros
+            allBooks.push(userBook);
+            localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+            console.log('Livro com profileId adicionado à biblioteca_livros:', userBook.title, 'ProfileId:', userBook.profileId);
+            
+            // Add only the user book reference to profile
+            if (!currentProfile.books) {
+                currentProfile.books = [];
+            }
+            currentProfile.books.push(userBook);
+            saveCurrentProfileWithBooks(currentProfile);
+            console.log('Livro adicionado ao perfil do usuário:', userBook.title);
+            
+            // Force reload profile to ensure consistency
+            console.log('Recarregando perfil após salvar...');
+            const reloadedProfile = getCurrentProfile();
+            console.log('Perfil recarregado:', reloadedProfile);
+            
+            // Update UI immediately
+            console.log('Atualizando interface...');
+            console.log('Chamando renderBooks...');
+            renderBooks();
+            
+            console.log('Chamando updateReadingStats...');
+            updateReadingStats();
+            
+            // Close modals
+            console.log('Fechando modais...');
+            closeBookConfirmModal();
+            if (typeof closeAddBookModalFunc === 'function') {
+                closeAddBookModalFunc();
+            }
+            
+            // Show success message
+            const sectionName = getSectionDisplayName(status);
+            showNotification(`"${book.title}" foi adicionado à seção "${sectionName}"!`, 'success');
+            
+            console.log('=== FIM addBookQuick ===');
+        }
+
+        // Function to update book favorite status using biblioteca_livros
+        function updateBookFavoriteInProfile(bookId, isFavorite) {
+            console.log('=== INÍCIO updateBookFavoriteInProfile ===');
+            console.log('Atualizando favorito do livro:', bookId, 'para:', isFavorite);
+            
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                console.error('Perfil não encontrado');
+                return;
+            }
+            
+            // Update in biblioteca_livros
+            const bibliotecaUpdateData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaUpdateData) {
+                try {
+                    let allBooks = JSON.parse(bibliotecaUpdateData);
+                    const bookIndex = allBooks.findIndex(book => 
+                        book.id === bookId && book.profileId === currentProfile.id
+                    );
+                    
+                    if (bookIndex !== -1) {
+                        allBooks[bookIndex].favorite = isFavorite;
+                        localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+                        console.log('Favorito atualizado em biblioteca_livros');
+                    }
+                } catch (e) {
+                    console.error('Erro ao atualizar favorito em biblioteca_livros:', e);
+                }
+            }
+            
+            // Also maintain profile compatibility
+            if (currentProfile.books) {
+                const profileBookIndex = currentProfile.books.findIndex(book => book.id === bookId);
+                if (profileBookIndex !== -1) {
+                    currentProfile.books[profileBookIndex].favorite = isFavorite;
+                    saveCurrentProfileWithBooks(currentProfile);
+                    console.log('Status de favorito atualizado para:', currentProfile.books[profileBookIndex].title);
+                }
+            }
+            
+            // Force sync biblioteca_livros with profile data
+            syncBibliotecaLivrosWithProfile(currentProfile);
+            
+            // Force re-render to update favorites display
+            renderBooks();
+            updateReadingStats();
+            
+            console.log('=== FIM updateBookFavoriteInProfile ===');
+        }
+
+        // Sync biblioteca_livros with profile data to fix inconsistencies
+        function syncBibliotecaLivrosWithProfile(profile) {
+            if (!profile || !profile.books) return;
+
+            const bibliotecaSyncData = localStorage.getItem('biblioteca_livros');
+            if (!bibliotecaSyncData) return;
+
+            try {
+                let allBooks = JSON.parse(bibliotecaSyncData);
+                let updated = false;
+
+                // Update each book in biblioteca_livros with profile data
+                profile.books.forEach(profileBook => {
+                    const bookIndex = allBooks.findIndex(book => 
+                        book.id === profileBook.id && book.profileId === profile.id
+                    );
+                    
+                    if (bookIndex !== -1) {
+                        // Sync favorite status and other fields
+                        if (allBooks[bookIndex].favorite !== profileBook.favorite) {
+                            allBooks[bookIndex].favorite = profileBook.favorite;
+                            updated = true;
+                        }
+                        if (allBooks[bookIndex].status !== profileBook.status) {
+                            allBooks[bookIndex].status = profileBook.status;
+                            updated = true;
+                        }
+                        if (allBooks[bookIndex].review !== profileBook.review) {
+                            allBooks[bookIndex].review = profileBook.review;
+                            updated = true;
+                        }
+                    }
+                });
+
+                if (updated) {
+                    localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+                    console.log('Sincronização biblioteca_livros com perfil concluída');
+                }
+            } catch (e) {
+                console.error('Erro na sincronização:', e);
+            }
+        }
+
+        // Profile management functions
+        function getCurrentProfile() {
+            const activeProfileId = localStorage.getItem('tolendo_active_profile');
+            if (!activeProfileId) {
+                console.error('Nenhum perfil ativo encontrado');
+                return null;
+            }
+            
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const profile = profiles.find(p => p.id === activeProfileId);
+            
+            if (!profile) {
+                console.error('Perfil não encontrado');
+                return null;
+            }
+            
+            return profile;
+        }
+
+        function saveCurrentProfile() {
+            const activeProfileId = localStorage.getItem('tolendo_active_profile');
+            if (!activeProfileId) {
+                console.error('Nenhum perfil ativo para salvar');
+                return false;
+            }
+            
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const profileIndex = profiles.findIndex(p => p.id === activeProfileId);
+            
+            if (profileIndex === -1) {
+                console.error('Perfil não encontrado para salvar');
+                return false;
+            }
+            
+            // Update the profile in the array
+            profiles[profileIndex].lastAccess = new Date().toISOString();
+            
+            // Save back to localStorage
+            localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+            console.log('Perfil salvo com sucesso:', profiles[profileIndex].name);
+            
+            return true;
+        }
+
+        function saveCurrentProfileWithBooks(updatedProfile) {
+            const activeProfileId = localStorage.getItem('tolendo_active_profile');
+            if (!activeProfileId) {
+                console.error('Nenhum perfil ativo para salvar');
+                return false;
+            }
+            
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const profileIndex = profiles.findIndex(p => p.id === activeProfileId);
+            
+            if (profileIndex === -1) {
+                console.error('Perfil não encontrado para salvar');
+                return false;
+            }
+            
+            // Update the profile in the array with the new data
+            profiles[profileIndex] = {
+                ...profiles[profileIndex],
+                ...updatedProfile,
+                lastAccess: new Date().toISOString()
+            };
+            
+            // Save back to localStorage
+            localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+            console.log('Perfil atualizado com livros salvos:', profiles[profileIndex].name);
+            console.log('Total de livros no perfil salvo:', profiles[profileIndex].books?.length || 0);
+            
+            return true;
+        }
+
+        // Update reading statistics
+        function updateReadingStats() {
+            console.log('=== INÍCIO updateReadingStats ===');
+            
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !currentProfile.books) {
+                console.log('Nenhum perfil ou livros encontrados para estatísticas');
                 return;
             }
 
-            // Display reviews
-            booksWithReviews.forEach(book => {
-                const reviewCard = createReviewCard(book);
-                reviewsContainer.appendChild(reviewCard);
+            const books = currentProfile.books;
+            console.log('Calculando estatísticas para', books.length, 'livros');
+
+            // Calculate statistics
+            const finishedBooks = books.filter(book => book.status === 'Finalizado').length;
+            const favoriteBooks = books.filter(book => book.favorite === true).length;
+            const currentlyReading = books.filter(book => book.status === 'Lendo').length;
+
+            console.log('Estatísticas calculadas:', {
+                finishedBooks,
+                favoriteBooks,
+                currentlyReading
             });
+
+            // Update stat elements
+            const statElements = {
+                finished: document.querySelector('.reading-stats .stat-item:nth-child(1) .stat-number'),
+                favorites: document.querySelector('.reading-stats .stat-item:nth-child(2) .stat-number'),
+                reading: document.querySelector('.reading-stats .stat-item:nth-child(3) .stat-number')
+            };
+
+            if (statElements.finished) {
+                statElements.finished.textContent = finishedBooks;
+                console.log('Livros lidos atualizados:', finishedBooks);
+            }
+
+            if (statElements.favorites) {
+                statElements.favorites.textContent = favoriteBooks;
+                console.log('Favoritos atualizados:', favoriteBooks);
+            }
+
+            if (statElements.reading) {
+                statElements.reading.textContent = currentlyReading;
+                console.log('Lendo agora atualizados:', currentlyReading);
+            }
+
+            // Update profile stats in localStorage
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const activeProfileId = localStorage.getItem('tolendo_active_profile');
+            const profileIndex = profiles.findIndex(p => p.id === activeProfileId);
+            
+            if (profileIndex !== -1) {
+                profiles[profileIndex].stats = {
+                    totalBooks: books.length,
+                    readBooks: finishedBooks,
+                    currentlyReading: currentlyReading,
+                    favoriteBooks: favoriteBooks
+                };
+                localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+                console.log('Estatísticas salvas no perfil');
+            }
+
+            console.log('=== FIM updateReadingStats ===');
+        }
+
+        // Open edit book status modal
+        function openEditBookStatusModal(bookId) {
+            console.log('Abrindo modal de edição para livro:', bookId);
+            
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !currentProfile.books) {
+                console.error('Perfil ou livros não encontrados');
+                return;
+            }
+            
+            const book = currentProfile.books.find(b => b.id === bookId);
+            if (!book) {
+                console.error('Livro não encontrado:', bookId);
+                return;
+            }
+            
+            console.log('Livro encontrado para edição:', book);
+            
+            // Remove modal anterior se existir
+            const existingModal = document.getElementById('editBookStatusModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Criar elemento do modal
+            const modalDiv = document.createElement('div');
+            modalDiv.id = 'editBookStatusModal';
+            modalDiv.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0,0,0,0.7); z-index: 10000; display: flex; 
+                justify-content: center; align-items: center;
+            `;
+            
+            modalDiv.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #1C3D6A 0%, #2A5698 100%); 
+                    border-radius: 16px; padding: 24px; max-width: 400px; width: 85%; 
+                    box-shadow: 0 15px 35px rgba(28, 61, 106, 0.3); position: relative;
+                    border: 1px solid #0A2348;">
+                    
+                    <button id="closeEditStatusModalBtn" style="
+                        position: absolute; top: 12px; right: 12px; background: #0A2348; 
+                        border: none; font-size: 18px; cursor: pointer; color: white;
+                        border-radius: 50%; width: 32px; height: 32px; display: flex;
+                        align-items: center; justify-content: center; transition: all 0.2s ease;">
+                        ✕
+                    </button>
+                    
+                    <div style="text-align: center; color: white;">
+                        <h2 style="margin: 0 0 8px 0; font-size: 1.3rem; font-weight: 600; color: #FFFFFF;">✏️ Editar Livro</h2>
+                        <h3 style="margin: 0 0 4px 0; font-size: 1.1rem; color: #F5F9FF;">${book.title}</h3>
+                        <p style="margin: 0 0 4px 0; color: #F5F9FF; font-size: 0.9rem;">${book.author}</p>
+                        <p style="margin: 0 0 20px 0; color: #7A7A7A; font-size: 0.85rem;">${book.genre}</p>
+                        
+                        <p style="margin: 0 0 16px 0; font-size: 0.95rem; font-weight: 500; color: #F5F9FF;">Alterar status:</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+                            <button id="edit-btn-quero-ler" data-status="Quero ler" style="
+                                background: ${book.status === 'Quero ler' ? '#7FAAD1' : 'rgba(127, 170, 209, 0.3)'}; 
+                                color: ${book.status === 'Quero ler' ? '#333333' : 'white'}; border: none; 
+                                padding: 12px 16px; border-radius: 10px; font-size: 14px; 
+                                font-weight: 600; cursor: pointer; transition: all 0.2s ease;">
+                                📖 QUERO LER ${book.status === 'Quero ler' ? '(Atual)' : ''}
+                            </button>
+                            
+                            <button id="edit-btn-lendo" data-status="Lendo" style="
+                                background: ${book.status === 'Lendo' ? '#0A2348' : 'rgba(10, 35, 72, 0.3)'}; 
+                                color: white; border: 1px solid #2A5698; 
+                                padding: 12px 16px; border-radius: 10px; font-size: 14px; 
+                                font-weight: 600; cursor: pointer; transition: all 0.2s ease;">
+                                📚 LENDO AGORA ${book.status === 'Lendo' ? '(Atual)' : ''}
+                            </button>
+                            
+                            <button id="edit-btn-finalizado" data-status="Finalizado" style="
+                                background: ${book.status === 'Finalizado' ? '#2A5698' : 'rgba(42, 86, 152, 0.3)'}; 
+                                color: white; border: none; 
+                                padding: 12px 16px; border-radius: 10px; font-size: 14px; 
+                                font-weight: 600; cursor: pointer; transition: all 0.2s ease;">
+                                ✅ JÁ LI ${book.status === 'Finalizado' ? '(Atual)' : ''}
+                            </button>
+                        </div>
+                        
+                        <div style="margin: 16px 0; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.2);">
+                            <label style="display: flex; align-items: center; justify-content: center; cursor: pointer; color: #F5F9FF;">
+                                <input type="checkbox" id="editFavoriteCheckbox" ${book.favorite ? 'checked' : ''} style="
+                                    margin-right: 8px; width: 18px; height: 18px; cursor: pointer;
+                                    accent-color: #7FAAD1;">
+                                <span style="font-size: 14px; font-weight: 500;">⭐ Favorito</span>
+                            </label>
+                        </div>
+                        
+                        <button id="cancelEditStatusBtn" style="
+                            background: transparent; color: #F5F9FF; border: 1px solid #7A7A7A; 
+                            padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-top: 16px;
+                            font-size: 13px; transition: all 0.2s ease;">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modalDiv);
+            
+            // Adicionar eventos aos botões
+            document.getElementById('closeEditStatusModalBtn').addEventListener('click', closeEditStatusModal);
+            document.getElementById('cancelEditStatusBtn').addEventListener('click', closeEditStatusModal);
+            
+            document.getElementById('edit-btn-quero-ler').addEventListener('click', function() {
+                console.log('Alterando para QUERO LER');
+                updateBookStatus(bookId, 'Quero ler');
+            });
+            
+            document.getElementById('edit-btn-lendo').addEventListener('click', function() {
+                console.log('Alterando para LENDO AGORA');
+                updateBookStatus(bookId, 'Lendo');
+            });
+            
+            document.getElementById('edit-btn-finalizado').addEventListener('click', function() {
+                console.log('Alterando para JÁ LI');
+                updateBookStatus(bookId, 'Finalizado');
+            });
+            
+            console.log('Modal de edição criado e eventos adicionados');
+        }
+
+        function closeEditStatusModal() {
+            const modal = document.getElementById('editBookStatusModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function updateBookStatus(bookId, newStatus) {
+            console.log('=== INÍCIO updateBookStatus ===');
+            console.log('Atualizando livro:', bookId, 'para status:', newStatus);
+            
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !currentProfile.books) {
+                console.error('Perfil ou livros não encontrados');
+                return;
+            }
+            
+            const bookIndex = currentProfile.books.findIndex(book => book.id === bookId);
+            if (bookIndex === -1) {
+                console.error('Livro não encontrado para atualização');
+                return;
+            }
+            
+            const book = currentProfile.books[bookIndex];
+            const oldStatus = book.status;
+            
+            // Update status
+            currentProfile.books[bookIndex].status = newStatus;
+            
+            // Update favorite status from checkbox
+            const favoriteCheckbox = document.getElementById('editFavoriteCheckbox');
+            if (favoriteCheckbox) {
+                currentProfile.books[bookIndex].favorite = favoriteCheckbox.checked;
+                console.log('Favorito atualizado para:', favoriteCheckbox.checked);
+            }
+            
+            // Save updated profile
+            saveCurrentProfileWithBooks(currentProfile);
+            
+            // Update UI
+            renderBooks();
+            updateReadingStats();
+            
+            // Close modal
+            closeEditStatusModal();
+            
+            // Show notification
+            showNotification(`"${book.title}" movido de "${oldStatus}" para "${newStatus}"!`, 'success');
+            
+            console.log('=== FIM updateBookStatus ===');
+        }
+
+        // Remove book from profile only (not from catalog)
+        function removeBookFromProfile(bookId) {
+            console.log('=== INÍCIO removeBookFromProfile ===');
+            console.log('Removendo livro do perfil:', bookId);
+            
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile || !currentProfile.books) {
+                console.error('Perfil ou livros não encontrados');
+                return false;
+            }
+            
+            const bookIndex = currentProfile.books.findIndex(book => book.id === bookId);
+            if (bookIndex === -1) {
+                console.error('Livro não encontrado no perfil para remoção');
+                return false;
+            }
+            
+            const removedBook = currentProfile.books[bookIndex];
+            console.log('Livro encontrado para remoção:', removedBook.title);
+            
+            // Remove book from profile
+            currentProfile.books.splice(bookIndex, 1);
+            console.log('Livro removido. Total de livros restantes:', currentProfile.books.length);
+            
+            // Save updated profile
+            saveCurrentProfileWithBooks(currentProfile);
+            
+            // Update UI
+            renderBooks();
+            updateReadingStats();
+            
+            console.log('=== FIM removeBookFromProfile ===');
+            return true;
+        }
+
+
+
+        // Make functions global
+        window.closeBookConfirmModal = closeBookConfirmModal;
+        window.confirmBookWithStatus = confirmBookWithStatus;
+        window.addBookQuick = addBookQuick;
+        window.showSimpleBookConfirmation = showSimpleBookConfirmation;
+        window.getCurrentProfile = getCurrentProfile;
+        window.saveCurrentProfile = saveCurrentProfile;
+        window.updateReadingStats = updateReadingStats;
+
+        function confirmBookSelection(bookId) {
+            const book = catalogBooksData.find(b => b.id === bookId);
+            if (!book) {
+                console.error('Livro não encontrado:', bookId);
+                return;
+            }
+            
+            const confirmButton = document.getElementById('confirmAddBook');
+            const status = confirmButton ? confirmButton.dataset.selectedStatus : null;
+            const favoriteCheckbox = document.getElementById('bookSelectionFavorite');
+            const favorite = favoriteCheckbox ? favoriteCheckbox.checked : false;
+            
+            if (!status) {
+                showNotification('Por favor, selecione um status para o livro.', 'error');
+                return;
+            }
+            
+            console.log(`Confirmando livro "${book.title}" com status "${status}" e favorito: ${favorite}`);
+            
+            // Get current profile for duplicate check
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                console.error('Perfil não encontrado');
+                showNotification('Erro: perfil não encontrado', 'error');
+                return;
+            }
+            
+            // Check if book already exists using biblioteca_livros
+            const bibliotecaConfirmData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaConfirmData) {
+                try {
+                    const allBooks = JSON.parse(bibliotecaConfirmData);
+                    const existingBook = allBooks.find(userBook => 
+                        userBook.catalogId === bookId && userBook.profileId === currentProfile.id
+                    );
+                    
+                    if (existingBook) {
+                        console.log('Livro já existe na biblioteca:', existingBook);
+                        showNotification(`"${book.title}" já está na sua biblioteca na categoria "${existingBook.status}"`, 'warning');
+                        closeBookSelectionModal();
+                        return;
+                    }
+                } catch (e) {
+                    console.error('Erro ao verificar biblioteca_livros:', e);
+                }
+            }
+            
+            // Create book data for user library with all necessary fields
+            const userBook = {
+                id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                title: book.title,
+                author: book.author,
+                genre: getGenreDisplayName(book.genre),
+                status: status,
+                pages: book.pages || '',
+                coverUrl: book.coverImage || '',
+                review: '',
+                favorite: favorite,
+                dateAdded: new Date().toISOString(),
+                catalogId: book.id,
+                publisher: book.publisher || '',
+                publicationYear: book.publicationYear || '',
+                synopsis: book.synopsis || '',
+                profileId: currentProfile.id
+            };
+            
+            // Save to biblioteca_livros
+            let allBooks = [];
+            const bibliotecaSaveData = localStorage.getItem('biblioteca_livros');
+            if (bibliotecaSaveData) {
+                try {
+                    allBooks = JSON.parse(bibliotecaSaveData);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros:', e);
+                    allBooks = [];
+                }
+            }
+            
+            allBooks.push(userBook);
+            localStorage.setItem('biblioteca_livros', JSON.stringify(allBooks));
+            console.log('Livro salvo em biblioteca_livros');
+            
+            // Also maintain profile compatibility
+            if (!currentProfile.books) {
+                currentProfile.books = [];
+            }
+            currentProfile.books.push(userBook);
+            saveCurrentProfileWithBooks(currentProfile);
+            
+            // Update UI immediately
+            renderBooks();
+            updateReadingStats();
+            
+            // Close modals
+            closeBookSelectionModal();
+            if (typeof closeAddBookModalFunc === 'function') {
+                closeAddBookModalFunc();
+            }
+            
+            // Show success message with section info
+            const sectionName = getSectionDisplayName(status);
+            showNotification(`"${book.title}" foi adicionado à seção "${sectionName}"${favorite ? ' e aos Favoritos' : ''}!`, 'success');
+            
+            console.log('Livro adicionado com sucesso:', userBook);
+        }
+
+        function showCatalogEmptyState() {
+            document.getElementById('catalogLoadingState').style.display = 'none';
+            document.getElementById('catalogBooksGrid').innerHTML = '';
+            document.getElementById('catalogEmptyState').style.display = 'block';
+        }
+
+        function searchCatalogBooks() {
+            const searchTerm = document.getElementById('catalogSearchInput').value.toLowerCase().trim();
+            const genreFilter = document.getElementById('catalogGenreFilter').value;
+            
+            console.log('Pesquisando por:', searchTerm, 'Gênero:', genreFilter);
+            console.log('Total de livros disponíveis:', catalogBooksData.length);
+            
+            filteredCatalogBooks = catalogBooksData.filter(book => {
+                const matchesSearch = !searchTerm || 
+                    book.title.toLowerCase().includes(searchTerm) ||
+                    book.author.toLowerCase().includes(searchTerm) ||
+                    getGenreDisplayName(book.genre).toLowerCase().includes(searchTerm) ||
+                    (book.publisher && book.publisher.toLowerCase().includes(searchTerm)) ||
+                    (book.synopsis && book.synopsis.toLowerCase().includes(searchTerm));
+                
+                const matchesGenre = !genreFilter || book.genre === genreFilter;
+                
+                return matchesSearch && matchesGenre;
+            });
+            
+            console.log('Livros encontrados após filtro:', filteredCatalogBooks.length);
+            console.log('Livros filtrados:', filteredCatalogBooks.map(b => b.title));
+            
+            renderCatalogBooks();
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('catalogSearchInput');
+            const genreFilter = document.getElementById('catalogGenreFilter');
+            
+            if (searchInput) searchInput.value = '';
+            if (genreFilter) genreFilter.value = '';
+            
+            // Reset to show all books
+            filteredCatalogBooks = [...catalogBooksData];
+            renderCatalogBooks();
+            
+            console.log('Filtros limpos - mostrando todos os livros');
+        }
+
+        // Function to redirect to cadastro.html
+        function redirectToCadastro() {
+            window.open('cadastro.html', '_blank');
+        }
+
+        // Make redirect function global
+        window.redirectToCadastro = redirectToCadastro;
+
+        // Helper functions for book management
+        function getSectionDisplayName(status) {
+            const statusMap = {
+                'Quero ler': 'Quero Ler',
+                'Lendo': 'Lendo Atualmente',
+                'Finalizado': 'Livros Finalizados'
+            };
+            return statusMap[status] || status;
+        }
+
+        function addBookToCorrectSection(bookData) {
+            // Find the correct section based on status
+            let targetSection;
+            switch (bookData.status) {
+                case 'Quero ler':
+                    targetSection = document.querySelector('#want-to-read');
+                    break;
+                case 'Lendo':
+                    targetSection = document.querySelector('#currently-reading');
+                    break;
+                case 'Finalizado':
+                    targetSection = document.querySelector('#finished-books');
+                    break;
+                default:
+                    targetSection = document.querySelector('#want-to-read');
+            }
+            
+            if (!targetSection) {
+                console.warn('Seção não encontrada para:', bookData.status);
+                return;
+            }
+            
+            // Remove empty state if it exists
+            const emptyState = targetSection.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.remove();
+            }
+            
+            // Add or create book grid
+            let bookGrid = targetSection.querySelector('.book-grid');
+            if (!bookGrid) {
+                bookGrid = document.createElement('div');
+                bookGrid.className = 'book-grid';
+                targetSection.appendChild(bookGrid);
+            }
+            
+            // Create and add book card
+            const bookCard = createBookCard(bookData);
+            bookGrid.appendChild(bookCard);
+            
+            console.log(`Livro "${bookData.title}" adicionado à seção "${bookData.status}"`);
+        }
+
+        function addBookToFavorites(bookData) {
+            const favoritesSection = document.querySelector('#favorites');
+            if (!favoritesSection) {
+                console.warn('Seção de favoritos não encontrada');
+                return;
+            }
+            
+            // Remove empty state if it exists
+            const emptyState = favoritesSection.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.remove();
+            }
+            
+            // Add or create book grid
+            let bookGrid = favoritesSection.querySelector('.book-grid');
+            if (!bookGrid) {
+                bookGrid = document.createElement('div');
+                bookGrid.className = 'book-grid';
+                favoritesSection.appendChild(bookGrid);
+            }
+            
+            // Create and add book card for favorites
+            const favoriteBookCard = createBookCard(bookData);
+            bookGrid.appendChild(favoriteBookCard);
+            
+            console.log(`Livro "${bookData.title}" adicionado aos favoritos`);
+        }
+
+        function updateFavoritesDisplay() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) return;
+            
+            const userBooks = loadFromLocalStorage('userBooks') || [];
+            const favoriteBooks = userBooks.filter(book => book.favorite);
+            
+            const favoritesSection = document.querySelector('#favorites');
+            if (!favoritesSection) return;
+            
+            // Clear existing content
+            const existingGrid = favoritesSection.querySelector('.book-grid');
+            if (existingGrid) {
+                existingGrid.remove();
+            }
+            
+            if (favoriteBooks.length === 0) {
+                // Show empty state
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <i class="fas fa-heart"></i>
+                    <p>Nenhum livro favorito ainda.</p>
+                `;
+                favoritesSection.appendChild(emptyState);
+            } else {
+                // Create book grid with favorites
+                const bookGrid = document.createElement('div');
+                bookGrid.className = 'book-grid';
+                
+                favoriteBooks.forEach(book => {
+                    const bookCard = createBookCard(book);
+                    bookGrid.appendChild(bookCard);
+                });
+                
+                favoritesSection.appendChild(bookGrid);
+            }
         }
 
         // Create review card
@@ -1633,50 +4068,80 @@
             const reviewCard = document.createElement('div');
             reviewCard.className = 'review-card';
             reviewCard.dataset.bookId = book.id;
+            reviewCard.dataset.source = book.source;
 
-            const coverUrl = book.cover || createPlaceholderCover(book.title);
-            const reviewDate = new Date(book.dateAdded).toLocaleDateString('pt-BR');
+            const coverUrl = book.cover || book.coverImage || createPlaceholderCover(book.title);
+            const reviewDate = new Date(book.reviewDate || book.dateAdded || Date.now()).toLocaleDateString('pt-BR');
+            
+            // Handle different review formats
+            const reviewText = book.reviewText || book.review || '';
+            const reviewTitle = book.reviewTitle || '';
+            const reviewRating = book.reviewRating || '';
+            const sourceLabel = book.source === 'catalog' ? 'Catálogo' : 'Biblioteca';
+            
+            // Create rating stars if available
+            let ratingHtml = '';
+            if (reviewRating && reviewRating !== '') {
+                const rating = parseInt(reviewRating);
+                const stars = '⭐'.repeat(rating);
+                ratingHtml = `<div class="review-rating">${stars} (${rating}/5)</div>`;
+            }
 
             reviewCard.innerHTML = `
                 <div class="review-header">
                     <div class="review-book-cover">
-                        <img src="${coverUrl}" alt="${book.title}">
+                        <img src="${coverUrl}" alt="${book.title}" onerror="this.src='${createPlaceholderCover(book.title)}'">
                     </div>
                     <div class="review-book-info">
                         <h4 class="review-book-title">${book.title}</h4>
                         <p class="review-book-author">por ${book.author}</p>
-                        <span class="review-book-genre">${book.genre}</span>
+                        <span class="review-book-genre">${book.genre || 'Sem gênero'}</span>
+                        <span class="review-source">${sourceLabel}</span>
+                        ${ratingHtml}
                     </div>
                 </div>
                 <div class="review-content">
-                    <div class="review-text">${book.review}</div>
+                    ${reviewTitle ? `<h5 class="review-title">${reviewTitle}</h5>` : ''}
+                    <div class="review-text">${reviewText}</div>
                 </div>
                 <div class="review-footer">
                     <span class="review-date">Escrita em ${reviewDate}</span>
                     <div class="review-actions">
-                        <button class="action-btn edit-review" data-book-id="${book.id}" title="Editar resenha">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete-review" data-book-id="${book.id}" title="Remover resenha">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        ${book.source === 'catalog' ? 
+                            `<button class="action-btn view-catalog" data-book-id="${book.id}" title="Ver no catálogo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>` : 
+                            `<button class="action-btn edit-review" data-book-id="${book.id}" title="Editar resenha">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-review" data-book-id="${book.id}" title="Remover resenha">
+                                <i class="fas fa-trash"></i>
+                            </button>`
+                        }
                     </div>
                 </div>
             `;
 
             // Add event listeners for review actions
-            const editBtn = reviewCard.querySelector('.edit-review');
-            const deleteBtn = reviewCard.querySelector('.delete-review');
+            if (book.source === 'catalog') {
+                const viewBtn = reviewCard.querySelector('.view-catalog');
+                viewBtn?.addEventListener('click', function() {
+                    window.open('attached_assets/catalogo.html', '_blank');
+                });
+            } else {
+                const editBtn = reviewCard.querySelector('.edit-review');
+                const deleteBtn = reviewCard.querySelector('.delete-review');
 
-            editBtn.addEventListener('click', function() {
-                openEditBookModal(book.id);
-            });
+                editBtn?.addEventListener('click', function() {
+                    openEditBookModal(book.id);
+                });
 
-            deleteBtn.addEventListener('click', function() {
-                if (confirm('Tem certeza que deseja remover esta resenha?')) {
-                    removeReviewFromBook(book.id);
-                }
-            });
+                deleteBtn?.addEventListener('click', function() {
+                    if (confirm('Tem certeza que deseja remover esta resenha?')) {
+                        removeReviewFromBook(book.id);
+                    }
+                });
+            }
 
             return reviewCard;
         }
@@ -1689,7 +4154,6 @@
             if (bookIndex !== -1) {
                 books[bookIndex].review = '';
                 saveToLocalStorage('userBooks', books);
-                loadReviews(); // Refresh reviews display
                 showNotification('Resenha removida com sucesso!', 'success');
             }
         }
@@ -1705,6 +4169,54 @@
             }
         }
 
+        // Migrate existing books to biblioteca_livros system
+        function migrateExistingBooksToNewSystem(currentProfile) {
+            console.log('=== MIGRAÇÃO DE DADOS ===');
+            
+            // Check if migration is needed
+            const bibliotecaMigrationData = localStorage.getItem('biblioteca_livros');
+            let existingBooks = [];
+            
+            if (bibliotecaMigrationData) {
+                try {
+                    existingBooks = JSON.parse(bibliotecaMigrationData);
+                    console.log('Livros existentes em biblioteca_livros:', existingBooks.length);
+                } catch (e) {
+                    console.error('Erro ao carregar biblioteca_livros:', e);
+                    existingBooks = [];
+                }
+            }
+            
+            // Check if current user already has books in the new system
+            const userBooksInNewSystem = existingBooks.filter(book => book.profileId === currentProfile.id);
+            console.log('Livros do usuário atual no novo sistema:', userBooksInNewSystem.length);
+            
+            // If user has books in profile but not in new system, migrate them
+            if (currentProfile.books && currentProfile.books.length > 0 && userBooksInNewSystem.length === 0) {
+                console.log('Migrando', currentProfile.books.length, 'livros do perfil para biblioteca_livros');
+                
+                currentProfile.books.forEach(book => {
+                    // Ensure book has profileId
+                    if (!book.profileId) {
+                        book.profileId = currentProfile.id;
+                    }
+                    
+                    // Add to biblioteca_livros if not already there
+                    const exists = existingBooks.find(b => b.id === book.id && b.profileId === currentProfile.id);
+                    if (!exists) {
+                        existingBooks.push(book);
+                        console.log('Livro migrado:', book.title);
+                    }
+                });
+                
+                // Save updated biblioteca_livros
+                localStorage.setItem('biblioteca_livros', JSON.stringify(existingBooks));
+                console.log('Migração concluída. Total de livros em biblioteca_livros:', existingBooks.length);
+            } else {
+                console.log('Migração não necessária ou já realizada');
+            }
+        }
+
         // Initialize app
         function initializeApp() {
             // Check if user is logged in
@@ -1714,6 +4226,9 @@
                 window.location.href = 'login.html';
                 return;
             }
+
+            // Migrate existing books to biblioteca_livros system
+            migrateExistingBooksToNewSystem(currentProfile);
 
             // Update profile display with current profile data
             updateProfileDisplayFromProfile(currentProfile);
@@ -1888,39 +4403,130 @@
             reader.onload = function(e) {
                 try {
                     const importData = JSON.parse(e.target.result);
+                    console.log('=== DEBUG IMPORTAÇÃO ===');
+                    console.log('Dados completos do arquivo:', importData);
+                    console.log('Tipo do objeto:', typeof importData);
+                    console.log('Chaves do objeto:', Object.keys(importData));
                     
-                    if (!importData.profile || !importData.profile.id) {
-                        showNotification('Arquivo JSON inválido! Estrutura de perfil não encontrada.', 'error');
+                    // Check for different possible structures with more flexible validation
+                    let profileData = null;
+                    
+                    // Structure 1: {profile: {...}}
+                    if (importData.profile) {
+                        console.log('Detectada estrutura 1: {profile: {...}}');
+                        profileData = importData.profile;
+                        // If id is missing, try to find it in a different field
+                        if (!profileData.id && profileData.username) {
+                            console.log('ID não encontrado, usando username como fallback');
+                            profileData.id = profileData.username;
+                        }
+                    }
+                    // Structure 2: Direct profile object {id: ..., name: ...} OR {username: ..., name: ...}
+                    else if ((importData.id || importData.username) && importData.name) {
+                        console.log('Detectada estrutura 2: objeto direto');
+                        profileData = importData;
+                        // Ensure we have an id field
+                        if (!profileData.id && profileData.username) {
+                            profileData.id = profileData.username;
+                        }
+                    }
+                    // Structure 3: Check if it's wrapped in another object
+                    else if (importData.data && importData.data.profile) {
+                        console.log('Detectada estrutura 3: {data: {profile: {...}}}');
+                        profileData = importData.data.profile;
+                    }
+                    // Structure 4: Look for any object with name and either id or username
+                    else {
+                        const keys = Object.keys(importData);
+                        for (const key of keys) {
+                            const obj = importData[key];
+                            if (obj && typeof obj === 'object' && obj.name && (obj.id || obj.username)) {
+                                console.log(`Detectada estrutura personalizada em "${key}"`);
+                                profileData = obj;
+                                if (!profileData.id && profileData.username) {
+                                    profileData.id = profileData.username;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Final validation with more flexible criteria
+                    if (!profileData || (!profileData.id && !profileData.username) || !profileData.name) {
+                        console.error('=== ERRO DE VALIDAÇÃO ===');
+                        console.error('ProfileData extraído:', profileData);
+                        console.error('Critérios não atendidos: precisa de (id OU username) E name');
+                        console.error('Estrutura completa do arquivo:', JSON.stringify(importData, null, 2));
+                        showNotification('Arquivo de backup inválido! Não foi possível encontrar dados válidos de perfil.', 'error');
                         return;
                     }
                     
-                    if (confirm(`Importar dados do perfil "${importData.profile.name}"?\n\nIsto sobrescreverá seus dados atuais!`)) {
+                    // Ensure we have an id field for internal use
+                    if (!profileData.id && profileData.username) {
+                        profileData.id = profileData.username;
+                    }
+                    
+                    console.log('Perfil extraído para importação:', profileData);
+                    
+                    if (confirm(`Importar dados do perfil "${profileData.name}"?\n\nIsto sobrescreverá seus dados atuais!`)) {
                         const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
                         const currentProfileId = localStorage.getItem('tolendo_active_profile');
+                        console.log('ID do perfil atual:', currentProfileId);
+                        console.log('Perfis disponíveis:', profiles.map(p => p.id));
+                        
                         const profileIndex = profiles.findIndex(p => p.id === currentProfileId);
+                        console.log('Índice do perfil encontrado:', profileIndex);
                         
                         if (profileIndex !== -1) {
+                            // Preserve only the current session ID and credentials 
+                            const currentProfile = profiles[profileIndex];
+                            console.log('Perfil atual antes da importação:', currentProfile);
+                            
                             const preservedData = {
-                                id: profiles[profileIndex].id,
-                                email: profiles[profileIndex].email,
-                                username: profiles[profileIndex].username,
-                                password: profiles[profileIndex].password
+                                id: currentProfile.id,
+                                email: currentProfile.email,
+                                username: currentProfile.username,
+                                password: currentProfile.password,
+                                createdAt: currentProfile.createdAt
                             };
                             
+                            // Import the complete profile but keep current login info
                             const updatedProfile = {
-                                ...importData.profile,
+                                ...profileData,
                                 ...preservedData,
                                 lastAccess: new Date().toISOString()
                             };
                             
+                            console.log('Perfil atualizado:', updatedProfile);
+                            
                             profiles[profileIndex] = updatedProfile;
                             localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+                            
+                            // Verify the active profile is still set
+                            localStorage.setItem('tolendo_active_profile', currentProfile.id);
+                            console.log('Perfil ativo confirmado:', localStorage.getItem('tolendo_active_profile'));
+                            
+                            // Import user-specific data
+                            if (profileData.library && Array.isArray(profileData.library)) {
+                                const userBooksKey = `${currentProfile.id}_userBooks`;
+                                localStorage.setItem(userBooksKey, JSON.stringify(profileData.library));
+                                console.log('Biblioteca importada:', profileData.library.length, 'livros');
+                            }
+                            
+                            // Import reviews data
+                            if (profileData.reviews && Array.isArray(profileData.reviews)) {
+                                const reviewsKey = `${currentProfile.id}_reviews`;
+                                localStorage.setItem(reviewsKey, JSON.stringify(profileData.reviews));
+                                console.log('Resenhas importadas:', profileData.reviews.length, 'resenhas');
+                            }
                             
                             showNotification('Dados importados com sucesso!', 'success');
                             setTimeout(() => {
                                 location.reload();
                             }, 1500);
                         } else {
+                            console.error('Perfil não encontrado. ID atual:', currentProfileId);
+                            console.error('IDs disponíveis:', profiles.map(p => p.id));
                             showNotification('Erro ao importar: perfil atual não encontrado!', 'error');
                         }
                     }
@@ -1950,42 +4556,27 @@
             return profiles.find(p => p.id === activeProfileId);
         }
 
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.textContent = message;
+        function saveCurrentProfile() {
+            const currentProfile = getCurrentProfile();
+            if (!currentProfile) {
+                console.error('Nenhum perfil ativo encontrado para salvar');
+                return;
+            }
             
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'error' ? '#e74c3c' : type === 'success' ? '#27ae60' : '#3498db'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                font-size: 0.9rem;
-                font-weight: 500;
-            `;
+            const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const profileIndex = profiles.findIndex(p => p.id === currentProfile.id);
             
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
+            if (profileIndex !== -1) {
+                // Update the profile in the array
+                profiles[profileIndex] = currentProfile;
+                localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
+                console.log('Perfil salvo com sucesso:', currentProfile.name);
+            } else {
+                console.error('Perfil não encontrado na lista para atualizar');
+            }
         }
+
+
 
         // User-specific data management functions
         function saveToLocalStorage(key, data) {
@@ -2061,6 +4652,13 @@
         };
         
         function startAutoSave() {
+            // Check if auto-save is disabled (when user is clearing data)
+            const currentProfile = getCurrentProfile();
+            if (currentProfile && localStorage.getItem(`autosave_disabled_${currentProfile.id}`)) {
+                console.log('Auto-save temporariamente desabilitado para este perfil');
+                return;
+            }
+            
             // Auto-save every 30 seconds
             autoSaveInterval = setInterval(() => {
                 autoSaveUserData();
@@ -2422,6 +5020,30 @@
             showNotification('Backup completo exportado com sucesso!', 'success');
         }
 
+        // Sync reviews from catalog
+        function syncReviewsFromCatalog() {
+            // Listen for storage changes to detect new reviews from catalog
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'catalogBooks') {
+                    // Catalog books updated, refresh reviews if on reviews tab
+                    // Reviews loaded automatically by script.js event listeners
+                }
+            });
+            
+            // Check for updates every 30 seconds when reviews tab is active
+            setInterval(() => {
+                const activeTab = document.querySelector('.tab-btn.active');
+                if (activeTab && activeTab.dataset.tab === 'resenhas') {
+                    const lastCheck = localStorage.getItem('lastReviewSync');
+                    const catalogLastModified = localStorage.getItem('catalogBooksLastModified');
+                    
+                    if (!lastCheck || !catalogLastModified || new Date(catalogLastModified) > new Date(lastCheck)) {
+                        localStorage.setItem('lastReviewSync', new Date().toISOString());
+                    }
+                }
+            }, 30000);
+        }
+
         // Call initialize function when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             initializeApp();
@@ -2432,11 +5054,86 @@
             // Start auto-save system
             startAutoSave();
             
+            // Start review sync monitoring
+            syncReviewsFromCatalog();
+            
             // Initial auto-save after 5 seconds
             setTimeout(autoSaveUserData, 5000);
         });
     </script>
     
+    <!-- Main functionality script -->
+    <script src="script.js"></script>
+    
+    <!-- Modal de Gêneros Favoritos -->
+    <div class="modal-overlay" id="genreModalOverlay">
+        <div class="modal genre-modal">
+            <div class="modal-header">
+                <h2>Escolha seus Gêneros Favoritos</h2>
+                <button class="modal-close" onclick="closeGenreModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="genre-subtitle">Selecione até 5 gêneros que você mais gosta de ler</p>
+                <div class="genre-grid" id="genreGrid">
+                    <div class="genre-option" data-genre="Ficção">
+                        <div class="genre-icon"><i class="fas fa-book"></i></div>
+                        <span class="genre-name">Ficção</span>
+                    </div>
+                    <div class="genre-option" data-genre="Romance">
+                        <div class="genre-icon"><i class="fas fa-heart"></i></div>
+                        <span class="genre-name">Romance</span>
+                    </div>
+                    <div class="genre-option" data-genre="Fantasia">
+                        <div class="genre-icon"><i class="fas fa-magic"></i></div>
+                        <span class="genre-name">Fantasia</span>
+                    </div>
+                    <div class="genre-option" data-genre="Terror">
+                        <div class="genre-icon"><i class="fas fa-ghost"></i></div>
+                        <span class="genre-name">Terror</span>
+                    </div>
+                    <div class="genre-option" data-genre="Mistério">
+                        <div class="genre-icon"><i class="fas fa-search"></i></div>
+                        <span class="genre-name">Mistério</span>
+                    </div>
+                    <div class="genre-option" data-genre="Biografia">
+                        <div class="genre-icon"><i class="fas fa-user"></i></div>
+                        <span class="genre-name">Biografia</span>
+                    </div>
+                    <div class="genre-option" data-genre="História">
+                        <div class="genre-icon"><i class="fas fa-scroll"></i></div>
+                        <span class="genre-name">História</span>
+                    </div>
+                    <div class="genre-option" data-genre="Ciência">
+                        <div class="genre-icon"><i class="fas fa-atom"></i></div>
+                        <span class="genre-name">Ciência</span>
+                    </div>
+                    <div class="genre-option" data-genre="Autoajuda">
+                        <div class="genre-icon"><i class="fas fa-lightbulb"></i></div>
+                        <span class="genre-name">Autoajuda</span>
+                    </div>
+                    <div class="genre-option" data-genre="Jovem Adulto">
+                        <div class="genre-icon"><i class="fas fa-users"></i></div>
+                        <span class="genre-name">Jovem Adulto</span>
+                    </div>
+                    <div class="genre-option" data-genre="Poesia">
+                        <div class="genre-icon"><i class="fas fa-feather-alt"></i></div>
+                        <span class="genre-name">Poesia</span>
+                    </div>
+                    <div class="genre-option" data-genre="Drama">
+                        <div class="genre-icon"><i class="fas fa-theater-masks"></i></div>
+                        <span class="genre-name">Drama</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeGenreModal()">Cancelar</button>
+                <button class="btn-primary" onclick="saveSelectedGenres()">Salvar Gêneros</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Auto-save indicator -->
     <div id="autoSaveIndicator" class="auto-save-indicator">
         <i class="fas fa-sync-alt"></i>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-top">
+                    <div class="logo">
+                        <i class="fas fa-book logo-icon"></i>
+                        <span class="logo-text">Cadastro de Livros</span>
+                    </div>
+                    <button id="themeToggle" class="theme-toggle" title="Alternar modo escuro">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                </div>
+                <p class="subtitle">Registre seus livros favoritos na nossa biblioteca</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-menu">
+            <a href="/cadastro.html" class="nav-link active">
+                <i class="fas fa-plus"></i>
+                Cadastrar Novo Livro
+            </a>
+            <a href="catalogo.html" class="nav-link">
+                <i class="fas fa-list"></i>
+                Ver Catálogo
+            </a>
+        </nav>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-title">Informações Básicas</span>
+                </div>
+                <div class="step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Informações Detalhadas</span>
+                </div>
+                <div class="step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Links de Acesso</span>
+                </div>
+                <div class="step" data-step="4">
+                    <span class="step-number">4</span>
+                    <span class="step-title">Informações Adicionais</span>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="bookForm" class="book-form">
+                <!-- Step 1: Informações Básicas -->
+                <div class="form-step active" data-step="1">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">
+                                <i class="fas fa-book"></i>
+                                Título <span class="required">*</span>
+                            </label>
+                            <input type="text" id="title" name="title" placeholder="Digite o título do livro" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">
+                                <i class="fas fa-user-edit"></i>
+                                Autor(a) <span class="required">*</span>
+                            </label>
+                            <input type="text" id="author" name="author" placeholder="Digite o nome do autor ou autora" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="publicationYear">
+                                <i class="fas fa-calendar"></i>
+                                Ano de publicação <span class="required">*</span>
+                            </label>
+                            <input type="number" id="publicationYear" name="publicationYear" placeholder="Ex: 2023" min="1000" max="2090" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="publisher">
+                                <i class="fas fa-building"></i>
+                                Editora <span class="required">*</span>
+                            </label>
+                            <input type="text" id="publisher" name="publisher" placeholder="Digite o nome da editora" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Informações Detalhadas -->
+                <div class="form-step" data-step="2">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pages">
+                                <i class="fas fa-file-alt"></i>
+                                Número de páginas <span class="required">*</span>
+                            </label>
+                            <input type="number" id="pages" name="pages" placeholder="Ex: 320" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">
+                                <i class="fas fa-tags"></i>
+                                Gênero <span class="required">*</span>
+                            </label>
+                            <select id="genre" name="genre" required>
+                                <option value="">📖 Selecione um gênero</option>
+                                <option value="ficcao">✨ Ficção</option>
+                                <option value="nao-ficcao">📚 Não-ficção</option>
+                                <option value="romance">💕 Romance</option>
+                                <option value="fantasia">🧙‍♂️ Fantasia</option>
+                                <option value="misterio">🔍 Mistério</option>
+                                <option value="biografia">👤 Biografia</option>
+                                <option value="historia">🏛️ História</option>
+                                <option value="ciencia">🔬 Ciência</option>
+                                <option value="autoajuda">🌟 Autoajuda</option>
+                                <option value="infantil">🧒 Infantil</option>
+                                <option value="jovem-adulto">🎭 Jovem Adulto</option>
+                                <option value="poesia">🎭 Poesia</option>
+                                <option value="drama">🎪 Drama</option>
+                                <option value="aventura">⚔️ Aventura</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="synopsis">
+                            <i class="fas fa-align-left"></i>
+                            Sinopse/resumo <span class="required">*</span>
+                        </label>
+                        <textarea id="synopsis" name="synopsis" placeholder="Breve descrição da história..." rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviews">
+                            <i class="fas fa-star"></i>
+                            Avaliações e críticas <span class="required">*</span>
+                        </label>
+                        <textarea id="reviews" name="reviews" placeholder="Adicione avaliações e críticas ao livro..." rows="4" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 3: Links de Acesso -->
+                <div class="form-step" data-step="3">
+                    <div class="form-group">
+                        <label for="purchaseLink">
+                            <i class="fas fa-shopping-cart"></i>
+                            Link de compra <span class="required">*</span>
+                        </label>
+                        <input type="url" id="purchaseLink" name="purchaseLink" placeholder="Cole aqui o link para comprar o livro (ex: Amazon, Saraiva, etc.)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="downloadLink">
+                            <i class="fas fa-download"></i>
+                            Link de download <span class="required">*</span>
+                        </label>
+                        <input type="url" id="downloadLink" name="downloadLink" placeholder="Cole aqui o link para download do livro (se disponível)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coverImage">
+                            <i class="fas fa-image"></i>
+                            URL da imagem da capa 
+                            <span class="optional">Opcional</span>
+                        </label>
+                        <input type="url" id="coverImage" name="coverImage" placeholder="Cole aqui o link da imagem da capa do livro">
+                    </div>
+                </div>
+
+                <!-- Step 4: Informações Adicionais -->
+                <div class="form-step" data-step="4">
+                    <div class="form-group">
+                        <label for="awards">
+                            <i class="fas fa-trophy"></i>
+                            Prêmios e reconhecimentos 
+                            <span class="optional">Opcional</span>
+                        </label>
+                        <textarea id="awards" name="awards" placeholder="Liste prêmios e reconhecimentos recebidos pelo livro..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="series">
+                                <i class="fas fa-layer-group"></i>
+                                Parte de série ou saga 
+                                <span class="optional">Opcional</span>
+                            </label>
+                            <input type="text" id="series" name="series" placeholder="Digite o nome da série (se aplicável)">
+                        </div>
+                        <div class="form-group">
+                            <label for="illustrator">
+                                <i class="fas fa-palette"></i>
+                                Ilustrador(a) 
+                                <span class="optional">Opcional</span>
+                            </label>
+                            <input type="text" id="illustrator" name="illustrator" placeholder="Digite o nome do ilustrador (se aplicável)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="origin">
+                            <i class="fas fa-globe"></i>
+                            País de origem e idioma original 
+                            <span class="optional">Opcional</span>
+                        </label>
+                        <input type="text" id="origin" name="origin" placeholder="Ex: Brasil - Português">
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" id="prevBtn" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <button type="button" id="nextBtn" class="btn btn-primary">
+                        Próximo <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button type="submit" id="submitBtn" class="btn btn-success" style="display: none;">
+                        Salvar Cadastro <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h2>Livro cadastrado com sucesso!</h2>
+                <p>Os dados foram salvos em sua biblioteca local.</p>
+                <button id="newBookBtn" class="btn btn-primary">Cadastrar novo livro</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cadastro.js"></script>
+    <script>
+        // Dark Mode Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+            
+            // Check for saved theme preference or default to 'light'
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            body.setAttribute('data-theme', currentTheme);
+            
+            // Update icon based on current theme
+            updateThemeIcon(currentTheme);
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+            
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    themeIcon.className = 'fas fa-moon';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
