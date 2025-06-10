@@ -1,423 +1,515 @@
-// Variáveis globais
-let currentTab = 0;
-const tabs = document.getElementsByClassName("tab");
-const tabContents = document.getElementsByClassName("tab-content");
-const progressBar = document.getElementById("progress");
-let editingBookId = null;
+/**
+ * Book Registration Form - Multi-step Wizard
+ * Handles form navigation, validation, and local storage
+ */
 
-// Campos obrigatórios por aba
-const requiredFieldsByTab = [
-  ["titulo", "autor", "ano", "editora"], // Aba 1
-  ["paginas", "genero", "sinopse", "avaliacoes"], // Aba 2
-  ["linkCompra", "linkDownload"], // Aba 3 - Links de Acesso
-  [], // Aba 4 (não tem campos obrigatórios)
-];
-
-// Inicialização
+// Dark Mode Toggle Functionality
 document.addEventListener("DOMContentLoaded", function () {
-  updateProgressBar();
-  loadBooksFromStorage();
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const body = document.body;
 
-  // Adicionar validação ao perder o foco nos campos obrigatórios
-  const requiredFields = [].concat(...requiredFieldsByTab);
-  requiredFields.forEach((fieldId) => {
-    const field = document.getElementById(fieldId);
-    if (field) {
-      field.addEventListener("blur", function () {
-        validateField(this);
-      });
+    // Check for saved theme preference or default to 'light'
+    const currentTheme = localStorage.getItem("theme") || "light";
+    body.setAttribute("data-theme", currentTheme);
+
+    // Update icon based on current theme
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener("click", function () {
+        const currentTheme = body.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        if (theme === "dark") {
+            themeIcon.className = "fas fa-sun";
+        } else {
+            themeIcon.className = "fas fa-moon";
+        }
     }
-  });
 });
 
-// Função para atualizar a barra de progresso
-function updateProgressBar() {
-  progressBar.style.width = ((currentTab + 1) / tabs.length) * 100 + "%";
-}
+class BookRegistrationForm {
+    constructor() {
+        this.currentStep = 1;
+        this.totalSteps = 4;
+        this.formData = {};
 
-// Função para mudar de aba
-function changeTab(tabName, tabIndex) {
-  // Limpar todas as abas e conteúdos ativos
-  for (let i = 0; i < tabContents.length; i++) {
-    tabContents[i].className = tabContents[i].className.replace(" active", "");
-    tabs[i].className = tabs[i].className.replace(" active", "");
-  }
-
-  // Ativar a aba e conteúdo selecionados
-  document.getElementById(tabName).className += " active";
-  tabs[tabIndex].className += " active";
-
-  // Atualizar o índice da aba atual
-  currentTab = tabIndex;
-  updateProgressBar();
-}
-
-// Função para validar um campo específico
-function validateField(field) {
-  const fieldId = field.id;
-  const errorElement = document.getElementById(`${fieldId}-error`);
-
-  // Remover mensagens e estilos de erro existentes
-  field.classList.remove("input-error");
-  if (errorElement) errorElement.style.display = "none";
-
-  // Diferentes validações dependendo do tipo de campo
-  let valid = true;
-  let errorMsg = "Este campo é obrigatório";
-
-  if (!field.value.trim()) {
-    valid = false;
-  } else if (fieldId === "ano") {
-    const year = parseInt(field.value);
-    const currentYear = new Date().getFullYear();
-    if (isNaN(year) || year < 1 || year > currentYear) {
-      valid = false;
-      errorMsg = `O ano deve ser um número entre 1 e ${currentYear}`;
+        this.init();
     }
-  } else if (fieldId === "paginas") {
-    const pages = parseInt(field.value);
-    if (isNaN(pages) || pages < 1) {
-      valid = false;
-      errorMsg = "O número de páginas deve ser maior que 0";
+
+    init() {
+        this.bindEvents();
+        this.loadFromLocalStorage();
+        this.updateUI();
     }
-  } else if (
-    fieldId === "linkCompra" ||
-    fieldId === "linkDownload" ||
-    fieldId === "urlCapa"
-  ) {
-    const urlPattern =
-      /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-    if (field.value.trim() && !urlPattern.test(field.value)) {
-      valid = false;
-      errorMsg = "Por favor, insira uma URL válida";
+
+    bindEvents() {
+        // Navigation buttons
+        document
+            .getElementById("nextBtn")
+            .addEventListener("click", () => this.nextStep());
+        document
+            .getElementById("prevBtn")
+            .addEventListener("click", () => this.prevStep());
+        document
+            .getElementById("submitBtn")
+            .addEventListener("click", (e) => this.submitForm(e));
+
+        // Form inputs - save to localStorage on change
+        const form = document.getElementById("bookForm");
+        form.addEventListener("input", (e) => this.saveToLocalStorage(e));
+        form.addEventListener("change", (e) => this.saveToLocalStorage(e));
+
+        // Step clicks for navigation
+        document.querySelectorAll(".step").forEach((step) => {
+            step.addEventListener("click", (e) => {
+                const stepNumber = parseInt(e.currentTarget.dataset.step);
+                this.goToStep(stepNumber);
+            });
+        });
+
+        // Modal events
+        document
+            .querySelector(".close")
+            .addEventListener("click", () => this.closeModal());
+        document
+            .getElementById("newBookBtn")
+            .addEventListener("click", () => this.resetForm());
+
+        // Close modal when clicking outside
+        window.addEventListener("click", (e) => {
+            const modal = document.getElementById("successModal");
+            if (e.target === modal) {
+                this.closeModal();
+            }
+        });
     }
-  }
 
-  // Mostrar erro se inválido
-  if (!valid) {
-    field.classList.add("input-error");
-    if (errorElement) {
-      errorElement.textContent = errorMsg;
-      errorElement.style.display = "block";
+    nextStep() {
+        if (this.validateCurrentStep()) {
+            if (this.currentStep < this.totalSteps) {
+                this.currentStep++;
+                this.updateUI();
+            }
+        }
     }
-  }
 
-  return valid;
-}
-
-// Função para validar todos os campos de uma aba
-function validateTab(tabIndex) {
-  const fieldsToValidate = requiredFieldsByTab[tabIndex];
-  let allValid = true;
-
-  fieldsToValidate.forEach((fieldId) => {
-    const field = document.getElementById(fieldId);
-    if (field && !validateField(field)) {
-      allValid = false;
+    prevStep() {
+        if (this.currentStep > 1) {
+            this.currentStep--;
+            this.updateUI();
+        }
     }
-  });
 
-  return allValid;
-}
-
-// Função para validar e ir para a próxima aba
-function validateAndNextTab(currentTabIndex) {
-  if (validateTab(currentTabIndex)) {
-    nextTab();
-  } else {
-    showErrorMessage(
-      "Por favor, preencha todos os campos obrigatórios corretamente."
-    );
-  }
-}
-
-// Função para ir à próxima aba
-function nextTab() {
-  if (currentTab < tabs.length - 1) {
-    const nextTabIndex = currentTab + 1;
-    const tabNames = [
-      "info-basicas",
-      "info-detalhadas",
-      "links-acesso",
-      "info-adicionais",
-    ];
-    changeTab(tabNames[nextTabIndex], nextTabIndex);
-  }
-}
-
-// Função para voltar à aba anterior
-function prevTab() {
-  if (currentTab > 0) {
-    const prevTabIndex = currentTab - 1;
-    const tabNames = [
-      "info-basicas",
-      "info-detalhadas",
-      "links-acesso",
-      "info-adicionais",
-    ];
-    changeTab(tabNames[prevTabIndex], prevTabIndex);
-  }
-}
-
-// Função para salvar o livro
-function saveBook() {
-  // Validar todas as abas obrigatórias
-  let allValid = true;
-  for (let i = 0; i < 3; i++) {
-    // Apenas as 3 primeiras abas têm campos obrigatórios
-    if (!validateTab(i)) {
-      allValid = false;
-      break;
+    goToStep(stepNumber) {
+        if (stepNumber >= 1 && stepNumber <= this.totalSteps) {
+            this.currentStep = stepNumber;
+            this.updateUI();
+        }
     }
-  }
 
-  if (!allValid) {
-    showErrorMessage(
-      "Por favor, preencha todos os campos obrigatórios nas abas anteriores."
-    );
-    return;
-  }
+    validateCurrentStep() {
+        const currentStepElement = document.querySelector(
+            `.form-step[data-step="${this.currentStep}"]`
+        );
+        const requiredFields =
+            currentStepElement.querySelectorAll("[required]");
+        let isValid = true;
 
-  // Coletar dados do formulário
-  const bookData = {
-    id: editingBookId || Date.now().toString(),
-    titulo: document.getElementById("titulo").value.trim(),
-    autor: document.getElementById("autor").value.trim(),
-    ano: parseInt(document.getElementById("ano").value),
-    editora: document.getElementById("editora").value.trim(),
-    paginas: parseInt(document.getElementById("paginas").value),
-    genero: document.getElementById("genero").value,
-    sinopse: document.getElementById("sinopse").value.trim(),
-    avaliacoes: document.getElementById("avaliacoes").value.trim(),
-    linkCompra: document.getElementById("linkCompra").value.trim(),
-    linkDownload: document.getElementById("linkDownload").value.trim(),
-    urlCapa: document.getElementById("urlCapa").value.trim(),
-    premios: document.getElementById("premios").value.trim(),
-    serie: document.getElementById("serie").value.trim(),
-    ilustrador: document.getElementById("ilustrador").value.trim(),
-    origem: document.getElementById("origem").value.trim(),
-    dataRegistro: editingBookId
-      ? getBooksFromStorage().find((b) => b.id === editingBookId)?.dataRegistro
-      : new Date().toLocaleDateString("pt-BR"),
-  };
+        // Clear previous error states
+        this.clearErrors();
 
-  try {
-    // Salvar no armazenamento
-    saveBooksToStorage(bookData);
+        requiredFields.forEach((field) => {
+            if (!field.value.trim()) {
+                this.showFieldError(field, "Este campo é obrigatório");
+                isValid = false;
+            } else {
+                // Specific validations
+                if (field.type === "email" && !this.isValidEmail(field.value)) {
+                    this.showFieldError(
+                        field,
+                        "Por favor, insira um email válido"
+                    );
+                    isValid = false;
+                }
+                if (field.type === "url" && !this.isValidURL(field.value)) {
+                    this.showFieldError(
+                        field,
+                        "Por favor, insira uma URL válida"
+                    );
+                    isValid = false;
+                }
+                if (field.type === "number") {
+                    const min = parseInt(field.getAttribute("min"));
+                    const max = parseInt(field.getAttribute("max"));
+                    const value = parseInt(field.value);
 
-    // Mostrar mensagem de sucesso
-    showSuccessMessage();
+                    if (min && value < min) {
+                        this.showFieldError(
+                            field,
+                            `O valor deve ser maior que ${min}`
+                        );
+                        isValid = false;
+                    }
+                    if (max && value > max) {
+                        this.showFieldError(
+                            field,
+                            `O valor deve ser menor que ${max}`
+                        );
+                        isValid = false;
+                    }
+                }
+            }
+        });
 
-    // Limpar formulário após salvar
-    setTimeout(() => {
-      clearForm();
-      changeTab("info-basicas", 0);
-      editingBookId = null;
-    }, 2000);
-  } catch (error) {
-    console.error("Erro ao salvar livro:", error);
-    showErrorMessage("Erro interno. Tente novamente.");
-  }
-}
-
-// Função para salvar livros no armazenamento (usando array em memória)
-let booksStorage = [];
-
-function saveBooksToStorage(bookData) {
-  // Buscar livros existentes do localStorage
-  let books = JSON.parse(localStorage.getItem("livros")) || [];
-
-  if (editingBookId) {
-    // Editar livro existente
-    const index = books.findIndex((book) => book.id === editingBookId);
-    if (index !== -1) {
-      books[index] = bookData;
+        return isValid;
     }
-  } else {
-    // Adicionar novo livro
-    books.push(bookData);
-  }
 
-  // Salvar no localStorage
-  localStorage.setItem("livros", JSON.stringify(books));
+    showFieldError(field, message) {
+        field.classList.add("error");
 
-  // Atualizar array em memória para manter sincronizado
-  booksStorage = books;
+        // Create or update error message
+        let errorElement = field.parentNode.querySelector(".error-message");
+        if (!errorElement) {
+            errorElement = document.createElement("div");
+            errorElement.className = "error-message";
+            field.parentNode.appendChild(errorElement);
+        }
 
-  updateBooksTable();
+        errorElement.textContent = message;
+        errorElement.classList.add("show");
+    }
+
+    clearErrors() {
+        // Remove error classes
+        document.querySelectorAll(".error").forEach((field) => {
+            field.classList.remove("error");
+        });
+
+        // Hide error messages
+        document.querySelectorAll(".error-message").forEach((error) => {
+            error.classList.remove("show");
+        });
+    }
+
+    isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    isValidURL(url) {
+        try {
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    updateUI() {
+        // Update step indicators
+        document.querySelectorAll(".step").forEach((step, index) => {
+            const stepNumber = index + 1;
+            step.classList.remove("active", "completed");
+
+            if (stepNumber === this.currentStep) {
+                step.classList.add("active");
+            } else if (stepNumber < this.currentStep) {
+                step.classList.add("completed");
+            }
+        });
+
+        // Update form steps visibility
+        document.querySelectorAll(".form-step").forEach((step) => {
+            step.classList.remove("active");
+        });
+        document
+            .querySelector(`.form-step[data-step="${this.currentStep}"]`)
+            .classList.add("active");
+
+        // Update navigation buttons
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const submitBtn = document.getElementById("submitBtn");
+
+        prevBtn.style.display = this.currentStep === 1 ? "none" : "inline-flex";
+
+        if (this.currentStep === this.totalSteps) {
+            nextBtn.style.display = "none";
+            submitBtn.style.display = "inline-flex";
+        } else {
+            nextBtn.style.display = "inline-flex";
+            submitBtn.style.display = "none";
+        }
+
+        // Remove step accessibility restrictions
+        // this.updateStepAccessibility();
+    }
+
+    updateStepAccessibility() {
+        const maxAccessibleStep = this.getMaxAccessibleStep();
+
+        document.querySelectorAll(".step").forEach((step, index) => {
+            const stepNumber = index + 1;
+            if (stepNumber <= maxAccessibleStep) {
+                step.style.cursor = "pointer";
+                step.style.opacity = "1";
+            } else {
+                step.style.cursor = "not-allowed";
+                step.style.opacity = "0.5";
+            }
+        });
+    }
+
+    getMaxAccessibleStep() {
+        // Users can access steps they've completed or the next incomplete step
+        let maxStep = 1;
+
+        for (let i = 1; i <= this.totalSteps; i++) {
+            const stepElement = document.querySelector(
+                `.form-step[data-step="${i}"]`
+            );
+            const requiredFields = stepElement.querySelectorAll("[required]");
+            let stepComplete = true;
+
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    stepComplete = false;
+                    break;
+                }
+            }
+
+            if (stepComplete) {
+                maxStep = Math.min(i + 1, this.totalSteps);
+            } else {
+                break;
+            }
+        }
+
+        return Math.max(maxStep, this.currentStep);
+    }
+
+    saveToLocalStorage(event) {
+        const field = event.target;
+        const formData = new FormData(document.getElementById("bookForm"));
+        const data = {};
+
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+
+        // Also save current step
+        data._currentStep = this.currentStep;
+
+        // Manter localStorage para dados temporários
+        localStorage.setItem("bookRegistrationData", JSON.stringify(data));
+        this.formData = data;
+    }
+
+    loadFromLocalStorage() {
+        const savedData = localStorage.getItem("bookRegistrationData");
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                this.formData = data;
+
+                // Restore form values
+                Object.keys(data).forEach((key) => {
+                    if (key !== "_currentStep") {
+                        const field = document.getElementById(key);
+                        if (field) {
+                            field.value = data[key];
+                        }
+                    }
+                });
+
+                // Restore current step
+                if (data._currentStep) {
+                    this.currentStep = parseInt(data._currentStep);
+                }
+            } catch (error) {
+                console.error("Error loading data from localStorage:", error);
+            }
+        }
+    }
+
+    async submitForm(event) {
+        event.preventDefault();
+
+        if (!this.validateCurrentStep()) {
+            return;
+        }
+
+        // Collect all form data
+        const formData = new FormData(document.getElementById("bookForm"));
+        const bookData = {};
+
+        for (let [key, value] of formData.entries()) {
+            bookData[key] = value;
+        }
+
+        try {
+            // Adicionar ID único se não existir
+            if (!bookData.id) {
+                bookData.id = this.generateId();
+            }
+
+            // Adicionar data de criação
+            bookData.created_at = new Date().toISOString();
+
+            // Carregar livros existentes do localStorage
+            const existingBooks = JSON.parse(
+                localStorage.getItem("biblioteca_livros") || "[]"
+            );
+
+            // Adicionar novo livro
+            existingBooks.push(bookData);
+
+            // Salvar no localStorage
+            localStorage.setItem(
+                "biblioteca_livros",
+                JSON.stringify(existingBooks)
+            );
+
+            // Limpar dados temporários do localStorage
+            localStorage.removeItem("bookRegistrationData");
+            this.showSuccessModal();
+        } catch (error) {
+            console.error("Erro ao salvar livro:", error);
+            alert("Erro ao salvar livro. Tente novamente.");
+        }
+    }
+
+    generateId() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    async loadBooksFromServer() {
+        try {
+            return JSON.parse(
+                localStorage.getItem("biblioteca_livros") || "[]"
+            );
+        } catch (error) {
+            console.error("Erro ao carregar livros:", error);
+            return [];
+        }
+    }
+
+    showSuccessModal() {
+        document.getElementById("successModal").style.display = "block";
+    }
+
+    closeModal() {
+        document.getElementById("successModal").style.display = "none";
+    }
+
+    resetForm() {
+        // Clear form
+        document.getElementById("bookForm").reset();
+
+        // Clear localStorage
+        localStorage.removeItem("bookRegistrationData");
+
+        // Reset to first step
+        this.currentStep = 1;
+        this.formData = {};
+
+        // Update UI
+        this.updateUI();
+        this.clearErrors();
+
+        // Close modal
+        this.closeModal();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Public method to get saved books from server
+    async getSavedBooks() {
+        return await this.loadBooksFromServer();
+    }
 }
 
-function getBooksFromStorage() {
-  // Sempre buscar do localStorage para garantir dados atualizados
-  booksStorage = JSON.parse(localStorage.getItem("livros")) || [];
-  return booksStorage;
-}
-
-function loadBooksFromStorage() {
-  updateBooksTable();
-}
-
-// Função para atualizar a tabela de livros
-function updateBooksTable() {
-  const tbody = document.getElementById("livros-tbody");
-  const books = getBooksFromStorage();
-
-  tbody.innerHTML = "";
-
-  if (books.length === 0) {
-    tbody.innerHTML =
-      '<tr><td colspan="6" style="text-align: center; color: #666;">Nenhum livro cadastrado ainda.</td></tr>';
-    return;
-  }
-
-  books.forEach((book) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-          <td>${book.titulo}</td>
-          <td>${book.autor}</td>
-          <td>${book.ano}</td>
-          <td>${book.editora}</td>
-          <td>${book.genero}</td>
-          <td>
-            <button class="action-btn edit-btn" onclick="editBook('${book.id}')" title="Editar">
-              ✏️
-            </button>
-            <button class="action-btn delete-btn" onclick="deleteBook('${book.id}')" title="Excluir">
-              🗑️
-            </button>
-          </td>
-        `;
-    tbody.appendChild(row);
-  });
-}
-
-// Função para editar um livro
-function editBook(bookId) {
-  const books = getBooksFromStorage();
-  const book = books.find((b) => b.id === bookId);
-
-  if (!book) {
-    showErrorMessage("Livro não encontrado.");
-    return;
-  }
-
-  // Preencher o formulário com os dados do livro
-  editingBookId = bookId;
-
-  document.getElementById("titulo").value = book.titulo || "";
-  document.getElementById("autor").value = book.autor || "";
-  document.getElementById("ano").value = book.ano || "";
-  document.getElementById("editora").value = book.editora || "";
-  document.getElementById("paginas").value = book.paginas || "";
-  document.getElementById("genero").value = book.genero || "";
-  document.getElementById("sinopse").value = book.sinopse || "";
-  document.getElementById("avaliacoes").value = book.avaliacoes || "";
-  document.getElementById("linkCompra").value = book.linkCompra || "";
-  document.getElementById("linkDownload").value = book.linkDownload || "";
-  document.getElementById("urlCapa").value = book.urlCapa || "";
-  document.getElementById("premios").value = book.premios || "";
-  document.getElementById("serie").value = book.serie || "";
-  document.getElementById("ilustrador").value = book.ilustrador || "";
-  document.getElementById("origem").value = book.origem || "";
-
-  // Ir para a primeira aba
-  changeTab("info-basicas", 0);
-
-  // Scroll para o topo do formulário
-  document.querySelector(".container").scrollIntoView({ behavior: "smooth" });
-}
-
-function deleteBook(bookId) {
-  if (confirm("Tem certeza que deseja excluir este livro?")) {
-    // Buscar livros do localStorage
-    let books = JSON.parse(localStorage.getItem("livros")) || [];
-
-    // Filtrar removendo o livro
-    books = books.filter((book) => book.id !== bookId);
-
-    // Salvar de volta no localStorage
-    localStorage.setItem("livros", JSON.stringify(books));
-
-    // Atualizar array em memória
-    booksStorage = books;
-
-    updateBooksTable();
-    showSuccessMessage("Livro excluído com sucesso!");
-  }
-}
-
-// Função para limpar o formulário
-function clearForm() {
-  const inputs = document.querySelectorAll("input, textarea, select");
-  inputs.forEach((input) => {
-    input.value = "";
-    input.classList.remove("input-error");
-  });
-
-  const errorElements = document.querySelectorAll(".error-feedback");
-  errorElements.forEach((element) => {
-    element.style.display = "none";
-  });
-
-  editingBookId = null;
-}
-
-// Função para mostrar mensagem de sucesso
-function showSuccessMessage(
-  message = "Seu livro foi cadastrado com sucesso em nossa biblioteca."
-) {
-  const successMessage = document.getElementById("success-message");
-  const overlay = document.getElementById("overlay");
-  const messageText = successMessage.querySelector("p");
-
-  messageText.textContent = message;
-
-  overlay.style.display = "block";
-  successMessage.style.display = "block";
-}
-
-// Função para fechar mensagem de sucesso
-function closeSuccessMessage() {
-  const successMessage = document.getElementById("success-message");
-  const overlay = document.getElementById("overlay");
-
-  overlay.style.display = "none";
-  successMessage.style.display = "none";
-
-  // Atualizar tabela após fechar
-  updateBooksTable();
-}
-
-// Função para mostrar mensagem de erro
-function showErrorMessage(message = "Não foi possível completar o cadastro.") {
-  const errorMessage = document.getElementById("error-message");
-  const overlay = document.getElementById("overlay");
-  const messageText = document.getElementById("error-message-text");
-
-  messageText.textContent = message;
-
-  overlay.style.display = "block";
-  errorMessage.style.display = "block";
-}
-
-// Função para fechar mensagem de erro
-function closeErrorMessage() {
-  const errorMessage = document.getElementById("error-message");
-  const overlay = document.getElementById("overlay");
-
-  overlay.style.display = "none";
-  errorMessage.style.display = "none";
-}
-
-// Fechar mensagens ao clicar no overlay
-document.getElementById("overlay").addEventListener("click", function () {
-  closeSuccessMessage();
-  closeErrorMessage();
+// Initialize the form when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    new BookRegistrationForm();
 });
 
-// Prevenir envio do formulário com Enter
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
-    e.preventDefault();
-  }
-});
+// Add some utility functions for potential future features
+window.BookRegistry = {
+    getBooks: async () => {
+        try {
+            return JSON.parse(
+                localStorage.getItem("biblioteca_livros") || "[]"
+            );
+        } catch (error) {
+            console.error("Erro ao carregar livros:", error);
+            return [];
+        }
+    },
+
+    exportBooks: async () => {
+        try {
+            const books = await window.BookRegistry.getBooks();
+
+            if (books.length === 0) {
+                alert("Nenhum livro encontrado para exportar");
+                return;
+            }
+
+            // Cria estrutura completa para exportação
+            const exportData = {
+                biblioteca: {
+                    livros: books,
+                    resenhas: JSON.parse(
+                        localStorage.getItem("biblioteca_resenhas") || "[]"
+                    ),
+                    curtidas: JSON.parse(
+                        localStorage.getItem("biblioteca_curtidas") || "[]"
+                    ),
+                    exportado_em: new Date().toISOString(),
+                    total_livros: books.length,
+                },
+            };
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: "application/json" });
+
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `biblioteca-${
+                new Date().toISOString().split("T")[0]
+            }.json`;
+            link.click();
+
+            // Limpa o URL do blob
+            setTimeout(() => URL.revokeObjectURL(link.href), 100);
+
+            alert(`Biblioteca exportada com ${books.length} livros!`);
+        } catch (error) {
+            console.error("Erro ao exportar:", error);
+            alert("Erro ao exportar biblioteca. Tente novamente.");
+        }
+    },
+
+    clearLibrary: () => {
+        if (
+            confirm(
+                "Tem certeza que deseja limpar toda a biblioteca? Esta ação não pode ser desfeita."
+            )
+        ) {
+            // Limpar apenas dados temporários do localStorage
+            localStorage.removeItem("bookRegistrationData");
+            alert(
+                "Dados temporários limpos com sucesso!\nPara limpar livros salvos, delete o arquivo livros.json do servidor."
+            );
+        }
+    },
+};
