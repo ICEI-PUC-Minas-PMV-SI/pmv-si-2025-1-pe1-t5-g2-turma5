@@ -9,7 +9,8 @@ A autenticação é tratada de forma condicional, com acesso à Recuperação de
 
 Além disso, o fluxo contempla interações com páginas públicas, como Página de Livro e Comunidade de Gênero, bem como funcionalidades vinculadas ao perfil autenticado do usuário.
 
-<img width="2294" alt="FLUXO DE USUARIO FINAL" src="https://github.com/user-attachments/assets/f7ec812e-2223-4e8e-8e7a-4f20a96dc3a4" />
+<img width="2294" alt="433572242-f7ec812e-2223-4e8e-8e7a-4f20a96dc3a4" src="https://github.com/user-attachments/assets/d215a22b-7ec6-4611-a104-1ae387fdce3f" />
+
 
 A ideia é que tudo comece (ou possa retornar) pela Home Page, já que ela funciona como centro de navegação — assim como na maioria dos sites, que têm ícone da home em quase todas as páginas.
 
