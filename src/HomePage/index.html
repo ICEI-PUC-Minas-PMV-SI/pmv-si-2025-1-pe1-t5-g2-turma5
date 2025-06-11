@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TÔ LENDO - Sua Biblioteca Virtual</title>
+        
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/script.js"></script>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="nav-container">
+                <!-- <div class="logo">TÔ LENDO</div> -->
+                <a href="../Home Page.html"
+                    ><img
+                        class="img-logo"
+                        src="https://github.com/user-attachments/assets/8e859c12-7277-432a-ae1f-3f4af7803a4d"
+                        alt="Logo TÔ LENDO"
+                /></a>
+
+                <nav class="nav-menu">
+                    <a href="" onclick="showSection('home')">Início</a>
+                    <a href="../USER/catalogo.html">Catálogo</a>
+                    <a href="../GerenciarLivros/index.html">Meus Livros</a>
+                    <a href="../USER/user.html">Meu Perfil</a>
+                    <a href="../Grupo de Leitura/index.html">Comunidade</a>
+                    <!-- <a href="#" onclick="showSection('favorites')">Favoritos</a> -->
+                    <!-- <a href="#" onclick="showSection('reading')">Lendo Agora</a> -->
+                </nav>
+                <div class="auth-buttons">
+                    <a href="../USER/login.html" class="btn btn-secondary"
+                        >🔐 Login</a
+                    >
+                    <a href="#" class="btn btn-primary">👤 Cadastrar</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <h1>Sua Biblioteca Virtual</h1>
+                <p>Descubra, organize e compartilhe seus livros favoritos</p>
+                <div class="hero-buttons">
+                    <a
+                        href="../CadastroDeLivros/index.html"
+                        class="btn btn-hero primary"
+                        >📖 Cadastrar Livro</a
+                    >
+                    <a href="../USER/catalogo.html" class="btn btn-hero"
+                        >🔍 Explorar Catálogo</a
+                    >
+
+                    <button
+                        class="btn btn-hero"
+                        onclick="showSection('recommendations')"
+                    >
+                        ⭐ Recomendações
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Buscar por título, autor, gênero..."
+                    id="searchInput"
+                />
+                <button class="search-btn" onclick="performSearch()">
+                    🔍 Buscar
+                </button>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h2>Ações Rápidas</h2>
+            <div class="actions-grid">
+                <div class="action-card" onclick="openModal('addBookModal')">
+                    <div class="icon">📚</div>
+                    <h3>Cadastrar Livro</h3>
+                    <p>Adicione novos livros à sua biblioteca pessoal</p>
+                    <a
+                        href="../CadastroDeLivros/index.html"
+                        class="btn btn-primary"
+                        >Cadastrar</a
+                    >
+                </div>
+                <div class="action-card">
+                    <div class="icon">🔍</div>
+                    <h3>Ver Catálogo</h3>
+                    <p>Explore todos os livros disponíveis</p>
+                    <a href="../USER/catalogo.html" class="btn btn-primary"
+                        >Explorar</a
+                    >
+                </div>
+                <div class="action-card">
+                    <div class="icon">📖</div>
+                    <h3>Meus Livros</h3>
+                    <p>Gerencie sua coleção pessoal</p>
+                    <a
+                        href="../GerenciarLivros/index.html"
+                        class="btn btn-primary"
+                        >Ver Coleção</a
+                    >
+                </div>
+
+                <!-- <div class="action-card" onclick="showSection('reading')">
+                    <div class="icon">⏳</div>
+                    <h3>Lendo Agora</h3>
+                    <p>Continue sua leitura atual</p>
+                    <button class="btn btn-primary">Continuar</button>
+                </div>
+                <div class="action-card" onclick="showSection('wishlist')">
+                    <div class="icon">💝</div>
+                    <h3>Lista de Desejos</h3>
+                    <p>Livros que você quer ler</p>
+                    <button class="btn btn-primary">Ver Lista</button>
+                </div>
+                <div class="action-card" onclick="showSection('reviews')">
+                    <div class="icon">⭐</div>
+                    <h3>Minhas Avaliações</h3>
+                    <p>Suas resenhas e notas</p>
+                    <button class="btn btn-primary">Ver Avaliações</button>
+                </div> -->
+            </div>
+        </section>
+
+        <!-- Featured Books -->
+        <section class="featured-section">
+            <h2>Livros em Destaque</h2>
+            <div class="books-grid">
+                <div class="book-card" onclick="showBookDetails('1984')">
+                    <div class="book-cover">
+                        <img
+                            src="https://m.media-amazon.com/images/I/61t0bwt1s3L._AC_UF1000,1000_QL80_.jpg"
+                            alt=""
+                        />
+                    </div>
+                    <div class="book-info">
+                        <h4>1984</h4>
+                        <p>George Orwell</p>
+                    </div>
+                </div>
+                <div
+                    class="book-card"
+                    onclick="showBookDetails('Dom Casmurro')"
+                >
+                    <div class="book-cover">
+                        <img
+                            src="https://m.media-amazon.com/images/I/810IAPcQmoL._UF894,1000_QL80_.jpg"
+                            alt=""
+                        />
+                    </div>
+                    <div class="book-info">
+                        <h4>Dom Casmurro</h4>
+                        <p>Machado de Assis</p>
+                    </div>
+                </div>
+                <div
+                    class="book-card"
+                    onclick="showBookDetails('O Pequeno Príncipe')"
+                >
+                    <div class="book-cover">
+                        <img
+                            src="https://m.media-amazon.com/images/I/41994e7I+PL._SY445_SX342_.jpg"
+                            alt=""
+                        />
+                    </div>
+                    <div class="book-info">
+                        <h4>O Pequeno Príncipe</h4>
+                        <p>Antoine de Saint-Exupéry</p>
+                    </div>
+                </div>
+                <div
+                    class="book-card"
+                    onclick="showBookDetails('Harry Potter')"
+                >
+                    <div class="book-cover">
+                        <img
+                            src="https://m.media-amazon.com/images/I/81D+5aMHzFL._UF894,1000_QL80_.jpg"
+                            alt=""
+                        />
+                    </div>
+                    <div class="book-info">
+                        <h4>Harry Potter</h4>
+                        <p>J.K. Rowling</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="number" id="totalBooks">1,247</span>
+                    <span class="label">Livros Cadastrados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number" id="activeUsers">2,834</span>
+                    <span class="label">Usuários Ativos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number" id="totalReviews">8,965</span>
+                    <span class="label">Avaliações</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number" id="booksRead">12,456</span>
+                    <span class="label">Livros Lidos</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                &copy; 2025 TÔ LENDO - Sua Biblioteca Virtual. Todos os direitos
+                reservados.
+            </p>
+            <p>Desenvolvido com 💜 para amantes da leitura</p>
+        </footer>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('loginModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">Login</h2>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha:</label>
+                        <input type="password" id="loginPassword" required />
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        style="width: 100%"
+                    >
+                        Entrar
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('registerModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">Cadastro</h2>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerName">Nome:</label>
+                        <input type="text" id="registerName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email:</label>
+                        <input type="email" id="registerEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha:</label>
+                        <input type="password" id="registerPassword" required />
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        style="width: 100%"
+                    >
+                        Cadastrar
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Book Modal -->
+        <div id="addBookModal" class="modal">
+            <div class="modal-content" style="max-width: 600px">
+                <span class="close" onclick="closeModal('addBookModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    Cadastrar Livro
+                </h2>
+                <form onsubmit="handleAddBook(event)">
+                    <div
+                        style="
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 1rem;
+                        "
+                    >
+                        <div class="form-group">
+                            <label for="bookTitle">Título:</label>
+                            <input type="text" id="bookTitle" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bookAuthor">Autor:</label>
+                            <input type="text" id="bookAuthor" required />
+                        </div>
+                    </div>
+                    <div
+                        style="
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 1rem;
+                        "
+                    >
+                        <div class="form-group">
+                            <label for="bookYear">Ano:</label>
+                            <input type="number" id="bookYear" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bookGenre">Gênero:</label>
+                            <select id="bookGenre" required>
+                                <option value="">Selecione um gênero</option>
+                                <option value="ficção">Ficção</option>
+                                <option value="romance">Romance</option>
+                                <option value="fantasia">Fantasia</option>
+                                <option value="mistério">Mistério</option>
+                                <option value="biografia">Biografia</option>
+                                <option value="história">História</option>
+                                <option value="ciência">Ciência</option>
+                                <option value="autoajuda">Autoajuda</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookSynopsis">Sinopse:</label>
+                        <textarea
+                            id="bookSynopsis"
+                            style="
+                                height: 100px;
+                                resize: vertical;
+                                font-family: inherit;
+                            "
+                            required
+                        ></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        style="width: 100%"
+                    >
+                        Cadastrar Livro
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile Modal -->
+        <div id="profileModal" class="modal">
+            <div class="modal-content" style="max-width: 700px">
+                <span class="close" onclick="closeModal('profileModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    👤 Meu Perfil
+                </h2>
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 200px 1fr;
+                        gap: 2rem;
+                        align-items: start;
+                    "
+                >
+                    <div style="text-align: center">
+                        <div
+                            style="
+                                width: 150px;
+                                height: 150px;
+                                background: linear-gradient(
+                                    135deg,
+                                    #667eea 0%,
+                                    #764ba2 100%
+                                );
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-size: 4rem;
+                                margin: 0 auto 1rem;
+                            "
+                        >
+                            👤
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%">
+                            📷 Alterar Foto
+                        </button>
+                    </div>
+
+                    <div>
+                        <div
+                            style="
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+                                gap: 1rem;
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            <div class="form-group">
+                                <label>Nome:</label>
+                                <input
+                                    type="text"
+                                    value="João Silva"
+                                    id="profileName"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input
+                                    type="email"
+                                    value="joao@email.com"
+                                    id="profileEmail"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bio:</label>
+                            <textarea
+                                style="
+                                    height: 80px;
+                                    resize: vertical;
+                                    font-family: inherit;
+                                "
+                                placeholder="Conte um pouco sobre você e seus gostos literários..."
+                            >
+Apaixonado por ficção científica e fantasia. Leitor voraz desde os 12 anos.</textarea
+                            >
+                        </div>
+
+                        <div
+                            style="
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+                                gap: 1rem;
+                            "
+                        >
+                            <div class="form-group">
+                                <label>Gênero Favorito:</label>
+                                <select>
+                                    <option>Ficção Científica</option>
+                                    <option>Fantasia</option>
+                                    <option>Romance</option>
+                                    <option>Mistério</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Meta de Leitura (ano):</label>
+                                <input type="number" value="24" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem">
+                    <h3 style="color: #667eea; margin-bottom: 1rem">
+                        📊 Estatísticas
+                    </h3>
+                    <div
+                        style="
+                            display: grid;
+                            grid-template-columns: repeat(4, 1fr);
+                            gap: 1rem;
+                            text-align: center;
+                        "
+                    >
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #f8f9fa;
+                                border-radius: 10px;
+                            "
+                        >
+                            <div
+                                style="
+                                    font-size: 2rem;
+                                    font-weight: bold;
+                                    color: #667eea;
+                                "
+                            >
+                                42
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666">
+                                Livros Lidos
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #f8f9fa;
+                                border-radius: 10px;
+                            "
+                        >
+                            <div
+                                style="
+                                    font-size: 2rem;
+                                    font-weight: bold;
+                                    color: #667eea;
+                                "
+                            >
+                                4.3
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666">
+                                Avaliação Média
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #f8f9fa;
+                                border-radius: 10px;
+                            "
+                        >
+                            <div
+                                style="
+                                    font-size: 2rem;
+                                    font-weight: bold;
+                                    color: #667eea;
+                                "
+                            >
+                                15
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666">
+                                Dias Sequência
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #f8f9fa;
+                                border-radius: 10px;
+                            "
+                        >
+                            <div
+                                style="
+                                    font-size: 2rem;
+                                    font-weight: bold;
+                                    color: #667eea;
+                                "
+                            >
+                                8
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666">
+                                Resenhas
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem">
+                    <button
+                        class="btn btn-primary"
+                        style="flex: 1"
+                        onclick="updateProfile()"
+                    >
+                        💾 Salvar Alterações
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportLibrary()">
+                        📁 Exportar Biblioteca
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Details Modal -->
+        <div id="bookDetailsModal" class="modal">
+            <div class="modal-content" style="max-width: 800px">
+                <span class="close" onclick="closeModal('bookDetailsModal')"
+                    >&times;</span
+                >
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 200px 1fr;
+                        gap: 2rem;
+                    "
+                >
+                    <div>
+                        <div
+                            style="
+                                width: 180px;
+                                height: 250px;
+                                background: linear-gradient(
+                                    135deg,
+                                    #667eea 0%,
+                                    #764ba2 100%
+                                );
+                                border-radius: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-size: 4rem;
+                            "
+                            id="bookDetailsCover"
+                        >
+                            📖
+                        </div>
+                        <div style="margin-top: 1rem">
+                            <div
+                                class="rating"
+                                style="
+                                    justify-content: center;
+                                    margin-bottom: 1rem;
+                                "
+                            >
+                                <span class="star" onclick="setRating(1)"
+                                    >⭐</span
+                                >
+                                <span class="star" onclick="setRating(2)"
+                                    >⭐</span
+                                >
+                                <span class="star" onclick="setRating(3)"
+                                    >⭐</span
+                                >
+                                <span class="star" onclick="setRating(4)"
+                                    >⭐</span
+                                >
+                                <span class="star" onclick="setRating(5)"
+                                    >⭐</span
+                                >
+                            </div>
+                            <button
+                                class="btn btn-primary"
+                                style="width: 100%; margin-bottom: 0.5rem"
+                                onclick="toggleFavorite()"
+                            >
+                                ❤️ Favoritar
+                            </button>
+                            <button
+                                class="btn btn-secondary"
+                                style="width: 100%"
+                                onclick="shareBook()"
+                            >
+                                📤 Compartilhar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2
+                            style="color: #667eea; margin-bottom: 0.5rem"
+                            id="bookDetailsTitle"
+                        >
+                            Título do Livro
+                        </h2>
+                        <p
+                            style="
+                                color: #666;
+                                font-size: 1.1rem;
+                                margin-bottom: 1rem;
+                            "
+                            id="bookDetailsAuthor"
+                        >
+                            Autor
+                        </p>
+
+                        <div
+                            style="
+                                display: flex;
+                                gap: 1rem;
+                                margin-bottom: 1.5rem;
+                            "
+                        >
+                            <span
+                                style="
+                                    background: #e3f2fd;
+                                    color: #1976d2;
+                                    padding: 0.3rem 0.8rem;
+                                    border-radius: 15px;
+                                    font-size: 0.9rem;
+                                "
+                                id="bookDetailsGenre"
+                                >Ficção</span
+                            >
+                            <span
+                                style="
+                                    background: #f3e5f5;
+                                    color: #7b1fa2;
+                                    padding: 0.3rem 0.8rem;
+                                    border-radius: 15px;
+                                    font-size: 0.9rem;
+                                "
+                                id="bookDetailsYear"
+                                >2023</span
+                            >
+                            <span
+                                style="
+                                    background: #e8f5e8;
+                                    color: #388e3c;
+                                    padding: 0.3rem 0.8rem;
+                                    border-radius: 15px;
+                                    font-size: 0.9rem;
+                                "
+                                >320 páginas</span
+                            >
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem">
+                            <label
+                                style="
+                                    font-weight: bold;
+                                    margin-bottom: 0.5rem;
+                                    display: block;
+                                "
+                                >Status de Leitura:</label
+                            >
+                            <select
+                                style="
+                                    padding: 0.5rem;
+                                    border-radius: 5px;
+                                    border: 2px solid #e0e0e0;
+                                "
+                                onchange="updateBookStatus(this.value)"
+                            >
+                                <option value="to-read">📚 Quero Ler</option>
+                                <option value="reading">📖 Lendo</option>
+                                <option value="read">✅ Lido</option>
+                                <option value="abandoned">❌ Abandonado</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem">
+                            <h4 style="margin-bottom: 0.5rem">Sinopse:</h4>
+                            <p
+                                style="line-height: 1.6; color: #555"
+                                id="bookDetailsSynopsis"
+                            >
+                                Descrição do livro aparecerá aqui...
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem">Sua Resenha:</h4>
+                            <textarea
+                                style="
+                                    width: 100%;
+                                    height: 100px;
+                                    border: 2px solid #e0e0e0;
+                                    border-radius: 8px;
+                                    padding: 0.8rem;
+                                    font-family: inherit;
+                                "
+                                placeholder="Escreva sua resenha sobre este livro..."
+                            ></textarea>
+                            <button
+                                class="btn btn-primary"
+                                style="margin-top: 0.5rem"
+                                onclick="saveReview()"
+                            >
+                                💾 Salvar Resenha
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Modal -->
+        <div id="communityModal" class="modal">
+            <div class="modal-content" style="max-width: 900px">
+                <span class="close" onclick="closeModal('communityModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    👥 Comunidade TÔ LENDO
+                </h2>
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 2rem;
+                    "
+                >
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 1rem">
+                            📚 Clubes de Leitura
+                        </h3>
+
+                        <div
+                            style="
+                                border: 2px solid #e0e0e0;
+                                border-radius: 10px;
+                                padding: 1rem;
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            <h4 style="margin-bottom: 0.5rem">
+                                🔬 Ficção Científica
+                            </h4>
+                            <p
+                                style="
+                                    color: #666;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 1rem;
+                                "
+                            >
+                                45 membros • Lendo: "Neuromancer"
+                            </p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="joinBookClub('Ficção Científica')"
+                            >
+                                Participar
+                            </button>
+                        </div>
+
+                        <div
+                            style="
+                                border: 2px solid #e0e0e0;
+                                border-radius: 10px;
+                                padding: 1rem;
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            <h4 style="margin-bottom: 0.5rem">
+                                🏰 Fantasia Épica
+                            </h4>
+                            <p
+                                style="
+                                    color: #666;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 1rem;
+                                "
+                            >
+                                32 membros • Lendo: "O Nome do Vento"
+                            </p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="joinBookClub('Fantasia Épica')"
+                            >
+                                Participar
+                            </button>
+                        </div>
+
+                        <div
+                            style="
+                                border: 2px solid #e0e0e0;
+                                border-radius: 10px;
+                                padding: 1rem;
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            <h4 style="margin-bottom: 0.5rem">
+                                🌟 Clássicos Brasileiros
+                            </h4>
+                            <p
+                                style="
+                                    color: #666;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 1rem;
+                                "
+                            >
+                                28 membros • Lendo: "O Cortiço"
+                            </p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="joinBookClub('Clássicos Brasileiros')"
+                            >
+                                Participar
+                            </button>
+                        </div>
+
+                        <button
+                            class="btn btn-secondary"
+                            style="width: 100%"
+                            onclick="createBookClub()"
+                        >
+                            ➕ Criar Novo Clube
+                        </button>
+                    </div>
+
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 1rem">
+                            💬 Discussões Recentes
+                        </h3>
+
+                        <div
+                            style="
+                                border-left: 4px solid #667eea;
+                                padding-left: 1rem;
+                                margin-bottom: 1.5rem;
+                            "
+                        >
+                            <h4 style="margin-bottom: 0.3rem; font-size: 1rem">
+                                Qual o melhor livro de Isaac Asimov?
+                            </h4>
+                            <p
+                                style="
+                                    color: #666;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 0.5rem;
+                                "
+                            >
+                                Por Maria Silva • Há 2 horas
+                            </p>
+                            <p style="color: #555; font-size: 0.9rem">
+                                Estou começando a ler Asimov e gostaria de
+                                sugestões...
+                            </p>
+                            <div style="margin-top: 0.5rem">
+                                <span style="color: #667eea; font-size: 0.8rem"
+                                    >❤️ 12 • 💬 8 respostas</span
+                                >
+                            </div>
+                        </div>
+
+                        <div
+                            style="
+                                border-left: 4px solid #667eea;
+                                padding-left: 1rem;
+                                margin-bottom: 1.5rem;
+                            "
+                        >
+                            <h4 style="margin-bottom: 0.3rem; font-size: 1rem">
+                                Resenha: "O Hobbit" - Uma jornada inesperada
+                            </h4>
+                            <p
+                                style="
+                                    color: #666;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 0.5rem;
+                                "
+                            >
+                                Por João Santos • Há 5 horas
+                            </p>
+                            <p style="color: #555; font-size: 0.9rem">
+                                Acabei de terminar este clássico e preciso
+                                compartilhar...
+                            </p>
+                            <div style="margin-top: 0.5rem">
+                                <span style="color: #667eea; font-size: 0.8rem"
+                                    >❤️ 25 • 💬 15 respostas</span
+                                >
+                            </div>
+                        </div>
+
+                        <div
+                            style="
+                                border-left: 4px solid #667eea;
+                                padding-left: 1rem;
+                                margin-bottom: 1.5rem;
+                            "
+                        >
+                            <h4 style="margin-bottom: 0.3rem; font-size: 1rem">
+                                Meta de leitura 2025: como vocês organizam?
+                            </h4>
+                            <p
+                                style="
+                                    color: #666;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 0.5rem;
+                                "
+                            >
+                                Por Ana Costa • Há 1 dia
+                            </p>
+                            <p style="color: #555; font-size: 0.9rem">
+                                Quero ler 30 livros este ano. Dicas de
+                                organização?
+                            </p>
+                            <div style="margin-top: 0.5rem">
+                                <span style="color: #667eea; font-size: 0.8rem"
+                                    >❤️ 18 • 💬 22 respostas</span
+                                >
+                            </div>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            style="width: 100%"
+                            onclick="createPost()"
+                        >
+                            ✍️ Nova Discussão
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    style="
+                        margin-top: 2rem;
+                        padding-top: 1.5rem;
+                        border-top: 2px solid #e0e0e0;
+                    "
+                >
+                    <h3 style="color: #667eea; margin-bottom: 1rem">
+                        🏆 Ranking dos Leitores
+                    </h3>
+                    <div
+                        style="
+                            display: grid;
+                            grid-template-columns: repeat(5, 1fr);
+                            gap: 1rem;
+                            text-align: center;
+                        "
+                    >
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #fff3cd;
+                                border-radius: 10px;
+                                border: 2px solid #ffc107;
+                            "
+                        >
+                            <div style="font-size: 1.5rem">🥇</div>
+                            <div style="font-weight: bold">Ana M.</div>
+                            <div style="font-size: 0.8rem; color: #666">
+                                156 livros
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #e2e3e5;
+                                border-radius: 10px;
+                                border: 2px solid #6c757d;
+                            "
+                        >
+                            <div style="font-size: 1.5rem">🥈</div>
+                            <div style="font-weight: bold">Carlos R.</div>
+                            <div style="font-size: 0.8rem; color: #666">
+                                142 livros
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #f8d7da;
+                                border-radius: 10px;
+                                border: 2px solid #dc3545;
+                            "
+                        >
+                            <div style="font-size: 1.5rem">🥉</div>
+                            <div style="font-weight: bold">Maria S.</div>
+                            <div style="font-size: 0.8rem; color: #666">
+                                138 livros
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #d4edda;
+                                border-radius: 10px;
+                                border: 2px solid #28a745;
+                            "
+                        >
+                            <div style="font-size: 1.5rem">4º</div>
+                            <div style="font-weight: bold">João P.</div>
+                            <div style="font-size: 0.8rem; color: #666">
+                                119 livros
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                padding: 1rem;
+                                background: #cce5ff;
+                                border-radius: 10px;
+                                border: 2px solid #007bff;
+                            "
+                        >
+                            <div style="font-size: 1.5rem">5º</div>
+                            <div style="font-weight: bold">Você</div>
+                            <div style="font-size: 0.8rem; color: #666">
+                                42 livros
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Catalog Modal -->
+        <div id="catalogModal" class="modal">
+            <div class="modal-content" style="max-width: 1000px">
+                <span class="close" onclick="closeModal('catalogModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    📚 Catálogo de Livros
+                </h2>
+
+                <div style="margin-bottom: 2rem">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem">
+                        <input
+                            type="text"
+                            placeholder="Buscar livros..."
+                            style="
+                                flex: 1;
+                                padding: 0.8rem;
+                                border: 2px solid #e0e0e0;
+                                border-radius: 10px;
+                            "
+                        />
+                        <select
+                            style="
+                                padding: 0.8rem;
+                                border: 2px solid #e0e0e0;
+                                border-radius: 10px;
+                            "
+                        >
+                            <option>Todos os gêneros</option>
+                            <option>Ficção</option>
+                            <option>Romance</option>
+                            <option>Fantasia</option>
+                            <option>Mistério</option>
+                        </select>
+                        <button class="btn btn-primary">🔍 Filtrar</button>
+                    </div>
+                </div>
+
+                <div class="books-grid">
+                    <div class="book-card" onclick="showBookDetails('1984')">
+                        <div class="book-cover">📖</div>
+                        <div class="book-info">
+                            <h4>1984</h4>
+                            <p>George Orwell</p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="event.stopPropagation(); addToLibrary('1984')"
+                            >
+                                ➕ Adicionar
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('Dom Casmurro')"
+                    >
+                        <div class="book-cover">📚</div>
+                        <div class="book-info">
+                            <h4>Dom Casmurro</h4>
+                            <p>Machado de Assis</p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="event.stopPropagation(); addToLibrary('Dom Casmurro')"
+                            >
+                                ➕ Adicionar
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('Neuromancer')"
+                    >
+                        <div class="book-cover">🤖</div>
+                        <div class="book-info">
+                            <h4>Neuromancer</h4>
+                            <p>William Gibson</p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="event.stopPropagation(); addToLibrary('Neuromancer')"
+                            >
+                                ➕ Adicionar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="book-card" onclick="showBookDetails('Duna')">
+                        <div class="book-cover">🏜️</div>
+                        <div class="book-info">
+                            <h4>Duna</h4>
+                            <p>Frank Herbert</p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="event.stopPropagation(); addToLibrary('Duna')"
+                            >
+                                ➕ Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Books Modal -->
+        <div id="myBooksModal" class="modal">
+            <div class="modal-content" style="max-width: 1000px">
+                <span class="close" onclick="closeModal('myBooksModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    📖 Meus Livros
+                </h2>
+
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
+                    <button
+                        class="btn btn-primary"
+                        onclick="filterMyBooks('all')"
+                    >
+                        Todos (42)
+                    </button>
+                    <button
+                        class="btn btn-secondary"
+                        onclick="filterMyBooks('reading')"
+                    >
+                        Lendo (3)
+                    </button>
+                    <button
+                        class="btn btn-secondary"
+                        onclick="filterMyBooks('read')"
+                    >
+                        Lidos (35)
+                    </button>
+                    <button
+                        class="btn btn-secondary"
+                        onclick="filterMyBooks('to-read')"
+                    >
+                        Quero Ler (4)
+                    </button>
+                </div>
+
+                <div class="books-grid">
+                    <div class="book-card" onclick="showBookDetails('1984')">
+                        <div class="book-cover">📖</div>
+                        <div class="book-info">
+                            <h4>1984</h4>
+                            <p>George Orwell</p>
+                            <span
+                                style="
+                                    background: #e8f5e8;
+                                    color: #388e3c;
+                                    padding: 0.2rem 0.5rem;
+                                    border-radius: 10px;
+                                    font-size: 0.8rem;
+                                "
+                                >✅ Lido</span
+                            >
+                        </div>
+                    </div>
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('Dom Casmurro')"
+                    >
+                        <div class="book-cover">📚</div>
+                        <div class="book-info">
+                            <h4>Dom Casmurro</h4>
+                            <p>Machado de Assis</p>
+                            <span
+                                style="
+                                    background: #fff3cd;
+                                    color: #856404;
+                                    padding: 0.2rem 0.5rem;
+                                    border-radius: 10px;
+                                    font-size: 0.8rem;
+                                "
+                                >📖 Lendo</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favorites Modal -->
+        <div id="favoritesModal" class="modal">
+            <div class="modal-content" style="max-width: 800px">
+                <span class="close" onclick="closeModal('favoritesModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    ❤️ Meus Favoritos
+                </h2>
+
+                <div class="books-grid">
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('O Pequeno Príncipe')"
+                    >
+                        <div class="book-cover">⭐</div>
+                        <div class="book-info">
+                            <h4>O Pequeno Príncipe</h4>
+                            <p>Antoine de Saint-Exupéry</p>
+                            <div style="color: #ffcc00">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('Harry Potter')"
+                    >
+                        <div class="book-cover">⚡</div>
+                        <div class="book-info">
+                            <h4>Harry Potter</h4>
+                            <p>J.K. Rowling</p>
+                            <div style="color: #ffcc00">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reading Now Modal -->
+        <div id="readingModal" class="modal">
+            <div class="modal-content" style="max-width: 700px">
+                <span class="close" onclick="closeModal('readingModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    📖 Lendo Agora
+                </h2>
+
+                <div
+                    style="
+                        border: 2px solid #667eea;
+                        border-radius: 15px;
+                        padding: 1.5rem;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    <div style="display: flex; gap: 1rem; align-items: center">
+                        <div
+                            style="
+                                width: 80px;
+                                height: 100px;
+                                background: linear-gradient(
+                                    135deg,
+                                    #667eea 0%,
+                                    #764ba2 100%
+                                );
+                                border-radius: 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-size: 2rem;
+                            "
+                        >
+                            📚
+                        </div>
+                        <div style="flex: 1">
+                            <h3 style="margin-bottom: 0.5rem">Dom Casmurro</h3>
+                            <p style="color: #666; margin-bottom: 1rem">
+                                Machado de Assis
+                            </p>
+                            <div style="margin-bottom: 1rem">
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-bottom: 0.5rem;
+                                    "
+                                >
+                                    <span>Progresso:</span>
+                                    <span>156/320 páginas (49%)</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div
+                                        class="progress-fill"
+                                        style="width: 49%"
+                                    ></div>
+                                </div>
+                            </div>
+                            <button
+                                class="btn btn-primary"
+                                onclick="updateReadingProgress()"
+                            >
+                                📝 Atualizar Progresso
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    class="btn btn-secondary"
+                    style="width: 100%"
+                    onclick="openModal('addBookModal')"
+                >
+                    ➕ Começar Novo Livro
+                </button>
+            </div>
+        </div>
+
+        <!-- Wishlist Modal -->
+        <div id="wishlistModal" class="modal">
+            <div class="modal-content" style="max-width: 800px">
+                <span class="close" onclick="closeModal('wishlistModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    💝 Lista de Desejos
+                </h2>
+
+                <div class="books-grid">
+                    <div class="book-card">
+                        <div class="book-cover">🤖</div>
+                        <div class="book-info">
+                            <h4>Neuromancer</h4>
+                            <p>William Gibson</p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="moveToReading('Neuromancer')"
+                            >
+                                📖 Começar a Ler
+                            </button>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">🏜️</div>
+                        <div class="book-info">
+                            <h4>Duna</h4>
+                            <p>Frank Herbert</p>
+                            <button
+                                class="btn btn-primary btn-sm"
+                                onclick="moveToReading('Duna')"
+                            >
+                                📖 Começar a Ler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Modal -->
+        <div id="reviewsModal" class="modal">
+            <div class="modal-content" style="max-width: 800px">
+                <span class="close" onclick="closeModal('reviewsModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    ⭐ Minhas Avaliações
+                </h2>
+
+                <div style="margin-bottom: 1rem">
+                    <div
+                        style="
+                            border: 2px solid #e0e0e0;
+                            border-radius: 10px;
+                            padding: 1.5rem;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: start;
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            <div>
+                                <h4 style="margin-bottom: 0.3rem">1984</h4>
+                                <p style="color: #666; margin-bottom: 0.5rem">
+                                    George Orwell
+                                </p>
+                                <div style="color: #ffcc00">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <span style="color: #666; font-size: 0.9rem"
+                                >15/01/2025</span
+                            >
+                        </div>
+                        <p style="line-height: 1.6">
+                            "Uma obra-prima distópica que permanece relevante
+                            até hoje. Orwell criou um mundo assustadoramente
+                            plausível que nos faz refletir sobre liberdade,
+                            verdade e poder."
+                        </p>
+                    </div>
+
+                    <div
+                        style="
+                            border: 2px solid #e0e0e0;
+                            border-radius: 10px;
+                            padding: 1.5rem;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: start;
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            <div>
+                                <h4 style="margin-bottom: 0.3rem">
+                                    O Pequeno Príncipe
+                                </h4>
+                                <p style="color: #666; margin-bottom: 0.5rem">
+                                    Antoine de Saint-Exupéry
+                                </p>
+                                <div style="color: #ffcc00">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <span style="color: #666; font-size: 0.9rem"
+                                >10/01/2025</span
+                            >
+                        </div>
+                        <p style="line-height: 1.6">
+                            "Um livro que toca a alma. Simples na forma,
+                            profundo no conteúdo. Uma leitura essencial para
+                            todas as idades."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Modal -->
+        <div id="recommendationsModal" class="modal">
+            <div class="modal-content" style="max-width: 800px">
+                <span class="close" onclick="closeModal('recommendationsModal')"
+                    >&times;</span
+                >
+                <h2 style="color: #667eea; margin-bottom: 1.5rem">
+                    🎯 Recomendações para Você
+                </h2>
+
+                <div style="margin-bottom: 2rem">
+                    <h3 style="color: #667eea; margin-bottom: 1rem">
+                        📊 Baseado no seu histórico
+                    </h3>
+                    <p style="color: #666; margin-bottom: 1rem">
+                        Como você gosta de Ficção Científica e Fantasia...
+                    </p>
+                </div>
+
+                <div class="books-grid">
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('Fundação')"
+                    >
+                        <div class="book-cover">🚀</div>
+                        <div class="book-info">
+                            <h4>Fundação</h4>
+                            <p>Isaac Asimov</p>
+                            <div
+                                style="
+                                    color: #28a745;
+                                    font-size: 0.9rem;
+                                    margin-top: 0.5rem;
+                                "
+                            >
+                                95% compatibilidade
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="book-card"
+                        onclick="showBookDetails('O Nome do Vento')"
+                    >
+                        <div class="book-cover">🌪️</div>
+                        <div class="book-info">
+                            <h4>O Nome do Vento</h4>
+                            <p>Patrick Rothfuss</p>
+                            <div
+                                style="
+                                    color: #28a745;
+                                    font-size: 0.9rem;
+                                    margin-top: 0.5rem;
+                                "
+                            >
+                                92% compatibilidade
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
