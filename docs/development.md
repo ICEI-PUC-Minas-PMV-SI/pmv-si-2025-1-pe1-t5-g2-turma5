@@ -24,9 +24,7 @@ O professor Rommel Carneiro apresenta alguns exemplos prontos para serem utiliza
 As tabelas que se seguem apresentam os requisitos funcionais e não-funcionais que relacionam o escopo do projeto com os artefatos criados:
 
 ### Requisitos Funcionais
-
-[Uploadin  ---------------------------------------------------------------------------------
-  **ID**   **Descrição do Requisito**             **Responsável**   **Artefato
+ **ID**   **Descrição do Requisito**             **Responsável**   **Artefato
                                                                     Criado**
   -------- -------------------------------------- ----------------- ---------------
   RF-001   Permitir que os usuários realizem                        
@@ -70,7 +68,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não-funcionais q
   RF-014   Permitir que os usuários experimentem                    
            o livro por um tempo.                                    
   ---------------------------------------------------------------------------------
-g REQUISITOS ATENDIDOS.md…]()
+
 
 
 ## Descrição das estruturas:
