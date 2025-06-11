@@ -25,22 +25,22 @@ As tabelas que se seguem apresentam os requisitos funcionais e não-funcionais q
 
 ### Requisitos Funcionais[Uploading Tabela_de_Requisitos_Atendidos.
 
-ID,Descrição do Requisito,Responsável,Artefato Criado
-RF-001,Permitir que os usuários realizem cadastro e login.,,
-RF-002,Permitir que o usuário redefina sua senha.,,
-RF-003,"Permitir que administradores cadastrem, editem e removam livros.",Igor Ferreira,catalogo.html
-RF-004,Permitir pesquisa e consulta de livros disponíveis.,Igor Ferreira,catalogo.html
-RF-005,Permitir feedback após o livro ser lido.,,
-RF-006,Registrar os livros já lidos.,Igor Ferreira,user.html
-RF-007,"Permitir que usuários filtrem os livros por autor, gênero e disponibilidade.",Igor Ferreira,catalogo.html
-RF-008,Permitir que os usuários comprem livros na plataforma.,,
-RF-009,Chat global para a comunidade debater sobre os livros.,,
-RF-010,Disponibilizar histórico de empréstimos.,,
-RF-011,Permitir reserva e renovação de livros.,,
-RF-012,Permitir teste grátis da plataforma.,,
-RF-013,Emitir relatórios de uso da biblioteca.,,
-RF-014,Permitir que os usuários experimentem o livro por um tempo.,,
-csv…]()
+| **ID**   | **Descrição do Requisito**                                                           | **Responsável** | **Artefato Criado** |
+|:--------:|----------------------------------------------------------------------------------------|------------------|----------------------|
+| RF-001   | Permitir que os usuários realizem cadastro e login.                                   |                  |                      |
+| RF-002   | Permitir que o usuário redefina sua senha.                                             |                  |                      |
+| RF-003   | Permitir que administradores cadastrem, editem e removam livros.                      | Igor Ferreira    | catalogo.html        |
+| RF-004   | Permitir pesquisa e consulta de livros disponíveis.                                   | Igor Ferreira    | catalogo.html        |
+| RF-005   | Permitir feedback após o livro ser lido.                                               |                  |                      |
+| RF-006   | Registrar os livros já lidos.                                                          | Igor Ferreira    | user.html            |
+| RF-007   | Permitir que usuários filtrem os livros por autor, gênero e disponibilidade.          | Igor Ferreira    | catalogo.html        |
+| RF-008   | Permitir que os usuários comprem livros na plataforma.                                |                  |                      |
+| RF-009   | Chat global para a comunidade debater sobre os livros.                                |                  |                      |
+| RF-010   | Disponibilizar histórico de empréstimos.                                              |                  |                      |
+| RF-011   | Permitir reserva e renovação de livros.                                               |                  |                      |
+| RF-012   | Permitir teste grátis da plataforma.                                                  |                  |                      |
+| RF-013   | Emitir relatórios de uso da biblioteca.                                               |                  |                      |
+| RF-014   | Permitir que os usuários experimentem o livro por um tempo.                          |                  |                      |
 
 
 
