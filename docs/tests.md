@@ -1,4 +1,4 @@
-# Testes
+[plano_de_testes_tabela.md](https://github.com/user-attachments/files/20717228/plano_de_testes_tabela.md)# Testes
 
 Neste projeto serão realizados dois tipos de testes:
 
@@ -42,56 +42,8 @@ Preencha a tabela com o plano dos testes. Para cada Caso de Teste (CT), associe 
 **Resultado obtido** | Sucesso
 
 # ✅ Plano de Testes de Software
-[plano_de_testes.md](https://github.com/user-attachments/files/20717222/plano_de_testes.md)# 
 
-## CT01 - Criar conta
-**Responsável:** Igor Ferreira Soares da Silva
-
-**Procedimento:**
-- 1) Acesse o endereço https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/HomePage/index.html
-- 2) Clique em 'criar conta'
-- 3) Preencha todos os campos do formulário
-- 4) Clique no botão 'entrar'.
-
-**Requisitos Associados:** RF-001
-**Resultado Esperado:** Logar no usuário criado direto para página do usuário
-**Dados de Entrada:** Inserção de dados válidos no formulário de cadastro
-**Resultado Obtido:** Sucesso
-
----
-
-## CT02 - Redefinir senha - parte 1
-**Responsável:** Igor Ferreira Soares da Silva
-
-**Procedimento:**
-- 1) Acesse o endereço https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/HomePage/index.html
-- 2) Clique em 'Esqueceu sua senha?'
-- 3) Preencha os campos do formulário
-- 4) Clique no botão 'Confirmar nova senha'.
-
-**Requisitos Associados:** RF-002
-**Resultado Esperado:** Redirecionamento para página de redefinição de senha
-**Dados de Entrada:** Inserção do usuário/e-mail no campo correspondente
-**Resultado Obtido:** Sucesso
-
----
-
-## CT02 - Redefinir senha - parte 2
-**Responsável:** Igor Ferreira Soares da Silva
-
-**Procedimento:**
-- 1) Acesse o endereço https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/HomePage/index.html
-- 2) Preencha todos os campos do formulário
-- 3) Clique no botão 'entrar'.
-
-**Requisitos Associados:** RF-002
-**Resultado Esperado:** Redirecionamento para página do usuário
-**Dados de Entrada:** Inserção do e-mail e senha do usuário
-**Resultado Obtido:** Sucesso
-
----
-
-
+[PLANOS DE TESTESS.xlsx](https://github.com/user-attachments/files/20717259/PLANOS.DE.TESTESS.xlsx)
 
 
 ## Registro dos Testes de Software
