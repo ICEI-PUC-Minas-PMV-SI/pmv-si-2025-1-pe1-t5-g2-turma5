@@ -15,27 +15,6 @@ class BookRegistrationForm {
     init() {
         this.bindEvents();
         this.loadFromLocalStorage();
-        this.updateUI();
-    }
-
-    bindEvents() {
-        // Navigation buttons
-        document.getElementById('nextBtn').addEventListener('click', () => this.nextStep());
-        document.getElementById('prevBtn').addEventListener('click', () => this.prevStep());
-        document.getElementById('submitBtn').addEventListener('click', (e) => this.submitForm(e));
-        
-        // Form inputs - save to localStorage on change
-        const form = document.getElementById('bookForm');
-        form.addEventListener('input', (e) => this.saveToLocalStorage(e));
-        form.addEventListener('change', (e) => this.saveToLocalStorage(e));
-        
-        // Step clicks for navigation
-        document.querySelectorAll('.step').forEach(step => {
-            step.addEventListener('click', (e) => {
-                const stepNumber = parseInt(e.currentTarget.dataset.step);
-                this.goToStep(stepNumber);
-            });
-        });
 
         // Modal events
         document.querySelector('.close').addEventListener('click', () => this.closeModal());
