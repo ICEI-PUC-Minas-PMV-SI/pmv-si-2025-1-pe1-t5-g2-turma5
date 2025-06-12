@@ -1,4 +1,4 @@
-[plano_de_testes_tabela.md](https://github.com/user-attachments/files/20717228/plano_de_testes_tabela.md)# Testes
+# Testes
 
 Neste projeto serão realizados dois tipos de testes:
 
@@ -40,11 +40,6 @@ Preencha a tabela com o plano dos testes. Para cada Caso de Teste (CT), associe 
 **Resultado esperado** | Usuário cadastrado
 **Dados de entrada** | Inserção de dados válidos no formulário de cadastro
 **Resultado obtido** | Sucesso
-
-# ✅ Plano de Testes de Software
-
-[PLANOS DE TESTESS.xlsx](https://github.com/user-attachments/files/20717259/PLANOS.DE.TESTESS.xlsx)
-
 
 ## Registro dos Testes de Software
 
