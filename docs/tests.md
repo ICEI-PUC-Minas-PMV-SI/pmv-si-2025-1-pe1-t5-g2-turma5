@@ -51,77 +51,77 @@ Preencha a tabela com o plano dos testes. Para cada Caso de Teste (CT), associe 
 | **Resultado Esperado** | Logar no usuário criado e redirecionar para a página do usuário | |
 | **Dados de Entrada** | Dados válidos no formulário de cadastro | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT02-A        | Redefinir senha - parte 1                  | Igor Ferreira Soares da Silva    |
 | **Procedimento** | 1) Acesse: [Página Inicial](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/HomePage/index.html) <br>2) Clique em "Esqueceu sua senha?" <br>3) Preencha o formulário <br>4) Clique em "Confirmar nova senha" | |
 | **Requisitos Associados** | RF-002 | |
 | **Resultado Esperado** | Redirecionamento para página de redefinição de senha | |
 | **Dados de Entrada** | E-mail válido | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT02-B        | Redefinir senha - parte 2                  | Igor Ferreira Soares da Silva    |
 | **Procedimento** | 1) Acesse: [Página Inicial](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/HomePage/index.html) <br>2) Preencha o formulário <br>3) Clique em "Entrar" | |
 | **Requisitos Associados** | RF-002 | |
 | **Resultado Esperado** | Redirecionamento para página do usuário | |
 | **Dados de Entrada** | E-mail e nova senha do usuário | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT03-A        | Cadastro de livro - etapa 1                | Igor Ferreira Soares da Silva    |
 | **Procedimento** | 1) Acesse: [Cadastro](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/USER/cadastro.html) <br>2) Preencha os campos obrigatórios da 1ª etapa <br>3) Clique em "Próximo" | |
 | **Requisitos Associados** | RF-003 | |
 | **Resultado Esperado** | Abertura da 2ª etapa do formulário | |
 | **Dados de Entrada** | Dados principais do livro | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT03-B        | Cadastro de livro - etapa 2                | Igor Ferreira Soares da Silva    |
 | **Procedimento** | (Mesmo link acima) <br>2) Preencha a 2ª etapa <br>3) Clique em "Próximo" | |
 | **Requisitos Associados** | RF-003 | |
 | **Resultado Esperado** | Abertura da 3ª etapa do formulário | |
 | **Dados de Entrada** | Dados quantitativos/classificação | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT03-C        | Cadastro de livro - etapa 3                | Igor Ferreira Soares da Silva    |
 | **Procedimento** | (Mesmo link acima) <br>2) Preencha a 3ª etapa <br>3) Clique em "Próximo" | |
 | **Requisitos Associados** | RF-003 | |
 | **Resultado Esperado** | Abertura da 4ª etapa do formulário | |
 | **Dados de Entrada** | Links sobre o livro | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT03-D        | Cadastro de livro - etapa 4                | Igor Ferreira Soares da Silva    |
 | **Procedimento** | (Mesmo link acima) <br>2) Preencha campos opcionais da 4ª etapa <br>3) Clique em "Salvar Cadastro" | |
 | **Requisitos Associados** | RF-003 | |
 | **Resultado Esperado** | Mensagem de sucesso confirmando cadastro | |
 | **Dados de Entrada** | Dados extras opcionais | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT04          | Remover livro                              | Igor Ferreira Soares da Silva    |
 | **Procedimento** | 1) Acesse: [Catálogo](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/USER/catalogo.html) <br>2) Busque o livro pelo nome <br>3) Clique na lixeira <br>4) Confirme exclusão | |
 | **Requisitos Associados** | RF-003 | |
 | **Resultado Esperado** | Livro removido do catálogo | |
 | **Dados de Entrada** | Nome do livro | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT05          | Editar livro cadastrado                    | Igor Ferreira Soares da Silva    |
 | **Procedimento** | (Mesmo link acima) <br>2) Busque o livro <br>3) Clique no ícone de edição <br>4) Ajuste os dados | |
 | **Requisitos Associados** | RF-003 | |
 | **Resultado Esperado** | Dados do livro atualizados | |
 | **Dados de Entrada** | Nome do livro | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT06          | Consulta de disponibilidade                | Igor Ferreira Soares da Silva    |
 | **Procedimento** | (Mesmo link acima) <br>2) Digite nome ou autor no campo de pesquisa | |
 | **Requisitos Associados** | RF-004 | |
 | **Resultado Esperado** | Livro filtrado corretamente | |
 | **Dados de Entrada** | Nome do livro ou autor | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT07          | Marcar livro como lido                     | Igor Ferreira Soares da Silva    |
 | **Procedimento** | 1) Acesse: [Perfil](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-1-pe1-t5-g2-turma5/src/USER/user.html) <br>2) Clique em "+ Adicionar livro" <br>3) Selecione o livro <br>4) Escolha a seção "Finalizado" | |
 | **Requisitos Associados** | RF-006 | |
 | **Resultado Esperado** | Livro aparece na seção "Lidos" | |
 | **Dados de Entrada** | Ação via mouse | |
 | **Resultado Obtido** | Sucesso | |
-
+|
 | CT08          | Filtragem por autor ou gênero              | Igor Ferreira Soares da Silva    |
 | **Procedimento** | (Mesmo link do catálogo) <br>2) Use dropdown de gênero ou digite autor/livro | |
 | **Requisitos Associados** | RF-007 | |
