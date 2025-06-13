@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tô Lendo - Acesso</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +38,7 @@
             padding: 2rem;
             color: white;
             position: relative;
-            padding-bottom: 180px; /* Espaço para a faixa */
+            padding-bottom: 180px;
         }
 
         .logo-section {
@@ -189,8 +188,7 @@
         }
 
         .forgot-password {
-            width: 520px;
-            height: 16px;
+            width: 100%;
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
             font-size: 12px;
@@ -200,6 +198,7 @@
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             margin-top: 4px;
             display: block;
+            text-align: right;
         }
 
         .forgot-password:hover {
@@ -232,23 +231,6 @@
             transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: #5a6fd8;
-            border: 1px solid #5a6fd8;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6fd8;
-            color: white;
-        }
-
         .switch-form {
             width: 100%;
             font-family: 'Roboto', sans-serif;
@@ -258,6 +240,7 @@
             color: #000000;
             text-align: left;
             margin-top: 12px;
+            margin-bottom: 3rem;
             white-space: nowrap;
         }
 
@@ -269,90 +252,6 @@
 
         .switch-form a:hover {
             text-decoration: underline;
-        }
-
-        .profiles-section {
-            margin: 1rem 0;
-        }
-
-        .profile-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #f8f9fa;
-        }
-
-        .profile-item:hover {
-            background: white;
-            border-color: #5a6fd8;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(90, 111, 216, 0.1);
-        }
-
-        .profile-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #5a6fd8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            margin-right: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .profile-info {
-            flex: 1;
-        }
-
-        .profile-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 0.25rem;
-        }
-
-        .profile-stats {
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .backup-section {
-            position: absolute;
-            bottom: 6rem;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-
-        .backup-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 0.75rem;
-        }
-
-        .backup-buttons {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .btn-small {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
-        .file-input {
-            display: none;
         }
 
         .message {
@@ -376,10 +275,193 @@
             border: 1px solid #c3e6cb;
         }
 
+        .backup-section {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .backup-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+
+        .backup-buttons {
+            display: flex;
+            gap: 0.4rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #5a6fd8;
+            border: 1px solid #5a6fd8;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6fd8;
+            color: white;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.dark {
+            background: rgba(42, 86, 152, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #5a6fd8;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(90, 111, 216, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .header.dark .nav-link {
+            color: white;
+        }
+
+        .header.dark .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid #5a6fd8;
+            color: #5a6fd8;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .theme-toggle:hover {
+            background: #5a6fd8;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .header.dark .theme-toggle {
+            border-color: white;
+            color: white;
+        }
+
+        .header.dark .theme-toggle:hover {
+            background: white;
+            color: #2a5698;
+        }
+
+        /* Dark theme styles */
+        body.dark {
+            background: linear-gradient(135deg, #2a5698 0%, #1c3d6a 100%);
+        }
+
+        .main-container.dark .right-section {
+            background: #1c3d6a;
+            color: white;
+        }
+
+        .main-container.dark .auth-header h1,
+        .main-container.dark .auth-header p,
+        .main-container.dark .form-group label,
+        .main-container.dark .switch-form {
+            color: white;
+        }
+
+        .main-container.dark .form-group input {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .main-container.dark .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .main-container.dark .forgot-password {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .main-container.dark .backup-title {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .main-container.dark .btn-secondary {
+            border-color: white;
+            color: white;
+        }
+
+        .main-container.dark .btn-secondary:hover {
+            background: white;
+            color: #2a5698;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
+                margin-top: 60px;
             }
 
             .left-section {
@@ -392,35 +474,47 @@
                 margin-bottom: 1.5rem;
             }
 
-            .brand-text {
-                font-size: 1.5rem;
-            }
-
-            .tagline {
-                font-size: 0.85rem;
-            }
-
             .right-section {
                 padding: 2rem 1.5rem;
             }
 
-            .backup-section {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                transform: none;
-                margin-top: 2rem;
+            .tagline-banner {
+                display: none;
+            }
+
+            .header {
+                padding: 0.5rem 1rem;
+            }
+
+            .header-nav {
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="header-nav">
+            <a href="catalogo.html" class="nav-link">
+                <i class="fas fa-book"></i> Catálogo
+            </a>
+        </nav>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
     <div class="main-container">
         <div class="left-section">
             <div class="logo-section">
                 <img src="https://github.com/user-attachments/assets/8e859c12-7277-432a-ae1f-3f4af7803a4d" alt="Tô Lendo" class="logo-image">
             </div>
-
         </div>
         
         <!-- Faixa inferior com frases estáticas -->
@@ -442,14 +536,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>E-mail</label>
+                    <label>E-mail ou Usuário</label>
                     <input type="text" id="loginEmail" placeholder="Entre com seu e-mail">
                 </div>
                 
                 <div class="form-group">
                     <label>Senha</label>
                     <input type="password" id="loginPassword" placeholder="Entre com sua senha">
-                    <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                    <a href="#" class="forgot-password" onclick="showReset()">Esqueceu sua senha?</a>
                 </div>
                 
                 <button class="btn-primary" onclick="loginUser()">ENTRAR</button>
@@ -491,35 +585,23 @@
                     <input type="password" id="signupPassword" placeholder="Entre com sua senha">
                 </div>
                 
-                <button class="btn-primary" onclick="createUser()">ENTRAR</button>
+                <button class="btn-primary" onclick="signupUser()">ENTRAR</button>
                 
                 <div class="switch-form">
-                    <a href="#" onclick="showLogin()">Voltar ao login</a>
+                    Já tem uma conta? <a href="#" onclick="showLogin()">Entre aqui</a>
                 </div>
             </div>
 
-            <!-- Lista de Perfis Existentes -->
-            <div id="profilesPage" class="auth-form" style="display: none;">
-                <div class="auth-header">
-                    <h1>Escolher Perfil</h1>
-                    <p>Selecione um perfil existente</p>
-                </div>
-                
-                <div id="profilesList" class="profiles-section">
-                    <!-- Perfis serão carregados aqui -->
-                </div>
-                
-                <div class="switch-form">
-                    <a href="#" onclick="showLogin()">Voltar ao login</a> | 
-                    <a href="#" onclick="showSignup()">Criar novo perfil</a>
-                </div>
-            </div>
-
-            <!-- Redefinir Senha -->
+            <!-- Página de Redefinição de Senha -->
             <div id="resetPage" class="auth-form" style="display: none;">
                 <div class="auth-header">
                     <h1>Redefina sua senha</h1>
                     <p>Vamos te ajudar com sua criação de uma nova senha</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>E-mail ou Usuário</label>
+                    <input type="text" id="resetEmail" placeholder="Entre com seu e-mail">
                 </div>
                 
                 <div class="form-group">
@@ -535,336 +617,501 @@
                 <button class="btn-primary" onclick="resetPassword()">Confirmar nova senha</button>
                 
                 <div class="switch-form">
-                    <a href="#" onclick="showLogin()">Voltar ao login</a>
+                    Lembrou da senha? <a href="#" onclick="showLogin()">Voltar ao login</a>
                 </div>
             </div>
 
-            <!-- Backup Section -->
-            <div class="backup-section">
-                <div class="backup-title">Backup de Dados</div>
-                <div class="backup-buttons">
-                    <button class="btn-secondary btn-small" onclick="exportData()">Exportar</button>
-                    <button class="btn-secondary btn-small" onclick="document.getElementById('importFile').click()">Importar</button>
-                </div>
-                <input type="file" id="importFile" class="file-input" accept=".json" onchange="importData(event)">
-            </div>
-
+            <!-- Messages -->
             <div id="errorMessage" class="message error-message"></div>
             <div id="successMessage" class="message success-message"></div>
+
+            <!-- Data Management Section -->
+            <div class="backup-section">
+                <div class="backup-title">Gerenciar Dados da Conta</div>
+                <div class="backup-buttons">
+                    <button class="btn-secondary btn-small" onclick="exportUserData()">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                    <button class="btn-secondary btn-small" onclick="triggerImportData('replace')">
+                        <i class="fas fa-upload"></i> Substituir
+                    </button>
+                    <button class="btn-secondary btn-small" onclick="triggerImportData('merge')">
+                        <i class="fas fa-plus"></i> Mesclar
+                    </button>
+                </div>
+                <input type="file" id="importDataFile" class="file-input" accept=".json">
+            </div>
         </div>
     </div>
 
+
+
     <script>
-        // Navegação entre páginas
+        // Message functions
+        function showMessage(message, type) {
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            
+            // Hide all messages first
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            if (type === 'error') {
+                errorMsg.textContent = message;
+                errorMsg.style.display = 'block';
+            } else if (type === 'success') {
+                successMsg.textContent = message;
+                successMsg.style.display = 'block';
+            }
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        // Navigation functions
         function showLogin() {
-            hideAllForms();
-            document.getElementById('loginPage').style.display = 'block';
-            clearMessages();
-        }
-
-        function showSignup() {
-            hideAllForms();
-            document.getElementById('signupPage').style.display = 'block';
-            clearMessages();
-        }
-
-        function showProfiles() {
-            hideAllForms();
-            document.getElementById('profilesPage').style.display = 'block';
-            loadProfiles();
-            clearMessages();
-        }
-
-        function showReset() {
-            hideAllForms();
-            document.getElementById('resetPage').style.display = 'block';
-            clearMessages();
-        }
-
-        function hideAllForms() {
-            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
             document.getElementById('signupPage').style.display = 'none';
-            document.getElementById('profilesPage').style.display = 'none';
             document.getElementById('resetPage').style.display = 'none';
-        }
-
-        function clearMessages() {
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('successMessage').style.display = 'none';
         }
 
-        // Sistema de autenticação
-        function loginUser() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            
-            if (!email || !password) {
-                showError('Por favor, preencha todos os campos');
-                return;
-            }
-
-            // Verificar se usuário existe
-            const profiles = getProfiles();
-            const profile = profiles.find(p => p.email === email || p.username === email);
-            
-            if (!profile) {
-                showError('Usuário não encontrado');
-                return;
-            }
-
-            // Em um sistema real, verificaria a senha aqui
-            // Por enquanto, qualquer senha funciona
-            
-            // Definir como perfil ativo
-            localStorage.setItem('tolendo_active_profile', profile.id);
-            
-            showSuccess('Login realizado com sucesso!');
-            
-            setTimeout(() => {
-                window.location.href = 'user.html';
-            }, 1000);
+        function showSignup() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'flex';
+            document.getElementById('resetPage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
         }
 
-        function createUser() {
+        function showReset() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('resetPage').style.display = 'flex';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Login function
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showMessage('Por favor, preencha todos os campos.', 'error');
+                return;
+            }
+            
+            // Get stored users (compatible with new format)
+            const users = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            
+            // Find user
+            const user = users.find(u => 
+                (u.email === email || u.username === email) && u.password === password
+            );
+            
+            if (user) {
+                // Set active profile using new format
+                localStorage.setItem('tolendo_active_profile', user.id);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                showMessage('Login realizado com sucesso!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'user.html';
+                }, 1500);
+            } else {
+                showMessage('Email/usuário ou senha incorretos.', 'error');
+            }
+        }
+
+        // Signup function
+        function signupUser() {
             const name = document.getElementById('signupName').value.trim();
             const username = document.getElementById('signupUsername').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
             const emailConfirm = document.getElementById('signupEmailConfirm').value.trim();
-            const password = document.getElementById('signupPassword').value.trim();
+            const password = document.getElementById('signupPassword').value;
             
             if (!name || !username || !email || !emailConfirm || !password) {
-                showError('Por favor, preencha todos os campos');
+                showMessage('Por favor, preencha todos os campos.', 'error');
                 return;
             }
-
-            if (!isValidEmail(email)) {
-                showError('Por favor, digite um email válido');
-                return;
-            }
-
+            
             if (email !== emailConfirm) {
-                showError('Os emails não coincidem');
+                showMessage('Os emails não coincidem.', 'error');
                 return;
             }
-
-            // Verificar se email ou username já existe
-            const profiles = getProfiles();
-            if (profiles.some(p => p.email === email)) {
-                showError('Este email já está cadastrado');
+            
+            if (password.length < 6) {
+                showMessage('A senha deve ter pelo menos 6 caracteres.', 'error');
                 return;
             }
-
-            if (profiles.some(p => p.username === username)) {
-                showError('Este nome de usuário já está em uso');
+            
+            // Get existing users (compatible with new format)
+            const users = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            
+            // Check if user already exists
+            const existingUser = users.find(u => u.email === email || u.username === username);
+            if (existingUser) {
+                showMessage('Usuário ou email já existe.', 'error');
                 return;
             }
-
-            // Criar novo perfil
-            const newProfile = {
-                id: generateId(),
+            
+            // Create new user with new format
+            const newUser = {
+                id: Date.now().toString(),
                 name: name,
                 username: username,
                 email: email,
-                password: password, // Em um sistema real, seria criptografada
-                createdAt: new Date().toISOString(),
-                avatar: name.charAt(0).toUpperCase(),
-                profileImage: null, // Initialize as null for new profiles
-                stats: {
-                    totalBooks: 0,
-                    readBooks: 0,
-                    favoriteBooks: 0,
-                    currentlyReading: 0
-                },
-                library: [],
-                favorites: [],
-                currentlyReading: [],
-                reviews: [],
-                readingHistory: [],
-                // Dados do "Sobre Mim" vazios para cada novo perfil
+                password: password,
+                profileImage: null,
+                bio: '',
                 location: '',
                 age: '',
                 profession: '',
                 readingGoal: '',
-                bio: ''
+                favoriteGenres: [],
+                bookRefs: {
+                    'want-to-read': [],
+                    'currently-reading': [],
+                    'finished-books': [],
+                    'favorites': []
+                },
+                stats: {
+                    totalBooks: 0,
+                    finishedBooks: 0,
+                    favoriteBooks: 0,
+                    currentlyReading: 0
+                },
+                createdAt: new Date().toISOString()
             };
-
-            // Salvar perfil
-            profiles.push(newProfile);
-            localStorage.setItem('tolendo_profiles', JSON.stringify(profiles));
             
-            // Definir como perfil ativo
-            localStorage.setItem('tolendo_active_profile', newProfile.id);
+            // Add user to array and save
+            users.push(newUser);
+            localStorage.setItem('tolendo_profiles', JSON.stringify(users));
             
-            showSuccess('Conta criada com sucesso!');
+            // Auto-login the new user
+            localStorage.setItem('tolendo_active_profile', newUser.id);
+            localStorage.setItem('isLoggedIn', 'true');
             
+            showMessage('Conta criada com sucesso!', 'success');
             setTimeout(() => {
                 window.location.href = 'user.html';
-            }, 1000);
-        }
-
-        function resetPassword() {
-            const newPassword = document.getElementById('newPassword').value.trim();
-            const confirmPassword = document.getElementById('confirmPassword').value.trim();
-            
-            if (!newPassword || !confirmPassword) {
-                showError('Por favor, preencha todos os campos');
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                showError('As senhas não coincidem');
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                showError('A senha deve ter pelo menos 6 caracteres');
-                return;
-            }
-
-            showSuccess('Senha redefinida com sucesso!');
-            
-            setTimeout(() => {
-                showLogin();
             }, 1500);
         }
 
-        function loadProfiles() {
-            const profilesList = document.getElementById('profilesList');
-            const profiles = getProfiles();
+        // Reset password function
+        function resetPassword() {
+            const email = document.getElementById('resetEmail').value.trim();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
             
-            if (profiles.length === 0) {
-                profilesList.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Nenhum perfil encontrado</p>';
-            } else {
-                profilesList.innerHTML = profiles.map(profile => `
-                    <div class="profile-item" onclick="selectProfile('${profile.id}')">
-                        <div class="profile-avatar">${profile.avatar}</div>
-                        <div class="profile-info">
-                            <div class="profile-name">${profile.name}</div>
-                            <div class="profile-stats">${profile.stats.totalBooks} livros • ${profile.stats.readBooks} lidos</div>
-                        </div>
-                    </div>
-                `).join('');
+            if (!email || !newPassword || !confirmPassword) {
+                showMessage('Por favor, preencha todos os campos.', 'error');
+                return;
             }
             
-            profilesList.style.display = 'block';
-        }
-
-        function selectProfile(profileId) {
-            localStorage.setItem('tolendo_active_profile', profileId);
-            showSuccess('Perfil selecionado!');
+            if (newPassword !== confirmPassword) {
+                showMessage('As senhas não coincidem.', 'error');
+                return;
+            }
             
+            if (newPassword.length < 6) {
+                showMessage('A senha deve ter pelo menos 6 caracteres.', 'error');
+                return;
+            }
+            
+            // Get stored users and update password
+            const users = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const userIndex = users.findIndex(u => u.email === email || u.username === email);
+            
+            if (userIndex === -1) {
+                showMessage('Usuário não encontrado.', 'error');
+                return;
+            }
+            
+            // Update password
+            users[userIndex].password = newPassword;
+            localStorage.setItem('tolendo_profiles', JSON.stringify(users));
+            
+            showMessage('Senha redefinida com sucesso!', 'success');
             setTimeout(() => {
-                window.location.href = 'user.html';
-            }, 500);
+                showLogin();
+                // Clear form
+                document.getElementById('resetEmail').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+            }, 1500);
         }
 
-        function getProfiles() {
-            return JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
-        }
-
-        function exportData() {
-            const profiles = getProfiles();
-            const dataToExport = {
-                profiles: profiles,
-                exportDate: new Date().toISOString(),
-                version: '1.0'
-            };
-
-            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
-                type: 'application/json'
-            });
-            
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `tolendo_backup_${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showSuccess('Dados exportados com sucesso!');
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    
-                    if (!data.profiles || !Array.isArray(data.profiles)) {
-                        showError('Arquivo de backup inválido');
-                        return;
-                    }
-
-                    if (confirm('Isso substituirá todos os perfis existentes. Continuar?')) {
-                        localStorage.setItem('tolendo_profiles', JSON.stringify(data.profiles));
-                        showSuccess('Dados importados com sucesso!');
-                        
-                        // Recarregar lista se estiver na página de perfis
-                        if (document.getElementById('profilesPage').style.display !== 'none') {
-                            loadProfiles();
-                        }
-                    }
-                } catch (error) {
-                    showError('Erro ao ler arquivo de backup');
+        // Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const loginPage = document.getElementById('loginPage');
+                const signupPage = document.getElementById('signupPage');
+                const resetPage = document.getElementById('resetPage');
+                
+                if (loginPage.style.display !== 'none') {
+                    loginUser();
+                } else if (signupPage.style.display !== 'none') {
+                    signupUser();
+                } else if (resetPage.style.display !== 'none') {
+                    resetPassword();
                 }
-            };
-            reader.readAsText(file);
-        }
-
-        function generateId() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2);
-        }
-
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        function showError(message) {
-            const errorEl = document.getElementById('errorMessage');
-            const successEl = document.getElementById('successMessage');
-            errorEl.textContent = message;
-            errorEl.style.display = 'block';
-            successEl.style.display = 'none';
-        }
-
-        function showSuccess(message) {
-            const errorEl = document.getElementById('errorMessage');
-            const successEl = document.getElementById('successMessage');
-            successEl.textContent = message;
-            successEl.style.display = 'block';
-            errorEl.style.display = 'none';
-        }
-
-        // Adicionar link para redefinir senha
-        document.addEventListener('DOMContentLoaded', function() {
-            const forgotLink = document.querySelector('.forgot-password');
-            if (forgotLink) {
-                forgotLink.onclick = function(e) {
-                    e.preventDefault();
-                    showReset();
-                };
             }
         });
 
-        // Verificar se já está logado
-        window.onload = function() {
-            const activeProfile = localStorage.getItem('tolendo_active_profile');
-            if (activeProfile) {
-                const profiles = getProfiles();
-                const profile = profiles.find(p => p.id === activeProfile);
-                if (profile) {
-                    window.location.href = 'user.html';
-                }
+        // Data export function
+        function exportUserData() {
+            try {
+                const profiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+                const biblioteca = JSON.parse(localStorage.getItem('biblioteca_livros') || '[]');
+                
+                const exportData = {
+                    version: '1.0',
+                    exportDate: new Date().toISOString(),
+                    profiles: profiles,
+                    biblioteca: biblioteca,
+                    metadata: {
+                        totalProfiles: profiles.length,
+                        totalBooks: biblioteca.length
+                    }
+                };
+                
+                const jsonString = JSON.stringify(exportData, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `tolendo_backup_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showMessage('Dados exportados com sucesso!', 'success');
+            } catch (error) {
+                console.error('Erro ao exportar dados:', error);
+                showMessage('Erro ao exportar dados. Tente novamente.', 'error');
+            }
+        }
+
+        // Global variable to store import mode
+        let importMode = 'replace';
+
+        // Trigger import file dialog
+        function triggerImportData(mode) {
+            importMode = mode;
+            const fileInput = document.getElementById('importDataFile');
+            fileInput.onchange = importUserData;
+            fileInput.click();
+        }
+
+        // Data import function
+        function importUserData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (file.type !== 'application/json') {
+                showMessage('Por favor, selecione um arquivo JSON válido.', 'error');
+                return;
             }
             
-            // Mostrar página de login por padrão
-            showLogin();
-        };
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importData = JSON.parse(e.target.result);
+                    
+                    // Validate import data structure
+                    if (!importData.profiles || !Array.isArray(importData.profiles)) {
+                        showMessage('Arquivo de backup inválido: estrutura de perfis não encontrada.', 'error');
+                        return;
+                    }
+                    
+                    if (importMode === 'replace') {
+                        handleReplaceImport(importData);
+                    } else if (importMode === 'merge') {
+                        handleMergeImport(importData);
+                    }
+                    
+                    // Clear file input
+                    event.target.value = '';
+                    
+                } catch (error) {
+                    console.error('Erro ao importar dados:', error);
+                    showMessage('Erro ao processar arquivo. Verifique se é um backup válido do Tô Lendo.', 'error');
+                }
+            };
+            
+            reader.onerror = function() {
+                showMessage('Erro ao ler o arquivo. Tente novamente.', 'error');
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Handle replace import (original behavior)
+        function handleReplaceImport(importData) {
+            const confirmMessage = `SUBSTITUIR DADOS\n\nEste arquivo contém ${importData.profiles.length} perfil(s) e ${importData.biblioteca ? importData.biblioteca.length : 0} livro(s).\n\nTODOS os dados existentes serão SUBSTITUÍDOS. Deseja continuar?`;
+            
+            if (!confirm(confirmMessage)) {
+                return;
+            }
+            
+            // Replace profiles
+            localStorage.setItem('tolendo_profiles', JSON.stringify(importData.profiles));
+            
+            // Replace biblioteca if exists
+            if (importData.biblioteca && Array.isArray(importData.biblioteca)) {
+                localStorage.setItem('biblioteca_livros', JSON.stringify(importData.biblioteca));
+            }
+            
+            // Clear active session
+            localStorage.removeItem('tolendo_active_profile');
+            localStorage.removeItem('isLoggedIn');
+            
+            showMessage(`Dados substituídos com sucesso! ${importData.profiles.length} perfil(s) importado(s).`, 'success');
+        }
+
+        // Handle merge import (new functionality)
+        function handleMergeImport(importData) {
+            const existingProfiles = JSON.parse(localStorage.getItem('tolendo_profiles') || '[]');
+            const existingBiblioteca = JSON.parse(localStorage.getItem('biblioteca_livros') || '[]');
+            
+            const confirmMessage = `MESCLAR DADOS\n\nArquivo: ${importData.profiles.length} perfil(s) e ${importData.biblioteca ? importData.biblioteca.length : 0} livro(s)\nExistente: ${existingProfiles.length} perfil(s) e ${existingBiblioteca.length} livro(s)\n\nOs dados serão MESCLADOS (perfis duplicados serão mantidos). Deseja continuar?`;
+            
+            if (!confirm(confirmMessage)) {
+                return;
+            }
+            
+            let newProfilesCount = 0;
+            let newBooksCount = 0;
+            
+            // Merge profiles
+            const mergedProfiles = [...existingProfiles];
+            importData.profiles.forEach(importProfile => {
+                // Check if profile already exists (by email or username)
+                const existingProfile = mergedProfiles.find(p => 
+                    p.email === importProfile.email || p.username === importProfile.username
+                );
+                
+                if (!existingProfile) {
+                    // Generate new ID to avoid conflicts
+                    importProfile.id = Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9);
+                    mergedProfiles.push(importProfile);
+                    newProfilesCount++;
+                } else {
+                    // Optionally merge bookRefs from duplicate profiles
+                    if (importProfile.bookRefs) {
+                        Object.keys(importProfile.bookRefs).forEach(section => {
+                            if (existingProfile.bookRefs && existingProfile.bookRefs[section]) {
+                                // Merge book references avoiding duplicates
+                                const existingRefs = existingProfile.bookRefs[section] || [];
+                                const newRefs = importProfile.bookRefs[section] || [];
+                                const mergedRefs = [...existingRefs];
+                                
+                                newRefs.forEach(ref => {
+                                    if (!mergedRefs.includes(ref)) {
+                                        mergedRefs.push(ref);
+                                    }
+                                });
+                                
+                                existingProfile.bookRefs[section] = mergedRefs;
+                            }
+                        });
+                    }
+                }
+            });
+            
+            // Merge biblioteca
+            let mergedBiblioteca = [...existingBiblioteca];
+            if (importData.biblioteca && Array.isArray(importData.biblioteca)) {
+                importData.biblioteca.forEach(importBook => {
+                    // Check if book already exists (by ID or title+author)
+                    const existingBook = mergedBiblioteca.find(b => 
+                        b.id === importBook.id || 
+                        (b.title === importBook.title && b.author === importBook.author)
+                    );
+                    
+                    if (!existingBook) {
+                        // Generate new ID to avoid conflicts
+                        importBook.id = Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9);
+                        mergedBiblioteca.push(importBook);
+                        newBooksCount++;
+                    }
+                });
+            }
+            
+            // Save merged data
+            localStorage.setItem('tolendo_profiles', JSON.stringify(mergedProfiles));
+            localStorage.setItem('biblioteca_livros', JSON.stringify(mergedBiblioteca));
+            
+            showMessage(`Dados mesclados com sucesso! ${newProfilesCount} novo(s) perfil(s) e ${newBooksCount} novo(s) livro(s) adicionado(s).`, 'success');
+        }
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const mainContainer = document.querySelector('.main-container');
+            const header = document.querySelector('.header');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            const isDark = body.classList.contains('dark');
+            
+            if (isDark) {
+                // Switch to light mode
+                body.classList.remove('dark');
+                mainContainer.classList.remove('dark');
+                header.classList.remove('dark');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Switch to dark mode
+                body.classList.add('dark');
+                mainContainer.classList.add('dark');
+                header.classList.add('dark');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const mainContainer = document.querySelector('.main-container');
+            const header = document.querySelector('.header');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                mainContainer.classList.add('dark');
+                header.classList.add('dark');
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                body.classList.remove('dark');
+                mainContainer.classList.remove('dark');
+                header.classList.remove('dark');
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            
+            const activeProfile = localStorage.getItem('tolendo_active_profile');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            if (activeProfile && isLoggedIn === 'true') {
+                window.location.href = 'user.html';
+            }
+        });
     </script>
 </body>
 </html>
