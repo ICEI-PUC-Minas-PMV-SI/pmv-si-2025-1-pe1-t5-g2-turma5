@@ -45,15 +45,200 @@ Preencha a tabela com o plano dos testes. Para cada Caso de Teste (CT), associe 
 
 Esta seção deve apresentar o relatório com as evidências dos testes de software realizados no sistema pela equipe, baseado no plano de testes pré-definido. Documente cada caso de teste apresentando um vídeo ou animação que comprove o funcionamento da funcionalidade. Veja os exemplos a seguir.
 
-|*Caso de Teste*                                 |*CT01 - Criar conta parte 1*                                         |
-|---|---|
-|Requisito Associado | RF-001 - A aplicação deve permitir que os usuários criem uma conta e gerenciem seu cadastro|
-|Link do vídeo do teste realizado: | https://1drv.ms/u/s!AhD2JqpOUvJChapRtRSQ9vPzbNLwGA?e=mxZs6t| 
-
-|*Caso de Teste*                                 |*CT02 - Criar conta parte 2*                                        |
-|---|---|
-|Requisito Associado | RF-001 - A aplicação deve permitir que os usuários criem uma conta e gerenciem seu cadastro|
-|Link do vídeo do teste realizado: | https://1drv.ms/v/s!AhD2JqpOUvJChapQ8CPXL-TI_A7iVg?e=spD3Ar | 
+<table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
+        <col class="col0">
+        <col class="col1">
+        <tbody>
+          <tr class="row0">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT01 - Criar conta</td>
+          </tr>
+          <tr class="row1">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-001 - Permitir que os usuários realizem cadastro e login.</td>
+          </tr>
+          <tr class="row2">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1DBO09Nxv-e4HnWZ5H9iqfIAOJVzNrctI/view?usp=drive_link</td>
+          </tr>
+          <tr class="row3">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row4">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT02 - Redefinir senha - parte 1</td>
+          </tr>
+          <tr class="row5">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-002 - Permitir que o usuário redefina sua senha.</td>
+          </tr>
+          <tr class="row6">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1VeA7v0PXvxaFBqIEGW2UmC8gw4OWXcW5/view?usp=drive_link</td>
+          </tr>
+          <tr class="row7">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row8">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT02 - Redefinir senha - parte 2</td>
+          </tr>
+          <tr class="row9">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-002 - Permitir que o usuário redefina sua senha.</td>
+          </tr>
+          <tr class="row10">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1VLDQjynSyAyk0Bs00lNsGw32L_cdzKwS/view?usp=drive_link</td>
+          </tr>
+          <tr class="row11">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row12">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT03 - Cadastro de livro - parte 1</td>
+          </tr>
+          <tr class="row13">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-003 - Permitir que administradores cadastrem, editem e removam livros.</td>
+          </tr>
+          <tr class="row14">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1QHh2p-7wANtP98bg7-Z6c765g-_M0EBi/view?usp=sharing</td>
+          </tr>
+          <tr class="row15">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row16">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT03 - Cadastro de livro - parte 2</td>
+          </tr>
+          <tr class="row17">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-003 - Permitir que administradores cadastrem, editem e removam livros.</td>
+          </tr>
+          <tr class="row18">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/14KrJZYqJI8ZxBWRBgBS6lBtMRYx-xNxD/view?usp=drive_link</td>
+          </tr>
+          <tr class="row19">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row20">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT03 - Cadastro de livro - parte 3</td>
+          </tr>
+          <tr class="row21">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-003 - Permitir que administradores cadastrem, editem e removam livros.</td>
+          </tr>
+          <tr class="row22">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1UTQ57uK9A8rbJr44s_JY3G_RKwcik4Db/view?usp=drive_link</td>
+          </tr>
+          <tr class="row23">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row24">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT03 - Cadastro de livro - parte 4</td>
+          </tr>
+          <tr class="row25">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-003 - Permitir que administradores cadastrem, editem e removam livros.</td>
+          </tr>
+          <tr class="row26">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1jsMvuKBksmBHDYb4mTJTxywxvQ76njCc/view?usp=drive_link</td>
+          </tr>
+          <tr class="row27">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row28">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT04 - Remover livro</td>
+          </tr>
+          <tr class="row29">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-003 - Permitir que administradores cadastrem, editem e removam livros.</td>
+          </tr>
+          <tr class="row30">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/12RccIwiEVVxD3ZQM5OjFeFsuXyRoi4HW/view?usp=drive_link</td>
+          </tr>
+          <tr class="row31">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row32">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT05 - Editar livro cadastrado</td>
+          </tr>
+          <tr class="row33">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-003 - Permitir que administradores cadastrem, editem e removam livros.</td>
+          </tr>
+          <tr class="row34">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1YXFlyzLpJ6UL9dArDBvT4v9EtRWnbCas/view?usp=drive_link</td>
+          </tr>
+          <tr class="row35">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row36">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT06 - Consulta de disponibilidade</td>
+          </tr>
+          <tr class="row37">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-004 - Permitir pesquisa e consulta de livros disponíveis.</td>
+          </tr>
+          <tr class="row38">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1X6U8oLqObu6m6tyQgwbKoKZZ2ZwbwFuv/view?usp=drive_link</td>
+          </tr>
+          <tr class="row39">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row40">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT07 - Registrar livro como lido</td>
+          </tr>
+          <tr class="row41">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-006 - Registrar os livros já lidos.</td>
+          </tr>
+          <tr class="row42">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/1gMQvlGDjvG1wcmTBuFN2uffiDFwijYJ1/view?usp=drive_link</td>
+          </tr>
+          <tr class="row43">
+            <td class="column0">&nbsp;</td>
+            <td class="column1">&nbsp;</td>
+          </tr>
+          <tr class="row44">
+            <td class="column0 style1 s">Caso de Teste</td>
+            <td class="column1 style0 s">CT08 - FILTRAGEM POR AUTOR(RA) OU GENERO</td>
+          </tr>
+          <tr class="row45">
+            <td class="column0 style0 s">Requisito Associado</td>
+            <td class="column1 style0 s">RF-007 - Permitir que usuários filtrem os livros por autor, gênero e disponibilidade.</td>
+          </tr>
+          <tr class="row46">
+            <td class="column0 style0 s">Link do Video do teste realizado:</td>
+            <td class="column1 style0 s">https://drive.google.com/file/d/16vDYlj4uFifJcyh_FM3kcgsZnVTQMhM_/view?usp=drive_link</td>
+          </tr>
+        </tbody>
+    </table>
 
 
 ## Avaliação dos Testes de Software
