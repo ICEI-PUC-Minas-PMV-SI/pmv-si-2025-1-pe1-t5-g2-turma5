@@ -1,365 +1,539 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Livro - Sistema de Livros</title>
-    <link rel="stylesheet" href="cadastro.css">
-    <link rel="stylesheet" href="livro.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="header-top">
-                    <div class="logo">
-                        <i class="fas fa-book logo-icon"></i>
-                        <span class="logo-text">Detalhes do Livro</span>
-                    </div>
-                    <div class="header-actions">
-                        <button id="themeToggle" class="theme-toggle" title="Alternar modo escuro">
-                            <i class="fas fa-moon" id="themeIcon"></i>
-                        </button>
-                        <a href="catalogo.html" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i>
-                            Voltar ao Catálogo
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Book Details Container -->
-        <div class="book-details-container">
-            <!-- Loading State -->
-            <div id="loadingState" class="loading-state">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Carregando detalhes do livro...</p>
-            </div>
-
-            <!-- Book Not Found -->
-            <div id="notFoundState" class="not-found-state" style="display: none;">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h2>Livro não encontrado</h2>
-                <p>O livro solicitado não foi encontrado em nossa biblioteca.</p>
-                <a href="/catalogo.html" class="btn btn-primary">
-                    <i class="fas fa-arrow-left"></i>
-                    Voltar ao Catálogo
-                </a>
-            </div>
-
-            <!-- Book Details -->
-            <div id="bookDetails" class="book-details" style="display: none;">
-                <!-- Book Header -->
-                <div class="book-header">
-                    <div class="book-cover-section">
-                        <div class="book-cover-container">
-                            <img id="bookCover" src="" alt="Capa do livro" class="book-cover">
-                            <div class="book-rating-overlay">
-                                <div class="rating-stars" id="bookRatingStars"></div>
-                                <span class="rating-value" id="bookRatingValue">0.0</span>
-                            </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Detalhes do Livro - Sistema de Livros</title>
+        <link rel="stylesheet" href="cadastro.css" />
+        <link rel="stylesheet" href="livro.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="header-top">
+                        <div class="logo">
+                            <a href="../HomePage/index.html"
+                                ><img
+                                    style="
+                                        width: 2.6em;
+                                        height: 2.6em;
+                                        vertical-align: middle;
+                                        margin-right: 8px;
+                                    "
+                                    src="https://github.com/user-attachments/assets/8e859c12-7277-432a-ae1f-3f4af7803a4d"
+                                    alt="Logo TÔ LENDO"
+                            /></a>
+                            <span class="logo-text">Detalhes do Livro</span>
                         </div>
-                    </div>
-                    
-                    <div class="book-info-section">
-                        <h1 id="bookTitle" class="book-title"></h1>
-                        <div class="book-author">
-                            <i class="fas fa-user-edit"></i>
-                            <span id="bookAuthor"></span>
-                        </div>
-                        
-                        <div class="book-meta">
-                            <div class="meta-item">
-                                <i class="fas fa-tags"></i>
-                                <span id="bookGenre"></span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-calendar"></i>
-                                <span id="bookYear"></span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-building"></i>
-                                <span id="bookPublisher"></span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-file-alt"></i>
-                                <span id="bookPages"></span> páginas
-                            </div>
-                        </div>
-
-                        <div class="book-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-heart"></i>
-                                <span id="bookLikes">0</span>
-                                <span>curtidas</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-comment"></i>
-                                <span id="bookComments">0</span>
-                                <span>comentários</span>
-                            </div>
-                        </div>
-
-                        <div class="book-actions">
-                            <button id="likeButton" class="action-btn like-btn">
-                                <i class="far fa-heart"></i>
-                                <span>Curtir</span>
+                        <div class="header-actions">
+                            <button
+                                id="themeToggle"
+                                class="theme-toggle"
+                                title="Alternar modo escuro"
+                            >
+                                <i class="fas fa-moon" id="themeIcon"></i>
                             </button>
-                            <a id="downloadButton" href="#" target="_blank" class="action-btn download-btn">
-                                <i class="fas fa-download"></i>
-                                <span>Download</span>
-                            </a>
-                            <a id="purchaseButton" href="#" target="_blank" class="action-btn purchase-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span>Comprar</span>
-                            </a>
-                            <button id="editButton" class="action-btn edit-btn" onclick="openEditModal()">
-                                <i class="fas fa-edit"></i>
-                                <span>Editar</span>
-                            </button>
-                            <button id="deleteButton" class="action-btn delete-btn" onclick="deleteCurrentBook()">
-                                <i class="fas fa-trash"></i>
-                                <span>Excluir</span>
-                            </button>
-                            <button id="backToCatalogButton" class="action-btn back-btn" onclick="window.location.href='catalogo.html'">
+                            <a href="catalogo.html" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i>
-                                <span>Voltar ao Catálogo</span>
-                            </button>
+                                Voltar ao Catálogo
+                            </a>
                         </div>
                     </div>
                 </div>
+            </header>
 
-                <!-- Book Synopsis -->
-                <div class="book-synopsis-section">
-                    <h2>
-                        <i class="fas fa-align-left"></i>
-                        Sinopse
-                    </h2>
-                    <div id="bookSynopsis" class="synopsis-content"></div>
+            <!-- Book Details Container -->
+            <div class="book-details-container">
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Carregando detalhes do livro...</p>
                 </div>
 
-                <!-- Additional Info -->
-                <div class="book-additional-info" id="additionalInfo" style="display: none;">
-                    <h2>
-                        <i class="fas fa-info-circle"></i>
-                        Informações Adicionais
-                    </h2>
-                    <div class="additional-info-grid">
-                        <div class="info-item" id="seriesInfo" style="display: none;">
-                            <i class="fas fa-layer-group"></i>
-                            <div>
-                                <span class="info-label">Série:</span>
-                                <span id="bookSeries"></span>
-                            </div>
-                        </div>
-                        <div class="info-item" id="illustratorInfo" style="display: none;">
-                            <i class="fas fa-palette"></i>
-                            <div>
-                                <span class="info-label">Ilustrador:</span>
-                                <span id="bookIllustrator"></span>
-                            </div>
-                        </div>
-                        <div class="info-item" id="originInfo" style="display: none;">
-                            <i class="fas fa-globe"></i>
-                            <div>
-                                <span class="info-label">Origem:</span>
-                                <span id="bookOrigin"></span>
-                            </div>
-                        </div>
-                        <div class="info-item" id="awardsInfo" style="display: none;">
-                            <i class="fas fa-trophy"></i>
-                            <div>
-                                <span class="info-label">Prêmios:</span>
-                                <span id="bookAwards"></span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Book Not Found -->
+                <div
+                    id="notFoundState"
+                    class="not-found-state"
+                    style="display: none"
+                >
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Livro não encontrado</h2>
+                    <p>
+                        O livro solicitado não foi encontrado em nossa
+                        biblioteca.
+                    </p>
+                    <a href="/catalogo.html" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i>
+                        Voltar ao Catálogo
+                    </a>
                 </div>
 
-                <!-- Comments Section -->
-                <div class="comments-section">
-                    <h2>
-                        <i class="fas fa-comments"></i>
-                        Comentários e Avaliações
-                    </h2>
-                    
-                    <!-- Add Comment Form -->
-                    <div class="add-comment-form">
-                        <h3>Deixe sua avaliação</h3>
-                        <form id="commentForm">
-                            <div class="rating-input">
-                                <label>Sua avaliação:</label>
-                                <div class="star-rating" id="starRating">
-                                    <i class="far fa-star" data-rating="1"></i>
-                                    <i class="far fa-star" data-rating="2"></i>
-                                    <i class="far fa-star" data-rating="3"></i>
-                                    <i class="far fa-star" data-rating="4"></i>
-                                    <i class="far fa-star" data-rating="5"></i>
+                <!-- Book Details -->
+                <div
+                    id="bookDetails"
+                    class="book-details"
+                    style="display: none"
+                >
+                    <!-- Book Header -->
+                    <div class="book-header">
+                        <div class="book-cover-section">
+                            <div class="book-cover-container">
+                                <img
+                                    id="bookCover"
+                                    src=""
+                                    alt="Capa do livro"
+                                    class="book-cover"
+                                />
+                                <div class="book-rating-overlay">
+                                    <div
+                                        class="rating-stars"
+                                        id="bookRatingStars"
+                                    ></div>
+                                    <span
+                                        class="rating-value"
+                                        id="bookRatingValue"
+                                        >0.0</span
+                                    >
                                 </div>
                             </div>
-                            <div class="comment-input">
-                                <textarea id="commentText" placeholder="Escreva seu comentário sobre o livro..." rows="4" required></textarea>
+                        </div>
+
+                        <div class="book-info-section">
+                            <h1 id="bookTitle" class="book-title"></h1>
+                            <div class="book-author">
+                                <i class="fas fa-user-edit"></i>
+                                <span id="bookAuthor"></span>
                             </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i>
-                                Enviar Avaliação
-                            </button>
-                        </form>
+
+                            <div class="book-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-tags"></i>
+                                    <span id="bookGenre"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="bookYear"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-building"></i>
+                                    <span id="bookPublisher"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span id="bookPages"></span> páginas
+                                </div>
+                            </div>
+
+                            <div class="book-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span id="bookLikes">0</span>
+                                    <span>curtidas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-comment"></i>
+                                    <span id="bookComments">0</span>
+                                    <span>comentários</span>
+                                </div>
+                            </div>
+
+                            <div class="book-actions">
+                                <button
+                                    id="likeButton"
+                                    class="action-btn like-btn"
+                                >
+                                    <i class="far fa-heart"></i>
+                                    <span>Curtir</span>
+                                </button>
+                                <a
+                                    id="downloadButton"
+                                    href="#"
+                                    target="_blank"
+                                    class="action-btn download-btn"
+                                >
+                                    <i class="fas fa-download"></i>
+                                    <span>Download</span>
+                                </a>
+                                <a
+                                    id="purchaseButton"
+                                    href="#"
+                                    target="_blank"
+                                    class="action-btn purchase-btn"
+                                >
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Comprar</span>
+                                </a>
+                                <button
+                                    id="editButton"
+                                    class="action-btn edit-btn"
+                                    onclick="openEditModal()"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                    <span>Editar</span>
+                                </button>
+                                <button
+                                    id="deleteButton"
+                                    class="action-btn delete-btn"
+                                    onclick="deleteCurrentBook()"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                    <span>Excluir</span>
+                                </button>
+                                <button
+                                    id="backToCatalogButton"
+                                    class="action-btn back-btn"
+                                    onclick="window.location.href='catalogo.html'"
+                                >
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span>Voltar ao Catálogo</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Comments List -->
-                    <div class="comments-list" id="commentsList">
-                        <div class="no-comments" id="noComments">
-                            <i class="fas fa-comment-slash"></i>
-                            <p>Ainda não há comentários para este livro. Seja o primeiro a avaliar!</p>
+                    <!-- Book Synopsis -->
+                    <div class="book-synopsis-section">
+                        <h2>
+                            <i class="fas fa-align-left"></i>
+                            Sinopse
+                        </h2>
+                        <div id="bookSynopsis" class="synopsis-content"></div>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div
+                        class="book-additional-info"
+                        id="additionalInfo"
+                        style="display: none"
+                    >
+                        <h2>
+                            <i class="fas fa-info-circle"></i>
+                            Informações Adicionais
+                        </h2>
+                        <div class="additional-info-grid">
+                            <div
+                                class="info-item"
+                                id="seriesInfo"
+                                style="display: none"
+                            >
+                                <i class="fas fa-layer-group"></i>
+                                <div>
+                                    <span class="info-label">Série:</span>
+                                    <span id="bookSeries"></span>
+                                </div>
+                            </div>
+                            <div
+                                class="info-item"
+                                id="illustratorInfo"
+                                style="display: none"
+                            >
+                                <i class="fas fa-palette"></i>
+                                <div>
+                                    <span class="info-label">Ilustrador:</span>
+                                    <span id="bookIllustrator"></span>
+                                </div>
+                            </div>
+                            <div
+                                class="info-item"
+                                id="originInfo"
+                                style="display: none"
+                            >
+                                <i class="fas fa-globe"></i>
+                                <div>
+                                    <span class="info-label">Origem:</span>
+                                    <span id="bookOrigin"></span>
+                                </div>
+                            </div>
+                            <div
+                                class="info-item"
+                                id="awardsInfo"
+                                style="display: none"
+                            >
+                                <i class="fas fa-trophy"></i>
+                                <div>
+                                    <span class="info-label">Prêmios:</span>
+                                    <span id="bookAwards"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <h2>
+                            <i class="fas fa-comments"></i>
+                            Comentários e Avaliações
+                        </h2>
+
+                        <!-- Add Comment Form -->
+                        <div class="add-comment-form">
+                            <h3>Deixe sua avaliação</h3>
+                            <form id="commentForm">
+                                <div class="rating-input">
+                                    <label>Sua avaliação:</label>
+                                    <div class="star-rating" id="starRating">
+                                        <i
+                                            class="far fa-star"
+                                            data-rating="1"
+                                        ></i>
+                                        <i
+                                            class="far fa-star"
+                                            data-rating="2"
+                                        ></i>
+                                        <i
+                                            class="far fa-star"
+                                            data-rating="3"
+                                        ></i>
+                                        <i
+                                            class="far fa-star"
+                                            data-rating="4"
+                                        ></i>
+                                        <i
+                                            class="far fa-star"
+                                            data-rating="5"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <div class="comment-input">
+                                    <textarea
+                                        id="commentText"
+                                        placeholder="Escreva seu comentário sobre o livro..."
+                                        rows="4"
+                                        required
+                                    ></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Enviar Avaliação
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Comments List -->
+                        <div class="comments-list" id="commentsList">
+                            <div class="no-comments" id="noComments">
+                                <i class="fas fa-comment-slash"></i>
+                                <p>
+                                    Ainda não há comentários para este livro.
+                                    Seja o primeiro a avaliar!
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Edit Book Modal -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-edit"></i> Editar Livro</h2>
-                <span class="close" onclick="closeEditModal()">&times;</span>
+        <!-- Edit Book Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-edit"></i> Editar Livro</h2>
+                    <span class="close" onclick="closeEditModal()"
+                        >&times;</span
+                    >
+                </div>
+                <form id="editForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editTitle">Título *</label>
+                            <input
+                                type="text"
+                                id="editTitle"
+                                name="title"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="editAuthor">Autor *</label>
+                            <input
+                                type="text"
+                                id="editAuthor"
+                                name="author"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editPublisher">Editora</label>
+                            <input
+                                type="text"
+                                id="editPublisher"
+                                name="publisher"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="editYear">Ano de Publicação</label>
+                            <input
+                                type="number"
+                                id="editYear"
+                                name="publicationYear"
+                                min="1000"
+                                max="2030"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editPages">Número de Páginas</label>
+                            <input
+                                type="number"
+                                id="editPages"
+                                name="pages"
+                                min="1"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="editGenre">Gênero</label>
+                            <select id="editGenre" name="genre">
+                                <option value="">Selecione um gênero</option>
+                                <option value="ficcao">Ficção</option>
+                                <option value="nao-ficcao">Não-ficção</option>
+                                <option value="romance">Romance</option>
+                                <option value="misterio">Mistério</option>
+                                <option value="fantasia">Fantasia</option>
+                                <option value="ficcao-cientifica">
+                                    Ficção Científica
+                                </option>
+                                <option value="biografia">Biografia</option>
+                                <option value="historia">História</option>
+                                <option value="autoajuda">Autoajuda</option>
+                                <option value="tecnico">Técnico</option>
+                                <option value="infantil">Infantil</option>
+                                <option value="jovem-adulto">
+                                    Jovem Adulto
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editSynopsis">Sinopse</label>
+                        <textarea
+                            id="editSynopsis"
+                            name="synopsis"
+                            rows="4"
+                            placeholder="Descreva brevemente o enredo do livro..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editISBN">ISBN</label>
+                            <input
+                                type="text"
+                                id="editISBN"
+                                name="isbn"
+                                placeholder="978-3-16-148410-0"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="editLanguage">Idioma</label>
+                            <select id="editLanguage" name="language">
+                                <option value="">Selecione o idioma</option>
+                                <option value="pt">Português</option>
+                                <option value="en">Inglês</option>
+                                <option value="es">Espanhol</option>
+                                <option value="fr">Francês</option>
+                                <option value="de">Alemão</option>
+                                <option value="it">Italiano</option>
+                                <option value="ja">Japonês</option>
+                                <option value="zh">Chinês</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editCover">URL da Capa</label>
+                        <input
+                            type="url"
+                            id="editCover"
+                            name="cover"
+                            placeholder="https://exemplo.com/capa.jpg"
+                        />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editDownloadLink"
+                                >Link de Download</label
+                            >
+                            <input
+                                type="url"
+                                id="editDownloadLink"
+                                name="downloadLink"
+                                placeholder="https://exemplo.com/download"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="editPurchaseLink">Link de Compra</label>
+                            <input
+                                type="url"
+                                id="editPurchaseLink"
+                                name="purchaseLink"
+                                placeholder="https://exemplo.com/comprar"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeEditModal()"
+                        >
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form id="editForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editTitle">Título *</label>
-                        <input type="text" id="editTitle" name="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editAuthor">Autor *</label>
-                        <input type="text" id="editAuthor" name="author" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editPublisher">Editora</label>
-                        <input type="text" id="editPublisher" name="publisher">
-                    </div>
-                    <div class="form-group">
-                        <label for="editYear">Ano de Publicação</label>
-                        <input type="number" id="editYear" name="publicationYear" min="1000" max="2030">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editPages">Número de Páginas</label>
-                        <input type="number" id="editPages" name="pages" min="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="editGenre">Gênero</label>
-                        <select id="editGenre" name="genre">
-                            <option value="">Selecione um gênero</option>
-                            <option value="ficcao">Ficção</option>
-                            <option value="nao-ficcao">Não-ficção</option>
-                            <option value="romance">Romance</option>
-                            <option value="misterio">Mistério</option>
-                            <option value="fantasia">Fantasia</option>
-                            <option value="ficcao-cientifica">Ficção Científica</option>
-                            <option value="biografia">Biografia</option>
-                            <option value="historia">História</option>
-                            <option value="autoajuda">Autoajuda</option>
-                            <option value="tecnico">Técnico</option>
-                            <option value="infantil">Infantil</option>
-                            <option value="jovem-adulto">Jovem Adulto</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="editSynopsis">Sinopse</label>
-                    <textarea id="editSynopsis" name="synopsis" rows="4" placeholder="Descreva brevemente o enredo do livro..."></textarea>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editISBN">ISBN</label>
-                        <input type="text" id="editISBN" name="isbn" placeholder="978-3-16-148410-0">
-                    </div>
-                    <div class="form-group">
-                        <label for="editLanguage">Idioma</label>
-                        <select id="editLanguage" name="language">
-                            <option value="">Selecione o idioma</option>
-                            <option value="pt">Português</option>
-                            <option value="en">Inglês</option>
-                            <option value="es">Espanhol</option>
-                            <option value="fr">Francês</option>
-                            <option value="de">Alemão</option>
-                            <option value="it">Italiano</option>
-                            <option value="ja">Japonês</option>
-                            <option value="zh">Chinês</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="editCover">URL da Capa</label>
-                    <input type="url" id="editCover" name="cover" placeholder="https://exemplo.com/capa.jpg">
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editDownloadLink">Link de Download</label>
-                        <input type="url" id="editDownloadLink" name="downloadLink" placeholder="https://exemplo.com/download">
-                    </div>
-                    <div class="form-group">
-                        <label for="editPurchaseLink">Link de Compra</label>
-                        <input type="url" id="editPurchaseLink" name="purchaseLink" placeholder="https://exemplo.com/comprar">
-                    </div>
-                </div>
-                
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                </div>
-            </form>
         </div>
-    </div>
 
-    <script src="comentarios-sistema.js"></script>
-    <script src="livro.js"></script>
-    <script>
-        // Dark Mode Toggle Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
-            const body = document.body;
-            
-            // Check for saved theme preference or default to 'light'
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            body.setAttribute('data-theme', currentTheme);
-            
-            // Update icon based on current theme
-            updateThemeIcon(currentTheme);
-            
-            themeToggle.addEventListener('click', function() {
-                const currentTheme = body.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                body.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                updateThemeIcon(newTheme);
-            });
-            
-            function updateThemeIcon(theme) {
-                if (theme === 'dark') {
-                    themeIcon.className = 'fas fa-sun';
-                } else {
-                    themeIcon.className = 'fas fa-moon';
+        <script src="comentarios-sistema.js"></script>
+        <script src="livro.js"></script>
+        <script>
+            // Dark Mode Toggle Functionality
+            document.addEventListener("DOMContentLoaded", function () {
+                const themeToggle = document.getElementById("themeToggle");
+                const themeIcon = document.getElementById("themeIcon");
+                const body = document.body;
+
+                // Check for saved theme preference or default to 'light'
+                const currentTheme = localStorage.getItem("theme") || "light";
+                body.setAttribute("data-theme", currentTheme);
+
+                // Update icon based on current theme
+                updateThemeIcon(currentTheme);
+
+                themeToggle.addEventListener("click", function () {
+                    const currentTheme = body.getAttribute("data-theme");
+                    const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+                    body.setAttribute("data-theme", newTheme);
+                    localStorage.setItem("theme", newTheme);
+                    updateThemeIcon(newTheme);
+                });
+
+                function updateThemeIcon(theme) {
+                    if (theme === "dark") {
+                        themeIcon.className = "fas fa-sun";
+                    } else {
+                        themeIcon.className = "fas fa-moon";
+                    }
                 }
-            }
-        });
-    </script>
-</body>
+            });
+        </script>
+    </body>
 </html>
